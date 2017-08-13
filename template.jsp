@@ -74,11 +74,11 @@
     					<div class="col-md-10"></div>
 						<div class="col-md-2">
 							<a class="btn btn-default" href="#" role="button">공지사항</a>
-							<a class="btn btn-default" href="#" role="button">
-								<%
-								if()
-								%>
-							</a>
+							<%
+							// 로그인되지 않은 상태면 로그인 버튼 출력, 로그인된 상태라면 로그아웃 버튼 출력
+							if(logInSituation == 0) { %> <a class="btn btn-default" href="#" role="button">로그인</a> <% }
+							else					{ %> <a class="btn btn-default" href="#" role="button">로그아웃</a> <% }
+							%>
 						</div>
   					</div>
 				</div>
