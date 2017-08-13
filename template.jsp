@@ -50,19 +50,12 @@
 </head>
 
 <body id="target">
-	<div class="container">
+	<div class="container" style="margin-top:20px">
 		<div class="row">
-			<div class="col-md-3" role="conmplementary">
+			<div class="col-md-3" role="complementary">
 				<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
-					<img src="g4_logo.png">
+					<img src="g4_logo.png" style="margin-bottom:30px">
 					<ul class="nav bs-docs-sidenav">
-						<!-- 여기있는 리스트만 가져오면 된다
-						<li>
-							<a href="#boolean1">h1</a>
-							<a href="#boolean2">h2</a>
-							<a href="#boolean3">h3</a>
-						</li>
-						-->
 						<%
 						out.flush();
 
