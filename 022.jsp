@@ -8,47 +8,34 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title> 020.jsp</title>
+    <title> 022.jsp</title>
 
     <link href="bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet"> 
 </head>
 
 <body>
-<h3>백업계획 추가</h3><p>
+<h3>작업일정 추가</h3><p>
 <!-- form태그로 input의 내용들을 묶음 -->
 <form>
     <table style="width: 40%; height: 80%;" border="1">
     <tbody>
     <tr>
-    <td style="width: 17%;">대상</td>
-    <td><input name="target" type="textbox" style="width: 100%;"></input></td>
+    <td style="width: 17%;">구분</td>
+    <td><input name="type" type="textbox" style="width: 100%;"></input></td>
     </tr>
     <tr>
     <td>일시</td>
-    <td><input name="date" type="date" style="width: 100%;"></td>
+    <td><input name="date" type="date" style="width: 100%;" value="2000-01-01"></td>
     <!-- 달력 표시 -->
-    </tr>
-    <tr>
-    <td>장비</td>
-    <td><input name="equip" type="textbox" style="width: 100%;"></td>
-    </tr>
-    <tr>
-    <td>용량</td>
-    <td><input name="size" type="textbox" style="width: 100%;"></td>
-    </tr>
-    <tr>
-    <td>시간</td>
-    <td><input name="time" type="textbox" style="width: 100%;"></td>
     </tr>
     <tr>
     <td>작업자</td>
     <td><input name="worker" type="textbox" style="width: 100%;"></td>
     </tr>
     <tr>
-    <td>방식</td>
-    <td><input name="method" type="textbox" style="width: 100%;"></td>
+    <td>세부내역</td>
+    <td><input name="detail" type="textbox" style="width: 100%;"></td>
     </tr>
-    <tr>
     <td>비고</td>
     <td><input name="other" type="textbox" style="width: 100%;"></td>
     </tr>
@@ -57,7 +44,7 @@
 
     <br><br>
 
-    &nbsp;<a class="btn btn-default" href="#" role="button">추가</a>&nbsp;&nbsp;
+    <a class="btn btn-default" href="#" role="button">추가</a>&nbsp;&nbsp;
     <a class="btn btn-default" href="#" role="button">취소</a>
     </form>
 
