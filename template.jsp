@@ -1,29 +1,31 @@
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <% request.setCharacterEncoding("UTF-8");%>
-<%	
-	// 로그아웃 상태: 0, 사용자: 1, 업무담당자:2, 시스템 관리자(필요?):3
+<%
 	String check = "";
-	int idType = 0;
 
+	// 로그인 상황. 고객사: ture, 업무담당자: false
+	boolean customerOrWorker = true;
+	String navbarList = null;
+	
 	check = (String)session.getAttribute("idType");
 	
-	if(check == null)
+	if(check == "true")
 	{
-		idType = 0;
+		customerOrWorker = true;
 	}
 	else
 	{
-		idType = Integer.parseInt(check);
+		customerOrWorker = false;
 	}
-	
-	switch(idType)
+
+	if(customerOrWorker)
 	{
-		case 0 : break; // 로그아웃 상태 출력
-		case 1 : break; // 사용자 id로 로그인 페이지 출력
-		case 2 : break; // 업무담당자 id로 로그인 페이지 출력
-		case 3 : break; // 시스템 관리자 id로 로그인 페이지 출력
-		default : break;
+		navbarList = "navbarList/navbarList_customerAccount.jsp";
+	}
+	else
+	{
+		navbarList = "navbarList/navbarList_workerAccount.jsp";
 	}
 %>
 
@@ -48,35 +50,39 @@
 </head>
 
 <body id="target">
-	<div class="container">
+	<div class="container" style="margin-top:20px">
 		<div class="row">
-			<div class="panel panel-default">
-  				<div class="panel-body">
-    				top panel. buttons
-  				</div>
-			</div>
-
-			<div class="col-md-3" role="conmplementary">
+			<div class="col-md-3" role="complementary">
 				<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
+					<img src="g4_logo.png" style="margin-bottom:30px">
 					<ul class="nav bs-docs-sidenav">
-						<!-- 여기있는 리스트만 가져오면 된다
-						<li>
-							<a href="#boolean1">h1</a>
-							<a href="#boolean2">h2</a>
-							<a href="#boolean3">h3</a>
-						</li>
-					-->
 						<%
 						out.flush();
 
-						RequestDispatcher dispatcher = request.getRequestDispatcher("template-navbar.jsp");
+						RequestDispatcher dispatcher = request.getRequestDispatcher(navbarList);
 						dispatcher.include(request, response);
 						%>
 					</ul>
 				</nav>
 			</div>
+
 			<div class="col-md-9" role="main">
-				
+				<div class="panel panel-default">
+  					<div class="panel-body">
+    					<div class="col-md-9"></div>
+
+						<div class="col-md-3">
+							<div id="control">
+								<div class="btn-group" role="group" aria-label="...">
+									<a class="btn btn-default" href="#" role="button">공지사항</a>
+									<a class="btn btn-default" href="#" role="button">로그아웃</a>
+								</div>
+							</div>
+						</div>
+  					</div>
+				</div>
+
+				<div id="mainFrame">Main Frame</div>
 			</div>
 		</div>
 	</div>
