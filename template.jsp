@@ -4,23 +4,28 @@
 <%
 	String check = "";
 
-	// 로그인 상황. 0: 비로그인, 1:고객사, 2:업무담당자
-	int logInSituation = 0;
+	// 로그인 상황. 고객사: ture, 업무담당자: false
+	boolean customerOrWorker = true;
+	String navbarList = null;
 	
 	check = (String)session.getAttribute("idType");
 	
-	if(check != null)
+	if(check == "true")
 	{
-		logInSituation = Integer.parseInt(check);
+		customerOrWorker = true;
+	}
+	else
+	{
+		customerOrWorker = false;
 	}
 
-	switch(logInSituation)
+	if(customerOrWorker)
 	{
-		case 0: break; // 비 로그인시 출력해야하는 화면을 출력
-		case 1: break; // 고객사 계정으로 로그인시 출력해야하는 화면 출력
-		case 2: break; // 업무 담당자 계정으로 로그인시 출력해야하는 화면 출력
-
-		default: /*에러 문구 출력*/ break;
+		navbarList = "navbarList/navbarList_customerAccount.jsp";
+	}
+	else
+	{
+		navbarList = "navbarList/navbarList_workerAccount.jsp";
 	}
 %>
 
@@ -61,7 +66,7 @@
 						<%
 						out.flush();
 
-						RequestDispatcher dispatcher = request.getRequestDispatcher("template-navbar.jsp");
+						RequestDispatcher dispatcher = request.getRequestDispatcher(navbarList);
 						dispatcher.include(request, response);
 						%>
 					</ul>
@@ -72,20 +77,19 @@
 				<div class="panel panel-default">
   					<div class="panel-body">
     					<div class="col-md-9"></div>
+
 						<div class="col-md-3">
-						<div id="control">
-						<div class="btn-group" role="group" aria-label="...">
-							<a class="btn btn-default" href="#" role="button">공지사항</a>
-							<%
-							// 로그인되지 않은 상태면 로그인 버튼 출력, 로그인된 상태라면 로그아웃 버튼 출력
-							if(logInSituation == 0) { %> <a class="btn btn-default" href="#" role="button">로그인</a> <% }
-							else					{ %> <a class="btn btn-default" href="#" role="button">로그아웃</a> <% }
-							%>
-							</div>
+							<div id="control">
+								<div class="btn-group" role="group" aria-label="...">
+									<a class="btn btn-default" href="#" role="button">공지사항</a>
+									<a class="btn btn-default" href="#" role="button">로그아웃</a>
+								</div>
 							</div>
 						</div>
   					</div>
 				</div>
+
+				<div id="mainFrame">Main Frame</div>
 			</div>
 		</div>
 	</div>
