@@ -24,7 +24,7 @@
     <td style="width: 50%" colspan="3"><input name="title" type="textbox" style="width: 100%;"></td>
     </tr>
     <tr>
-    <td>접 수경로</td>
+    <td> 접수경로</td>
     <td><input name="path" type="textbox" style="width: 100%;"></td>
     <td style="width: 34%;" colspan="2">&nbsp;</td>
     <td style="width: 17%;"> 상태</td>
