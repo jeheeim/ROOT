@@ -2,7 +2,7 @@
 
 <%@ page import="java.sql.*" %>
 
-<%
+<%/*
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	Statement stmt = null;
@@ -21,7 +21,7 @@
 
 	String param_writerid = request.getParameter("writerid");
 
-	int numrow=0;
+	int numrow=0;*/
 %>
 
 <!DOCTYPE html>
@@ -38,7 +38,7 @@
 
 		<link rel="stylesheet" type="text/css" href="http://localhost:8080/style.css">
 		<!-- 우리가 만든 css 스타일 파일 -->
-    	<link rel="stylesheet" href="http://localhost:8080/bootstrap-3.3.4-dist/css/bootstrap.min.css">
+    	<link rel="stylesheet" href="http://localhost:8080/bootstrap-3.3.2-dist/css/bootstrap.min.css">
 		<!-- 부트스트랩-->
 	</head>
 
@@ -65,7 +65,7 @@
 							<!--| 번호	| 카테고리	 | 제목 | 작성자 | 작성일 | 조회수 | -->
 
 							<tr>
-						<%
+						<%/*
 							try
 							{
 								Class.forName("com.mysql.jdbc.Driver");
@@ -150,7 +150,7 @@
 							rs.close();
 							pstmt.close();
 							conn.close();
-						%>
+						*/%>
 							</tr>
 						</table>
 
@@ -159,7 +159,7 @@
 					<hr>
 					
 					<div id="control">
-						<%
+						<%/*
 							if(param_idx != null)
 							{
 								out.println("<div class=\"btn-group\" role=\"group\" aria-label=\"...\">");
@@ -168,14 +168,14 @@
 								out.println("<a href=\"http://localhost:8080/delete.jsp\" class=\"btn btn-danger bnt-lg\">삭제</a>");
 								out.println("<a href=\"http://localhost:8080/index.jsp\" class=\"btn btn-default bnt-lg\">목록</a>");
 
-							}
+							}*/
 						%>
-						<a href="http://localhost:8080/write.jsp" class="btn btn-success bnt-lg">쓰기</a>
-						<%
+						<a href="#" class="btn btn-success bnt-lg">쓰기</a>
+						<%/*
 							if(param_idx != null)
 							{
 								out.println("</div>");
-							}
+							}*/
 						%>
 					</div>
 				</div>
