@@ -1,7 +1,7 @@
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <% request.setCharacterEncoding("UTF-8");%>
-<%	
+<%
 	// 로그아웃 상태: 0, 사용자: 1, 업무담당자:2, 시스템 관리자(필요?):3
 	String check = "";
 	int idType = 0;
@@ -50,14 +50,9 @@
 <body id="target">
 	<div class="container">
 		<div class="row">
-			<div class="panel panel-default">
-  				<div class="panel-body">
-    				top panel. buttons
-  				</div>
-			</div>
-
 			<div class="col-md-3" role="conmplementary">
 				<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
+					<img src="g4_logo.png">
 					<ul class="nav bs-docs-sidenav">
 						<!-- 여기있는 리스트만 가져오면 된다
 						<li>
@@ -65,7 +60,7 @@
 							<a href="#boolean2">h2</a>
 							<a href="#boolean3">h3</a>
 						</li>
-					-->
+						-->
 						<%
 						out.flush();
 
@@ -75,8 +70,21 @@
 					</ul>
 				</nav>
 			</div>
+
 			<div class="col-md-9" role="main">
-				
+				<div class="panel panel-default">
+  					<div class="panel-body">
+    					<div class="col-md-10"></div>
+						<div class="col-md-2">
+							<a class="btn btn-default" href="#" role="button">공지사항</a>
+							<a class="btn btn-default" href="#" role="button">
+								<%
+								
+								%>
+							</a>
+						</div>
+  					</div>
+				</div>
 			</div>
 		</div>
 	</div>
