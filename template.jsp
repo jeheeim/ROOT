@@ -2,28 +2,25 @@
 
 <% request.setCharacterEncoding("UTF-8");%>
 <%
-	// 로그아웃 상태: 0, 사용자: 1, 업무담당자:2, 시스템 관리자(필요?):3
 	String check = "";
-	int idType = 0;
 
+	// 로그인 상황. 0: 비로그인, 1:고객사, 2:업무담당자
+	int logInSituation = 0;
+	
 	check = (String)session.getAttribute("idType");
 	
-	if(check == null)
+	if(check != null)
 	{
-		idType = 0;
+		logInSituation = Integer.parseInt(check);
 	}
-	else
+
+	switch(logInSituation)
 	{
-		idType = Integer.parseInt(check);
-	}
-	
-	switch(idType)
-	{
-		case 0 : break; // 로그아웃 상태 출력
-		case 1 : break; // 사용자 id로 로그인 페이지 출력
-		case 2 : break; // 업무담당자 id로 로그인 페이지 출력
-		case 3 : break; // 시스템 관리자 id로 로그인 페이지 출력
-		default : break;
+		case 0: break; // 비 로그인시 출력해야하는 화면을 출력
+		case 1: break; // 고객사 계정으로 로그인시 출력해야하는 화면 출력
+		case 2: break; // 업무 담당자 계정으로 로그인시 출력해야하는 화면 출력
+
+		default: /*에러 문구 출력*/ break;
 	}
 %>
 
@@ -79,7 +76,7 @@
 							<a class="btn btn-default" href="#" role="button">공지사항</a>
 							<a class="btn btn-default" href="#" role="button">
 								<%
-								
+								if()
 								%>
 							</a>
 						</div>
