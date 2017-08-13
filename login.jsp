@@ -45,7 +45,7 @@
 			</div>
             <div class="col-md-6">
                 <div class="login-box well">
-                    <form accept-charset="UTF-8" role="form" method="post" action="">
+                    <form accept-charset="UTF-8" role="form" method="post" action="loginProcess.jsp">
                         <legend>로그인</legend>
                         <div class="form-group">
 							<label for="username-email">아이디</label>
