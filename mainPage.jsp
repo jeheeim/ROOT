@@ -1,8 +1,8 @@
-<%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <% request.setCharacterEncoding("UTF-8");%>
 <%
-	String check = "";
+	int check = "";
 
 	// 로그인 상황. 고객사: ture, 업무담당자: false
 	boolean customerOrWorker = true;
