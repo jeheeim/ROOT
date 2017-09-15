@@ -1,31 +1,30 @@
-<%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <% request.setCharacterEncoding("UTF-8");%>
 <%
-	String check = "";
+	int check = "";
 
 	// 로그인 상황. 고객사: ture, 업무담당자: false
 	boolean customerOrWorker = true;
 	String navbarList = null;
 	
-	check = (String)session.getAttribute("idType");
+	check = (int)session.getAttribute("idType");
 	
-	if(check == "true")
+	if(check == 0)
 	{
 		customerOrWorker = true;
+		
+		navbarList = "/navbarList/navbarList_customerAccount.jsp";
 	}
-	else
+	else if(check == 1)
 	{
 		customerOrWorker = false;
-	}
 
-	if(customerOrWorker)
-	{
-		navbarList = "navbarList/navbarList_customerAccount.jsp";
+		navbarList = "/navbarList/navbarList_workerAccount.jsp";
 	}
 	else
 	{
-		navbarList = "navbarList/navbarList_workerAccount.jsp";
+		alert("idtype error");
 	}
 %>
 
@@ -56,12 +55,7 @@
 				<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
 					<img src="g4_logo.png" style="margin-bottom:30px">
 					<ul class="nav bs-docs-sidenav">
-						<%
-						out.flush();
-
-						RequestDispatcher dispatcher = request.getRequestDispatcher(navbarList);
-						dispatcher.include(request, response);
-						%>
+						<%@ include file = navbarList%>
 					</ul>
 				</nav>
 			</div>
