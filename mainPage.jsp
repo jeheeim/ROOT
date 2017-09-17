@@ -2,29 +2,35 @@
 
 <% request.setCharacterEncoding("UTF-8");%>
 <%
-	int check = "";
+	int check = 1;
 
 	// 로그인 상황. 고객사: ture, 업무담당자: false
 	boolean customerOrWorker = true;
-	String navbarList = null;
+	String navbarListPage = null;
+	String mainBodyPage = null;
 	
-	check = (int)session.getAttribute("idType");
-	
-	if(check == 0)
+	try
 	{
-		customerOrWorker = true;
+		//check = (int)session.getAttribute("idType");
+	
+		if(check == 0)
+		{
+			customerOrWorker = true;
 		
-		navbarList = "/navbarList/navbarList_customerAccount.jsp";
-	}
-	else if(check == 1)
-	{
-		customerOrWorker = false;
+			navbarListPage = "/navbarList/navbarList_customerAccount.jsp";
+			//mainBodyPage = "client/client_mainBody.jsp";
+		}
+		else if(check == 1)
+		{
+			customerOrWorker = false;
 
-		navbarList = "/navbarList/navbarList_workerAccount.jsp";
+			navbarListPage = "/navbarList/navbarList_workerAccount.jsp";
+			mainBodyPage = "/worker/worker_mainBody.jsp";
+		}
 	}
-	else
+	catch(Exception e)
 	{
-		alert("idtype error");
+		out.write("alert('idtype 에러')");
 	}
 %>
 
@@ -55,7 +61,7 @@
 				<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
 					<img src="g4_logo.png" style="margin-bottom:30px">
 					<ul class="nav bs-docs-sidenav">
-						<%@ include file = navbarList%>
+						<jsp:include page="<%= navbarListPage %>" flush="true" />
 					</ul>
 				</nav>
 			</div>
@@ -76,7 +82,10 @@
   					</div>
 				</div>
 
-				<div id="mainFrame">Main Frame</div>
+				<div id="mainFrame">
+					<jsp:include page="<%= mainBodyPage %>" flush="true" />
+					
+				</div>
 			</div>
 		</div>
 	</div>
@@ -85,7 +94,7 @@
     <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
