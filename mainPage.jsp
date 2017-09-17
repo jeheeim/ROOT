@@ -8,8 +8,6 @@
 	
 
 	*/ 
-
-
 	boolean check = false;
 
 	// 로그인 상황. 고객사: ture, 업무담당자: false
@@ -26,7 +24,6 @@
 			customerOrWorker = true;
 		
 			navbarListPage = "/navbarList/navbarList_customerAccount.jsp";
-			//mainBodyPage = "/client/client_mainBody.jsp";
 		}
 		else
 		{
@@ -35,7 +32,7 @@
 			navbarListPage = "/navbarList/navbarList_workerAccount.jsp";
 			
 		}
-	}
+	} 
 	catch(Exception e)
 	{
 		out.write(e.toString());
@@ -44,9 +41,13 @@
 	/*
 		패러미터 체크
 	*/
+	int pageMod = 0;
+	
+	if(request.getParameter("mod") != null)
+	{
+		pageMod = Integer.parseInt(request.getParameter("mod"));
 
-	int pageMod = Integer.parseInt(request.getParameter("mod"));
-
+	}
 	switch(pageMod)
 	{
 		case 1:
@@ -61,13 +62,23 @@
 		case 103:
 			mainBodyPage = "/worker/worker_adding_newjob.jsp";
 			break;
+		default:
+			if(check)
+			{
+				//mainBodyPage = "/customer/customer_mainBody.jsp";
+			}
+			else
+			{
+				mainBodyPage = "/worker/worker_mainBody.jsp";
+			}
+			break;
 	}
 %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 	<title>main page</title>
-	<%@ include file="common_header.jsp"%>
+	<%@ include file="/common_header.jsp"%>
 </head>
 
 <body id="target">
@@ -75,7 +86,9 @@
 		<div class="row">
 			<div class="col-md-3" role="complementary">
 				<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
-					<img src="g4_logo.png" style="margin-bottom:30px">
+					<a href="/mainPage.jsp">
+						<img src="g4_logo.png" style="margin-bottom:30px">
+					<a>
 					<ul class="nav bs-docs-sidenav">
 						<jsp:include page="<%= navbarListPage %>" flush="true" />
 					</ul>
@@ -105,7 +118,7 @@
 		</div>
 	</div>
 	
-	<%@ include file="common_footer.jsp"%>
+	<%@ include file="/common_footer.jsp"%>
 </body>
 
 </html>
