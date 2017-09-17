@@ -30,13 +30,14 @@
 	}
 	catch(Exception e)
 	{
-		out.write("alert('idtype 에러')");
+		out.write(e.toString());
 	}
 %>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+	<title>main page</title>
 	<%@ include file="common_header.jsp"%>
 </head>
 
@@ -70,7 +71,6 @@
 
 				<div id="mainFrame">
 					<jsp:include page="<%= mainBodyPage %>" flush="true" />
-					
 				</div>
 			</div>
 		</div>
