@@ -2,7 +2,7 @@
 
 <%@ page import="java.sql.*" %>
 <%@ page import="java.lang.*" %>
-
+<%@page session="true"%>
 <%@ include file="dbLogin.jspf" %>
 
 <%
@@ -20,10 +20,8 @@
 	String user_name	 = "";
 	String user_category = "";
 	String user_rank	 = "";
-	boolean	   idtype;
-	String rs_password="";
-	// 비밀번호화 아이디 타입을 묻는 쿼리문과 데이터베이스 연결
-	                                       
+	String idtype	= "";
+	                
 	// null로 초기화 한다.
 	PreparedStatement pstmt = null;
 	try{
@@ -31,19 +29,40 @@
 		sql = "SELECT * FROM account WHERE account.id = \'" + user_id+"\'";       
 		pstmt = conn.prepareStatement(sql);
 		rs = pstmt.executeQuery();
-		if(rs.next()){	}
-		
+		if(rs.next()){
+			user_name = rs.getString("name");
+			user_category = rs.getString("department");
+			user_rank = rs.getString("rank");
+			idtype = rs.getString("ismanage");
+		}
 		if(!password.equals(rs.getString("password")))
 		{
 			out.println("암호 틀림");
 			out.println("<a href =\"login.jsp\">로그인 페이지로</a>");
 		}
 		else{
-			out.println(user_id+"님 로그인 성공하셨습니다.");
-			out.println("<a href =\"mainPage.jsp\">회원 페이지로</a>");
+			//out.println(user_id+"님 로그인 성공하셨습니다.");
+			//out.println("<a href =\"mainPage.jsp\">회원 페이지로</a>");
+			/*
+			session 설정
+			session 값         변수
+   			user_id            user_id
+  			user_name         user_name
+  			user_category      user_category
+  			user_rank         user_rank
+  			user_idtype         idtype
+  			*/
+  			session.setAttribute("user_id",         user_id);
+  			session.setAttribute("user_name",      user_name);
+  			session.setAttribute("user_category",   user_category);
+  			session.setAttribute("user_rank",      user_rank);
+  			session.setAttribute("user_idtype",      idtype);
+   
+  			response.sendRedirect("mainPage.jsp");
 		}
 	}
 	catch(Exception e){
 		out.println("오류");
+		out.println("<a href =\"login.jsp\">로그인 페이지로</a>");
 	}
 %>
