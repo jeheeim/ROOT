@@ -1,8 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <% request.setCharacterEncoding("UTF-8");%>
+
 <%
-	int check = 1;
+	/*
+	세션 및 아이디 체크
+	
+
+	*/ 
+	boolean check = false;
 
 	// 로그인 상황. 고객사: ture, 업무담당자: false
 	boolean customerOrWorker = true;
@@ -13,31 +19,66 @@
 	{
 		//check = (int)session.getAttribute("idType");
 	
-		if(check == 0)
+		if(check)
 		{
 			customerOrWorker = true;
 		
 			navbarListPage = "/navbarList/navbarList_customerAccount.jsp";
-			//mainBodyPage = "/client/client_mainBody.jsp";
 		}
-		else if(check == 1)
+		else
 		{
 			customerOrWorker = false;
 
 			navbarListPage = "/navbarList/navbarList_workerAccount.jsp";
-			mainBodyPage = "/worker/worker_mainBody.jsp";
+			
 		}
-	}
+	} 
 	catch(Exception e)
 	{
-		out.write("alert('idtype 에러')");
+		out.write(e.toString());
+	}
+
+	/*
+		패러미터 체크
+	*/
+	int pageMod = 0;
+	
+	if(request.getParameter("mod") != null)
+	{
+		pageMod = Integer.parseInt(request.getParameter("mod"));
+
+	}
+	switch(pageMod)
+	{
+		case 1:
+			//mainBodyPage = "/customer/customer_mainBody.jsp";
+			break;
+		case 101:
+			mainBodyPage = "/worker/worker_mainBody.jsp";
+			break;
+		case 102:
+			mainBodyPage = "/worker/worker_myworkingList.jsp";
+			break;
+		case 103:
+			mainBodyPage = "/worker/worker_adding_newjob.jsp";
+			break;
+		default:
+			if(check)
+			{
+				//mainBodyPage = "/customer/customer_mainBody.jsp";
+			}
+			else
+			{
+				mainBodyPage = "/worker/worker_mainBody.jsp";
+			}
+			break;
 	}
 %>
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-	<%@ include file="common_header.jsp"%>
+	<title>main page</title>
+	<%@ include file="/common_header.jsp"%>
 </head>
 
 <body id="target">
@@ -45,7 +86,9 @@
 		<div class="row">
 			<div class="col-md-3" role="complementary">
 				<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
-					<img src="g4_logo.png" style="margin-bottom:30px">
+					<a href="/mainPage.jsp">
+						<img src="g4_logo.png" style="margin-bottom:30px">
+					<a>
 					<ul class="nav bs-docs-sidenav">
 						<jsp:include page="<%= navbarListPage %>" flush="true" />
 					</ul>
@@ -70,13 +113,12 @@
 
 				<div id="mainFrame">
 					<jsp:include page="<%= mainBodyPage %>" flush="true" />
-					
 				</div>
 			</div>
 		</div>
 	</div>
 	
-	<%@ include file="common_footer.jsp"%>
+	<%@ include file="/common_footer.jsp"%>
 </body>
 
 </html>
