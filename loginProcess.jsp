@@ -37,8 +37,7 @@
 		}
 		if(!password.equals(rs.getString("password")))
 		{
-			out.println("암호 틀림");
-			out.println("<a href =\"login.jsp\">로그인 페이지로</a>");
+			%> <script> alert("비밀번호 틀림"); history.go(-1); </script> <%
 		}
 		else{
 			//out.println(user_id+"님 로그인 성공하셨습니다.");
@@ -62,7 +61,6 @@
 		}
 	}
 	catch(Exception e){
-		out.println("오류");
-		out.println("<a href =\"login.jsp\">로그인 페이지로</a>");
+		%> <script> alert("로그인 실패"); history.go(-1); </script> <%
 	}
 %>
