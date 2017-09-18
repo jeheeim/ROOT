@@ -27,7 +27,49 @@
 
 	</head>
 <body>
-	
+
+	<div class="col-sm-1"></div>
+    <div class="col-sm-9">
+    <form class="form-horizontal">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th colspan = "3"><p class="text-center">내가 할일</th>
+        <th colspan = "4"><p class="text-center">서비스 요청 현황</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan = "3"><p class="text-center">No. 내가 할일</td>
+          <td colspan = "4"><p class="text-center">No. 서비스 요청 현황</td>
+        </tr>
+      </tbody>
+      <thead>
+      <tr>
+        <th><p class="text-center">인시던트</th>
+        <th><p class="text-center">변경 관리</th>
+        <th><p class="text-center">릴리즈 관리</th>
+
+        <th><p class="text-center">신규</th>
+        <th><p class="text-center">접수</th>
+        <th><p class="text-center">작업중</th>
+        <th><p class="text-center">완료</th>
+      </tr>
+      </thead>
+      <tbody>
+        <td><p class="text-center">No. 인시던트</td>
+        <td><p class="text-center">No. 변경관리</td>
+        <td><p class="text-center">No. 릴리즈관리</td>
+
+        <td><p class="text-center">No. 신규</td>
+        <td><p class="text-center">No. 접수</td>
+        <td><p class="text-center">No. 작업중</td>
+        <td><p class="text-center">No. 완료</td>
+      </tbody>
+    </table>
+    </form>
+    </div>
+	<!--
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-2"></div>
@@ -46,7 +88,7 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-1"></div>
 		</div><!--<div class="row">-->
-
+<!--
 		<div class="row">
 			<div class="col-md-1"></div>
 			<div class="col-md-1"></div>
@@ -65,8 +107,8 @@
 			<div class="col-md-1"></div>
 			<div class="col-md-1"></div>
 		</div><!--<div class="row">-->
-	</div>
-
+<!--	</div>
+-->
 	<!--   BootStrap ENDING LINE   -->
 	<!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
