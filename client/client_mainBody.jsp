@@ -24,6 +24,38 @@
     <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
     <script src="/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
 
+    <div class="col-sm-1"></div>
+    <div class="col-sm-9">
+    <form class="form-horizontal">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th colspan = "4"><p class="text-center">서비스 요청 현황</th>
+      </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan = "4"><p class="text-center">No. 서비스 요청 현황</td>
+        </tr>
+      </tbody>
+      <thead>
+      <tr>
+        <th><p class="text-center">신규</th>
+        <th><p class="text-center">접수</th>
+        <th><p class="text-center">작업중</th>
+        <th><p class="text-center">완료</th>
+      </tr>
+      </thead>
+      <tbody>
+        <td><p class="text-center">No. 신규</td>
+        <td><p class="text-center">No. 접수</td>
+        <td><p class="text-center">No. 작업중</td>
+        <td><p class="text-center">No. 완료</td>
+      </tbody>
+    </table>
+    </form>
+    </div>
+    <!--
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-2"></div>
@@ -43,7 +75,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-1"></div>
       </div>  <!--<div class="row">-->
-
+<!--
       <div class="row">
         <div class="col-md-1"></div>
         <div class="col-md-1"></div>
@@ -69,7 +101,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-1"></div>
       </div>  <!--<div class="row">-->
-    </div>
+ <!--   </div>-->
   
   </body>
 </html>
