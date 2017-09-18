@@ -20,7 +20,7 @@
 
 <body>
 	<h1 align="center">New Task</h1>
-	<form class="form-horizontal" action="/worker/submit_new_task.jsp" method="post">
+	<form class="form-horizontal" action="/worker/submit_new_task.jsp" method="post" accept-charset="UTF-8">
 		<div class="form-group">
 			<label for="inputTitle" class="col-sm-2 control-label">제목</label>
 			<div class="col-sm-6">
