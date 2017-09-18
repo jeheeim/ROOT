@@ -1,6 +1,7 @@
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
+request.setCharacterEncoding("UTF-8");
 String title				= request.getParameter("inputTitle");
 String inputGetBy			= request.getParameter("intputGetBy"); // 1: 전화 2:회의 3:이메일 4: 기타
 String inputClient_company	= request.getParameter("inputClient_company");
