@@ -43,6 +43,7 @@
 				<th>번호</th>
 				<th>제목</th>
 				<th>작성자</th>
+				<th>소속_depart</th>
 				<th>우선순위</th>
 				<th>상태</th>
 				</tr>
