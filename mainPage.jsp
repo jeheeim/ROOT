@@ -53,15 +53,31 @@
 		case 1:
 			//mainBodyPage = "/customer/customer_mainBody.jsp";
 			break;
+
 		case 101:
 			mainBodyPage = "/worker/worker_mainBody.jsp";
 			break;
+
 		case 102:
 			mainBodyPage = "/worker/worker_myworkingList.jsp";
 			break;
+
 		case 103:
 			mainBodyPage = "/worker/worker_adding_newjob.jsp";
 			break;
+
+		case 104:
+			mainBodyPage = "/worker/worker_myworkingList.jsp";
+			break;
+
+		case 201:
+			mainBodyPage = "/notice/listNotice.jsp";
+			break;
+
+		case 202:
+			mainBodyPage = "/notice/addNotice.jsp";
+			break;
+
 		default:
 			if(check)
 			{
@@ -103,7 +119,7 @@
 						<div class="col-md-3">
 							<div id="control">
 								<div class="btn-group" role="group" aria-label="...">
-									<a class="btn btn-default" href="#" role="button">공지사항</a>
+									<a class="btn btn-default" href="/mainPage.jsp?mod=201" role="button">공지사항</a>
 									<a class="btn btn-default" href="#" role="button">로그아웃</a>
 								</div>
 							</div>
