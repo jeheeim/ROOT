@@ -1,5 +1,7 @@
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%@ include file="dbLogin.jspf" %>
+
 <%
 request.setCharacterEncoding("UTF-8");
 String title				= request.getParameter("inputTitle");
@@ -12,8 +14,5 @@ String inputEmergency		= request.getParameter("inputEmergency");
 String inputDetail			= request.getParameter("inputDetail");
 String inputComment			= request.getParameter("inputComment");
 
-out.println(title + inputDetail);
-/*	1. 한글 입력되게 해야함
-	2. db연동 기초작업
-*/
+
 %>
