@@ -4,6 +4,8 @@
 <%@ page session="true"%>
 <%@ include file="../dbLogin.jspf" %>
 
+<%@ include file="dbLogin.jspf" %>
+
 <%
 request.setCharacterEncoding("UTF-8");
 String title				= request.getParameter("inputTitle");
@@ -23,15 +25,10 @@ PreparedStatement pstmt = null;
 
 	try{
 		conn=DriverManager.getConnection(dburl,dbuser,dbpw);
-		//"SELECT * FROM account WHERE account.id = \'user02\'"
-		/*
-		sql =  "INSERT INTO incident_management(title, reception_path, problem_scope, urgency, action_details, content)"+
-		 "VALUES (\'" + title +"\',"+Integer.parseInt(inputGetBy)+", " 
-		 + Integer.parseInt(inputRange) + ", " + Integer.parseInt(inputEmergency) 
-		 + ", \'" + inputDetail + "\', \'"+
-		  inputComment+"\');";  */
+
 		sql = "INSERT INTO incident_management(title, reception_path, problem_scope, urgency, action_details, content) VALUES(?,?,?,?,?,?)";
 		pstmt = conn.prepareStatement(sql);
+
 		pstmt.setString(1, title);
 		pstmt.setString(2, inputGetBy);
 		pstmt.setString(3, inputRange);
