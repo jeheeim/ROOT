@@ -1,4 +1,4 @@
-<%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!--
 	근로자가 새 업무를 등록하는 페이지.
@@ -89,10 +89,10 @@
 			<label for="inputRange" class="col-sm-2 control-label">문제범위</label>
 			<div class="col-sm-2">
 				<select class="form-control" name="inputRange" style="width: 100%;">
-					<option value="range-1">전 회사</option>
-					<option value="range-2">부서</option>
-					<option value="range-3">팀</option>
-					<option value="range-4">개인</option>
+					<option value="1">전 회사</option>
+					<option value="2">부서</option>
+					<option value="3">팀</option>
+					<option value="4">개인</option>
 				</select>
 			</div>
 			<label for="inputEmergency" class="col-sm-2 control-label">긴급도</label>
