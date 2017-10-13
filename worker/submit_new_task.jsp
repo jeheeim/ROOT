@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-=======
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.lang.*" %>
 <%@ page session="true"%>
 <%@ include file="../dbLogin.jspf" %>
->>>>>>> refs/remotes/origin/master
 
 <%@ include file="dbLogin.jspf" %>
 
@@ -27,27 +23,32 @@ PreparedStatement pstmt = null;
 	2. db연동 기초작업
 */
 
-	try{
-		conn=DriverManager.getConnection(dburl,dbuser,dbpw);
+try
+{
+	conn=DriverManager.getConnection(dburl,dbuser,dbpw);
 
-		sql = "INSERT INTO incident_management(title, reception_path, problem_scope, urgency, action_details, content) VALUES(?,?,?,?,?,?)";
-		pstmt = conn.prepareStatement(sql);
+	sql = "INSERT INTO incident_management(title, reception_path, problem_scope, urgency, action_details, content) VALUES(?,?,?,?,?,?)";
+	pstmt = conn.prepareStatement(sql);
 
-		pstmt.setString(1, title);
-		pstmt.setString(2, inputGetBy);
-		pstmt.setString(3, inputRange);
-		pstmt.setString(4, inputEmergency);
-		pstmt.setString(5, inputDetail);
-		pstmt.setString(6, inputComment);
-		pstmt.executeUpdate();
-		out.println("성공");
-	}catch(Exception e){
-		//out.println(e.toString());
+	pstmt.setString(1, title);
+	pstmt.setString(2, inputGetBy);
+	pstmt.setString(3, inputRange);
+	pstmt.setString(4, inputEmergency);
+	pstmt.setString(5, inputDetail);
+	pstmt.setString(6, inputComment);
+	pstmt.executeUpdate();
+	out.println("성공");
+}
+catch(Exception e)
+{
+	//out.println(e.toString());
+	%> <script> alert("입력 실패"); history.go(-1); </script> <%
 		
-		%> <script> alert("입력 실패"); history.go(-1); </script> <%
-		
-	}finally{                                                            // 쿼리가 성공 또는 실패에 상관없이 사용한 자원을 해제 한다. (순서중요)
-		if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}            // PreparedStatement 객체 해제
-		if(conn != null) try{conn.close();}catch(SQLException sqle){}            // Connection 해제
-	}
+}
+// 쿼리가 성공 또는 실패에 상관없이 사용한 자원을 해제 한다. (순서중요)
+finally
+{                                                            
+	if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){} // PreparedStatement 객체 해제
+	if(conn != null) try{conn.close();}catch(SQLException sqle){}	// Connection 해제
+}
 %>
