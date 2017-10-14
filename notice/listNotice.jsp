@@ -60,7 +60,7 @@
 	%>
 	<tr>
 		<th><%=idx %></th>
-		<td><%=title%></td>
+		<td><a href="/mainPage.jsp?mod=203&idx=<%=idx%>"><%=title%></a></td>
 		<td><%=created%></td>
 		<td><%=account_id%></td>
 		<td>Sample Department</td>
