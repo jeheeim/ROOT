@@ -17,6 +17,7 @@ int task_assigned = 6;
 int task_onProgress = 7;
 int task_finished = 8;
 
+/* 쿼리문이 해결될때까지 주석처리
 try
 {
 	conn=DriverManager.getConnection(dburl,dbuser,dbpw);  
@@ -37,6 +38,8 @@ try
 	// 문자열로 온 값을 정수로 변환
 	task_request = rs.getString().parseInt();
 
+
+	// 내게 배정된 업무의 세부사항
 
 	// 내 업무중에서 인시던트 수
 	sql = "SELECT count(if()) FROM ~";
@@ -63,6 +66,44 @@ try
 
 	// 문자열로 온 값을 정수로 변환
 	myRelease = rs.getString().parseInt();
+
+
+	// 전체 업무의 수
+	
+	// 전체 업무에서 아직 배정되지 않은 신규 업무
+	sql = "SELECT count(if()) FROM ~";
+	pstmt = conn.prepareStatement(sql);
+	rs = pstmt.executeQuery();
+
+	// 문자열로 온 값을 정수로 변환
+	task_new = rs.getString().parseInt();
+	
+
+	// 전체 업무에서 배정된 업무의 수
+	sql = "SELECT count(if()) FROM ~";
+	pstmt = conn.prepareStatement(sql);
+	rs = pstmt.executeQuery();
+
+	// 문자열로 온 값을 정수로 변환
+	task_assigned = rs.getString().parseInt();
+	
+
+	// 전체 업무에서 작업중인 업무의 수
+	sql = "SELECT count(if()) FROM ~";
+	pstmt = conn.prepareStatement(sql);
+	rs = pstmt.executeQuery();
+
+	// 문자열로 온 값을 정수로 변환
+	task_onProgress = rs.getString().parseInt();
+	
+
+	// 전체 업무에서 종료된 업무의 수
+	sql = "SELECT count(if()) FROM ~";
+	pstmt = conn.prepareStatement(sql);
+	rs = pstmt.executeQuery();
+
+	// 문자열로 온 값을 정수로 변환
+	task_finished = rs.getString().parseInt();
 }
 catch(Exception e)
 {
@@ -74,6 +115,7 @@ finally
 	if(pstmt != null)	try	{ pstmt.close();}	catch(SQLException sqle){}            // PreparedStatement 객체 해제
 	if(conn != null)	try	{ conn.close();}	catch(SQLException sqle){}            // Connection 해제
 }
+*/
 %>
 
 
@@ -89,34 +131,54 @@ finally
 	<div class="col-sm-1"></div>
     <div class="col-sm-9">
     	<form class="form-horizontal">
-    		<table class="table table-striped">
+    		<table class="table table-striped" style="text-align:center">
 				<thead><tr>
-					<th colspan = "3"><p class="text-center">내가 할일</th>
-					<th colspan = "4"><p class="text-center">서비스 요청 현황</th>
+					<th colspan = "3">내가 할일</th>
+					<th colspan = "4">서비스 요청 현황</th>
 				</tr></thead>
+
 				<tbody><tr>
-					<td colspan = "3"><p class="text-center"><%=myTask%></td>
-					<td colspan = "4"><p class="text-center"><%=task_request%></td>
+					<td colspan = "3" style="cursor:pointer;" onClick="/mainPage.jsp?mod=102&param=0;">
+						<%=myTask%></td>
+					<td colspan = "4" style="cursor:pointer;" onClick="/mainPage.jsp?mod=104&param=0;">
+						<%=task_request%>
+					</td>
 				</tr></tbody>
+
 				<thead><tr>
-					<th><p class="text-center">인시던트</th>
-					<th><p class="text-center">변경 관리</th>
-					<th><p class="text-center">릴리즈 관리</th>
+					<th>인시던트</th>
+					<th>변경 관리</th>
+					<th>릴리즈 관리</th>
 
-					<th><p class="text-center">신규</th>
-					<th><p class="text-center">접수</th>
-					<th><p class="text-center">작업중</th>
-					<th><p class="text-center">완료</th>
+					<th>신규</th>
+					<th>접수</th>
+					<th>작업중</th>
+					<th>완료</th>
 				</tr></thead>
-				<tbody>
-					<td><p class="text-center"><%=myIncident%></td>
-					<td><p class="text-center"><%=myChange%></td>
-					<td><p class="text-center"><%=myRelease%></td>
 
-					<td><p class="text-center"><%=task_new%></td>
-					<td><p class="text-center"><%=task_assigned%></td>
-					<td><p class="text-center"><%=task_onProgress%></td>
-					<td><p class="text-center"><%=task_finished%></td>
+				<tbody>
+					<td style="cursor:pointer;" onClick="/mainPage.jsp?mod=102&param=1;">
+						<%=myIncident%>
+					</td>
+					<td style="cursor:pointer;" onClick="/mainPage.jsp?mod=102&param=2;">
+						<%=myChange%>
+					</td>
+					<td style="cursor:pointer;" onClick="/mainPage.jsp?mod=102&param=3;">
+						<%=myRelease%>
+					</td>
+
+					<td style="cursor:pointer;" onClick="/mainPage.jsp?mod=104&param=1;">
+						<%=task_new%>
+					</td>
+					<td style="cursor:pointer;" onClick="/mainPage.jsp?mod=104&param=2;">
+						<%=task_assigned%>
+					</td>
+					<td style="cursor:pointer;" onClick="/mainPage.jsp?mod=104&param=3;">
+						<%=task_onProgress%>
+					</td>
+					<td style="cursor:pointer;" onClick="/mainPage.jsp?mod=104&param=4;">
+						<%=task_finished%>
+					</td>
 				</tbody>
 			</table>
 		</form>

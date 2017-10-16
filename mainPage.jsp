@@ -3,96 +3,105 @@
 <% request.setCharacterEncoding("UTF-8");%>
 
 <%
-	/*
-	세션 및 아이디 체크
+/*
+세션 및 아이디 체크
 	
 
-	*/ 
-	boolean check = false;
+*/ 
+boolean check = false;
 
-	// 로그인 상황. 고객사: ture, 업무담당자: false
-	boolean customerOrWorker = true;
-	String navbarListPage = null;
-	String mainBodyPage = null;
+// 로그인 상황. 고객사: ture, 업무담당자: false
+boolean customerOrWorker = true;
+String navbarListPage = null;
+String mainBodyPage = null;
 	
-	try
+try
+{
+	//check = (int)session.getAttribute("idType");
+	
+	if(check)
 	{
-		//check = (int)session.getAttribute("idType");
-	
-		if(check)
-		{
-			customerOrWorker = true;
+		customerOrWorker = true;
 		
-			navbarListPage = "/navbarList/navbarList_customerAccount.jsp";
-		}
-		else
-		{
-			customerOrWorker = false;
-
-			navbarListPage = "/navbarList/navbarList_workerAccount.jsp";
-			
-		}
-	} 
-	catch(Exception e)
-	{
-		out.write(e.toString());
+		navbarListPage = "/navbarList/navbarList_customerAccount.jsp";
 	}
-
-	/*
-		패러미터 체크
-	*/
-	int pageMod = 0;
-	
-	if(request.getParameter("mod") != null)
+	else
 	{
-		pageMod = Integer.parseInt(request.getParameter("mod"));
+		customerOrWorker = false;
 
+		navbarListPage = "/navbarList/navbarList_workerAccount.jsp";
 	}
-	switch(pageMod)
+} 
+catch(Exception e)
+{
+	out.write(e.toString());
+}
+
+/*
+	패러미터 체크
+*/
+int pageMod = 0;
+int param = 0;
+
+if(request.getParameter("mod") != null)
+{
+	pageMod = Integer.parseInt(request.getParameter("mod"));
+}
+if(request.getParameter("param") != null)
+{
+	param = Integer.parseInt(request.getParameter("param"));
+}
+
+switch(pageMod)
+{
+case 1:
+	//mainBodyPage = "/customer/customer_mainBody.jsp";
+	break;
+
+case 101:
+	mainBodyPage = "/worker/worker_mainBody.jsp";
+	break;
+
+// 페이지는 my working list를 열고 내게 배정된 업무만 검색한다. 같이 온 parameter를 넘겨준다.
+case 102:
+	mainBodyPage = "/worker/worker_myworkingList.jsp?mod=0&param="+param;
+	break;
+
+case 103:
+	mainBodyPage = "/worker/worker_adding_newjob.jsp";
+	break;
+
+// 페이지는 my working list를 열지만 전체 업무를 검색한다. 같이 온 parameter를 넘겨준다.
+case 104:
+	mainBodyPage = "/worker/worker_myworkingList.jsp?mod=1&param="+param;
+	break;
+
+case 201:
+	mainBodyPage = "/notice/listNotice.jsp";
+	break;
+
+case 202:
+	mainBodyPage = "/notice/addNotice.jsp";
+	break;
+
+case 203:
+    mainBodyPage = "/notice/detailNotice.jsp";
+    break;
+
+default:
+	if(check)
 	{
-		case 1:
-			//mainBodyPage = "/customer/customer_mainBody.jsp";
-			break;
-
-		case 101:
-			mainBodyPage = "/worker/worker_mainBody.jsp";
-			break;
-
-		case 102:
-			mainBodyPage = "/worker/worker_myworkingList.jsp";
-			break;
-
-		case 103:
-			mainBodyPage = "/worker/worker_adding_newjob.jsp";
-			break;
-
-		case 104:
-			mainBodyPage = "/worker/worker_myworkingList.jsp";
-			break;
-
-		case 201:
-			mainBodyPage = "/notice/listNotice.jsp";
-			break;
-
-		case 202:
-			mainBodyPage = "/notice/addNotice.jsp";
-			break;
-		case 203:
-		    mainBodyPage = "/notice/detailNotice.jsp";
-		    break;
-
-		default:
-			if(check)
-			{
-				//mainBodyPage = "/customer/customer_mainBody.jsp";
-			}
-			else
-			{
-				mainBodyPage = "/worker/worker_mainBody.jsp";
-			}
-			break;
+		//mainBodyPage = "/customer/customer_mainBody.jsp";
 	}
+	else
+	{
+		mainBodyPage = "/worker/worker_mainBody.jsp";
+	}
+	break;
+}
 %>
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -105,12 +114,8 @@
 		<div class="row">
 			<div class="col-md-3" role="complementary">
 				<nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix">
-					<a href="/mainPage.jsp">
-						<img src="g4_logo.png" style="margin-bottom:30px">
-					<a>
-					<ul class="nav bs-docs-sidenav">
-						<jsp:include page="<%= navbarListPage %>" flush="true" />
-					</ul>
+					<a href="/mainPage.jsp"><img src="g4_logo.png" style="margin-bottom:30px"><a>
+					<ul class="nav bs-docs-sidenav"><jsp:include page="<%= navbarListPage %>" flush="true" /></ul>
 				</nav>
 			</div>
 
