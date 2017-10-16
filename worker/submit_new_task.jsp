@@ -2,9 +2,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="java.lang.*" %>
 <%@ page session="true"%>
-<%@ include file="../dbLogin.jspf" %>
-
-<%@ include file="dbLogin.jspf" %>
+<%@ include file="/dbLogin.jspf" %>
 
 <%
 request.setCharacterEncoding("UTF-8");
