@@ -56,6 +56,7 @@
 				</tr>
 			</thead>
 			<tbody>
+			
 				<%
 					if(total == 0){	//등록된 글이 없을 경우
 				%>
@@ -95,7 +96,11 @@
 					</td>
 					<td>
 						<!--상태-->
-						<%=status%>
+						<%
+						if(status == 0) out.println("인시던트");
+						else if(status == 1) out.println("변경");
+						else if(status == 2) out.println("릴리즈");
+						%>
 					</td>
 				</tr>
 				<%
