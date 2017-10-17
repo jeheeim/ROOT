@@ -70,6 +70,11 @@
 			mainBodyPage = "/worker/worker_myworkingList.jsp";
 			break;
 
+		// 업무 확인하기. 세부 업무 보기
+		case 105:
+			//mainBodyPage = "/worker/task_detail.jsp?param=" + param;
+			break;
+
 		case 201:
 			mainBodyPage = "/notice/listNotice.jsp";
 			break;
