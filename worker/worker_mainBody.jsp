@@ -26,6 +26,7 @@
 		<!-- BootStrap Meta Tag END -->
 
 	</head>
+
 <body>
 
 	<div class="col-sm-1"></div>
