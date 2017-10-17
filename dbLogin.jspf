@@ -6,16 +6,17 @@
 	// 사용자 계정
 	String dbpw = "1234";
 	// 사용자 계정의 패스워드
-
+	Connection conn = null;
+	Statement stmt = null;
+	ResultSet rs = null;
+	String sql = null;
 try
 {
 	Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-	Connection conn = null;
+	
 	conn = DriverManager.getConnection(dburl,dbuser,dbpw);;
-	Statement stmt = null;
-	ResultSet rs = null;
-	String sql = null;
+	
 }
 catch(ClassNotFoundException e)
 {
