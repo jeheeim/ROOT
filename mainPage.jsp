@@ -77,6 +77,9 @@
 		case 202:
 			mainBodyPage = "/notice/addNotice.jsp";
 			break;
+		case 203:
+		    mainBodyPage = "/notice/detailNotice.jsp";
+		    break;
 
 		default:
 			if(check)
