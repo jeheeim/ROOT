@@ -55,49 +55,43 @@ if(request.getParameter("param") != null)
 switch(pageMod)
 {
 case 1:
-	//mainBodyPage = "/customer/customer_mainBody.jsp";
-	break;
+			//mainBodyPage = "/customer/customer_mainBody.jsp";
+			break;
 
-case 101:
-	mainBodyPage = "/worker/worker_mainBody.jsp";
-	break;
+		case 101:
+			mainBodyPage = "/worker/worker_mainBody.jsp";
+			break;
 
-// 페이지는 my working list를 열고 내게 배정된 업무만 검색한다. 같이 온 parameter를 넘겨준다.
-case 102:
-	mainBodyPage = "/worker/worker_myworkingList.jsp?mod=0&param="+param;
-	break;
+		case 102:
+			mainBodyPage = "/worker/worker_myworkingList.jsp";
+			break;
 
-case 103:
-	mainBodyPage = "/worker/worker_adding_newjob.jsp";
-	break;
+		case 103:
+			mainBodyPage = "/worker/worker_adding_newjob.jsp";
+			break;
 
-// 페이지는 my working list를 열지만 전체 업무를 검색한다. 같이 온 parameter를 넘겨준다.
-case 104:
-	mainBodyPage = "/worker/worker_myworkingList.jsp?mod=1&param="+param;
-	break;
+		case 104:
+			mainBodyPage = "/worker/worker_myworkingList.jsp";
+			break;
 
-case 201:
-	mainBodyPage = "/notice/listNotice.jsp";
-	break;
+		case 201:
+			mainBodyPage = "/notice/listNotice.jsp";
+			break;
 
-case 202:
-	mainBodyPage = "/notice/addNotice.jsp";
-	break;
+		case 202:
+			mainBodyPage = "/notice/addNotice.jsp";
+			break;
 
-case 203:
-    mainBodyPage = "/notice/detailNotice.jsp";
-    break;
-
-default:
-	if(check)
-	{
-		//mainBodyPage = "/customer/customer_mainBody.jsp";
-	}
-	else
-	{
-		mainBodyPage = "/worker/worker_mainBody.jsp";
-	}
-	break;
+		default:
+			if(check)
+			{
+				//mainBodyPage = "/customer/customer_mainBody.jsp";
+			}
+			else
+			{
+				mainBodyPage = "/worker/worker_mainBody.jsp";
+			}
+			break;
 }
 %>
 
