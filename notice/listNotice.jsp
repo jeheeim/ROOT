@@ -52,6 +52,7 @@
 		while(rs.next()) {
 			int idx = rs.getInt(1);
 			String created = rs.getString(2);
+			created = created.substring(0,10);
 			String title = rs.getString(3);
 			String account_id = rs.getString(4);
 			int isDeleted = rs.getInt(5);
