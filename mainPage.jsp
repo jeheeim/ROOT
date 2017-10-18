@@ -42,6 +42,7 @@
 		패러미터 체크
 	*/
 	int pageMod = 0;
+	int param = 0;
 	
 	if(request.getParameter("mod") != null)
 	{
@@ -68,6 +69,11 @@
 
 		case 104:
 			mainBodyPage = "/worker/worker_myworkingList.jsp";
+			break;
+
+		// 업무 확인하기. 세부 업무 보기
+		case 105:
+			mainBodyPage = "/worker/task_detail.jsp?param=" + param;
 			break;
 
 		case 201:
