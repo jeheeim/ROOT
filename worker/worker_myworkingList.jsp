@@ -1,5 +1,5 @@
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="dbLogin.jspf"%>
+<%@ include file="../dbLogin.jspf"%>
 <!--
 	DB와 연동 후 작업해야함!
 
@@ -15,22 +15,29 @@
 </head>
 
 <%
+	String sqlCount=null;
+	//ResultSet rs=null;
+	String sqlList =null;
+	int total = 0;
 	try{
 		//출처: http://seinarin.tistory.com/3 [행복을 찾아서]
 		stmt = conn.createStatement();
-
-		String sqlCount = "SELECT COUNT(*) FROM incident_management"
-		ResultSet rs = stmt.executeQuery(sqlCount);
-
+		
+		//String sqlCount = "SELECT COUNT(*) FROM incident_management"
+		sqlCount = "SELECT COUNT(*) FROM incident_management";
+		//ResultSet rs = stmt.executeQuery(sqlCount);
+		rs = stmt.executeQuery(sqlCount);
 		if(rs.next()){
 			total = rs.getInt(1);
 		}
 		rs.close();
 		out.print("총 게시물 : " + total + "개");
 
-		String sqlList = "SELECT index, title, manager_id, priority, status from incident_management ORDER BY index DESC, priority ASC";
+		//String sqlList = "SELECT index, title, manager_id, priority, status from incident_management ORDER BY index DESC, priority ASC";
+		sqlList = "SELECT incident_management.index, title, manager_id, priority, status from incident_management ORDER BY incident_management.index DESC, priority ASC";
+		
 		rs = stmt.executeQuery(sqlList);
-	}
+	
 %>
 
 
@@ -49,6 +56,7 @@
 				</tr>
 			</thead>
 			<tbody>
+			
 				<%
 					if(total == 0){	//등록된 글이 없을 경우
 				%>
@@ -88,7 +96,11 @@
 					</td>
 					<td>
 						<!--상태-->
-						<%=status%>
+						<%
+						if(status == 0) out.println("인시던트");
+						else if(status == 1) out.println("변경");
+						else if(status == 2) out.println("릴리즈");
+						%>
 					</td>
 				</tr>
 				<%
@@ -101,14 +113,7 @@
 					out.println(e.toString() );
 				}
 				%>
-				<tr>
-					<th scope="row">Num</th>
-					<td>Mark</td>
-					<td>Otto</td>
-					<td>@mdo</td>
-					<td>@mdo</td>
-					<td>@mdo</td>
-				</tr>
+				
 			</tbody>
 		</table>
 	</div><!-- /example -->
