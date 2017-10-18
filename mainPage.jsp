@@ -48,7 +48,13 @@
 	{
 		pageMod = Integer.parseInt(request.getParameter("mod"));
 
+	}	
+	if(request.getParameter("param") != null)
+	{
+		param = Integer.parseInt(request.getParameter("param"));
+
 	}
+	
 	switch(pageMod)
 	{
 		case 1:
