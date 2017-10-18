@@ -13,7 +13,6 @@
     <script src="/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
 
 	<%
-		out.print("여기다 여기");
 		String dburl = "jdbc:mysql://localhost:3306/itsmdb";
 		// 사용하려는 데이터베이스명을 포함한 URL 기술
 		String dbuser = "root";
@@ -61,18 +60,25 @@
   		</div>
   		<div class="form-group">
     		<div class="col-sm-offset-2 col-sm-1">
-    			<button class="btn btn-default" type="submit" href="/mainPage.jsp?mod=201">목록</button>
+				<a class="btn btn-default" href="/mainPage.jsp?mod=201" role="button" type="submit">목록</a>
     		</div>
-				<div class="col-sm-1">
-    			<button class="btn btn-default" type="submit">글쓰기</button>
-    		</div>
+			<div class="col-sm-1" id="control">
+				<div class="btn-group" role="group" aria-label="...">
+					<a href="/mainPage.jsp?mod=202" class="btn btn-default" type="button" role="button">글쓰기</a>
+				</div>
+			</div>
+			<div class="col-sm-offset-4 col-sm-1">
+				<div class="btn-group" role="group" aria-label="...">
+					<a href="deleteNoticeProcess.jsp?idx=<%=idx%>" class="btn btn-default" >삭제</a>
+				</div>
+			</div>
   		</div>
 </form>
-<%
-			}
-			else{
-			    out.print("오류 뿜뿜");
-			}
+	<%
+		}
+		else{
+		out.print("오류 뿜뿜");
+		}
 		rs.close();
 		stmt.close();
 		conn.close();
