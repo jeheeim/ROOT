@@ -82,49 +82,89 @@
 		String sqlList = "SELECT num, created, title, account_id, isdeleted from notice order by NUM DESC WHERE idx >=" + start + "and idx" + end;
 		rs = stmt.executeQuery(sqlList);
 %>
+
 <table class="table table-striped">
-	<thead>
-	<tr> <th>번호</th> <th>제목</th> <th>일시</th> <th>작성자</th> <th>부서명</th> </tr>
-	</thead>
+
+	<thead><tr> <th>번호</th> <th>제목</th> <th>일시</th> <th>작성자</th> <th>부서명</th> </tr></thead>
+
 	<tbody>
 	<%
-		if(total==0) {
+		if(total == 0)
+		{
 	%>
-	<tr>
-		<td colspan="5">등록된 글이 없습니다.</td>
-	</tr>
-	<%
-	} else {
+		<tr>
+			<td colspan="5">등록된 글이 없습니다.</td>
+		</tr>
 
-		while(rs.next()) {
-			int idx = rs.getInt(1);
-			String created = rs.getString(2);
-			created = created.substring(0,10);
-			String title = rs.getString(3);
-			String account_id = rs.getString(4);
-			int isDeleted = rs.getInt(5);
-			if(isDeleted == 1){continue;}
-
-	%>
-	<tr>
-		<th><%=idx %></th>
-		<td><a href="/mainPage.jsp?mod=203&idx=<%=idx%>"><%=title%></a></td>
-		<td><%=created%></td>
-		<td><%=account_id%></td>
-		<td>Sample Department</td>
-	</tr>
 	<%
-				}
-			}
-			rs.close();
-			stmt.close();
-			conn.close();
-		} catch(SQLException e) {
-			out.println( e.toString() );
 		}
+		
+		else
+		{
+			while(rs.next())
+			{
+				int idx = rs.getInt(1);
+				String created = rs.getString(2);
+				created = created.substring(0,10);
+				String title = rs.getString(3);
+				String account_id = rs.getString(4);
+				int isDeleted = rs.getInt(5);
+
+				if(isDeleted == 1){ continue; }
+
 	%>
+
+		<tr>
+			<th><%=idx %></th>
+			<td><a href="/mainPage.jsp?mod=203&idx=<%=idx%>"><%=title%></a></td>
+			<td><%=created%></td>
+			<td><%=account_id%></td>
+			<td>Sample Department</td>
+		</tr>
+
+	<%
+			}
+		}
+	
+		rs.close();
+		stmt.close();
+		conn.close();
+	}
+		
+	catch(SQLException e)
+	{
+		out.println( e.toString() );
+	}
+	%>
+
 	</tbody>
 </table>
+
+<nav>
+	<ul class="pagination">
+		<li>
+			<a href="#" aria-label="Previous">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+		<%
+		String urlPaing = "../mainPage.jsp?mod=201&page=";
+
+		for(int i = 1; i <= endPage; i++)
+		{
+			urlPaing += i;
+		%>
+			<li><a href="<%=urlPaging%>"><%=i%></a></li>
+		<%
+		}
+		%>
+		<li>
+		<a href="#" aria-label="Next">
+			<span aria-hidden="true">&raquo;</span>
+		</a>
+		</li>
+	</ul>
+</nav>
 
 <div class="col-sm-1" id="control">
 	<div class="btn-group" role="group" aria-label="...">
