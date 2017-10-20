@@ -53,13 +53,13 @@
 		pageNumber = 1;
 	}
 
-	int start	= (pageNumber*ROWSIZE) - (ROWSIZE-1); // 해당페이지에서 시작번호(step2)
-	int end		= (pageNumber*ROWSIZE); // 해당페이지에서 끝번호(step2)
-	int allPage = 0; // 전체 페이지수
+	// 전체 페이지수
+	int allPage = (int)Math.ceil(total/(double)ROWSIZE);
+
+	int start	= total - ((pageNumber - 1) * ROWSIZE); // 해당페이지에서 시작번호(step2)
+	int end		= start - ROWSIZE + 1; // 해당페이지에서 끝번호(step2)
 	int startPage = ((pageNumber-1)/BLOCK*BLOCK)+1; // 시작블럭숫자 (1~5페이지일경우 1, 6~10일경우 6)
 	int endPage = ((pageNumber-1)/BLOCK*BLOCK)+BLOCK; // 끝 블럭 숫자 (1~5일 경우 5, 6~10일경우 10)
-
-	allPage = (int)Math.ceil(total/(double)ROWSIZE);
 		
 	if(endPage > allPage)
 	{
@@ -71,7 +71,7 @@
 	try
 	{
 		//String sqlList = "SELECT NUM, USERNAME, TITLE, TIME, HIT, INDENT from board1 where STEP2 >="+start + " and STEP2 <= "+ end +" order by step2 asc";
-		sql = "SELECT * from notice WHERE num BETWEEN " + start + " and " + end + " order by NUM DESC";
+		sql = "SELECT * from notice WHERE num BETWEEN " + end + " and " + start + " order by NUM DESC";
 		rs = stmt.executeQuery(sql);
 %>
 
@@ -149,9 +149,9 @@ String url_end_page = urlPaging + endPage;
 
 		for(int i = 1; i <= endPage; i++)
 		{
-			urlPaging += i;
+			String temp = urlPaging + i;
 		%>
-			<li><a href="<%=urlPaging%>"><%=i%></a></li>
+			<li><a href="<%=temp%>"><%=i%></a></li>
 		<%
 		}
 		%>
