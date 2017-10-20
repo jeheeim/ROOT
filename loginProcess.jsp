@@ -23,7 +23,7 @@ String user_name		= "";
 String user_company		= "";
 String user_department	= "";
 String user_rank		= "";
-int	   idtype			= "";
+int	   idtype = 0;
 	                
 // null로 초기화 한다.
 PreparedStatement pstmt = null;
@@ -44,7 +44,7 @@ try
 		user_company = rs.getString("companyName");
 		user_department = rs.getString("department");
 		user_rank = rs.getString("rank");
-		idtype = rs.getint("isWorker");
+		idtype = rs.getInt("isWorker");
 	}
 
 	if(!password.equals(rs.getString("password")))
