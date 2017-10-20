@@ -7,7 +7,16 @@
 
 	취소하면 지움
 -->
-
+<%@ page import="java.sql.*" %>
+<%@ page import="java.lang.*" %>
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%
+	Date d = new Date();
+    String s = d.toString();
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	String todayDate = sdf.format(d);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,13 +86,14 @@
 			<label for="inputDate_submit" class="col-sm-1 control-label">요청일시</label>
 			<!-- 연월일시 검색할 수 있는 폼 찾기 -->
 			<div class="col-sm-3">
-				<input type="date" class="form-control" id="inputDate_submit" placeholder="요청일시">
+				<input type="date" value = <%=todayDate%> class="form-control" name="inputDate_submit" placeholder="요청일시">
 			</div>
 			<label for="inputDate_Deadline" class="col-sm-1 control-label">목표기한</label>
 			<div class="col-sm-3">
-				<input type="date" class="form-control" id="inputdate_Deadline" placeholder="목표기한">
+				<input type="date" value = <%=todayDate%> class="form-control" name="inputdate_Deadline" placeholder="목표기한">
 			</div>
 		</div>
+		
 
 		<div class="form-group">
 			<label for="inputRange" class="col-sm-2 control-label">문제범위</label>
@@ -91,8 +101,7 @@
 				<select class="form-control" name="inputRange" style="width: 100%;">
 					<option value="1">전 회사</option>
 					<option value="2">부서</option>
-					<option value="3">팀</option>
-					<option value="4">개인</option>
+					<option value="3">개인</option>
 				</select>
 			</div>
 			<label for="inputEmergency" class="col-sm-2 control-label">긴급도</label>
@@ -103,10 +112,20 @@
 					<option value="3">경미</option>
 				</select>
 			</div>
+			<%
+				String priority				= "우선순위";
+				int temp = (document.getElementByName("inputEmergency").value + document.getElementByName("inputRange").value) / 2;
+				if(temp>=3)
+					priority = "상";	
+				else if(temp>=2)
+					priority = "중";
+				else 	
+					priority = "하";
+			%>
 			<!-- 범위, 긴급도 입력하면 자동으로 계산. 더하기해서 작은순으로 하면 될듯 -->
 			<label for="inputPriority" class="col-sm-2 control-label">우선순위</label>
 			<div class="col-sm-2">
-				<input disabled type="text" class="form-control" id="inputPriority" placeholder="연락처">
+				<input disabled type="text" class="form-control" id="inputPriority" placeholder=<%=priority%>>
 			</div>
 		</div>
 		
