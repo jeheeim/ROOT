@@ -33,8 +33,7 @@
 		rs.close();
 		out.print("총 게시물 : " + total + "개");
 
-		//String sqlList = "SELECT index, title, manager_id, priority, status from incident_management ORDER BY index DESC, priority ASC";
-		sqlList = "SELECT incident_management.index, title, manager_id, priority, status from incident_management ORDER BY incident_management.index DESC, priority ASC";
+		sqlList = "SELECT incident_management.index, title, customer, priority, status from incident_management ORDER BY incident_management.index DESC, priority ASC";
 		
 		rs = stmt.executeQuery(sqlList);
 	
@@ -92,12 +91,18 @@
 					</td>
 					<td>
 						<!--우선순위-->
-						<%=priority%>
+						<%
+						if(priority == 1) out.println("하");
+						else if(priority == 2) out.println("중");
+						else if(priority == 3) out.println("상");
+						%>
 					</td>
 					<td>
 						<!--상태-->
 						<%
-						if(status == 0) out.println("인시던트");
+						if(status == 0) out.println("신규");
+						else if(status == 1) out.println("접수");
+						else if(status == 2) out.println("인시던트");
 						else if(status == 1) out.println("변경");
 						else if(status == 2) out.println("릴리즈");
 						%>
