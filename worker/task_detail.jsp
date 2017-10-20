@@ -39,7 +39,10 @@ String change_page = "/worker/change.jsp?param=" + change_param;
 <body>
 	<h1>업무 상세보기</h1>
 	<div id="incidentFrame">
-		<jsp:include page="<%= incident  %>" flush="true"/>
+		<jsp:include page="incident.jsp?idx=<%=param%>" flush="true"/>
+	</div>
+	<div id="changeFrame">
+		<jsp:include page="change.jsp?idx=<%=%>" flush="true"/>
 	</div>
 </body>
 </html>
