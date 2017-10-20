@@ -8,31 +8,25 @@
 	
 
 	*/ 
-	boolean check = false;
+	int check = 0;
 
 	// 로그인 상황. 고객사: ture, 업무담당자: false
-	boolean customerOrWorker = true;
 	String navbarListPage = null;
 	String mainBodyPage = null;
 	
 	try
 	{
-		//check = (int)session.getAttribute("idType");
+		check = (int)session.getAttribute("user_idtype");
 	
-		if(check)
+		if(check == 0)
 		{
-			customerOrWorker = true;
-		
 			navbarListPage = "/navbarList/navbarList_customerAccount.jsp";
 		}
 		else
 		{
-			customerOrWorker = false;
-
 			navbarListPage = "/navbarList/navbarList_workerAccount.jsp";
-			
 		}
-	} 
+	}
 	catch(Exception e)
 	{
 		out.write(e.toString());
@@ -58,7 +52,7 @@
 	switch(pageMod)
 	{
 		case 1:
-			//mainBodyPage = "/customer/customer_mainBody.jsp";
+			mainBodyPage = "/client/client_mainBody.jsp";
 			break;
 
 		case 101:
@@ -95,9 +89,9 @@
 		    break;
 
 		default:
-			if(check)
+			if(check == 0)
 			{
-				//mainBodyPage = "/customer/customer_mainBody.jsp";
+				mainBodyPage = "/client/client_mainBody.jsp";
 			}
 			else
 			{
@@ -114,6 +108,7 @@
 </head>
 
 <body id="target">
+<%=check%>
 	<div class="container" style="margin-top:20px">
 		<div class="row">
 			<div class="col-md-3" role="complementary">
