@@ -1,3 +1,7 @@
+<!-- 3페이지에 있는 로그인 화면입니다. 아직 데이터베이스와는 연동되지 않습니다.
+	그러나 로그인 버튼, 아이디 찾기, 비밀번호 찾기는 누르면 화면이 이동합니다.
+	로그인 구현 안되어 있습니다. 아이디, 비밀번호 찾기 구현 안되어있습니다.
+	 -->
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
