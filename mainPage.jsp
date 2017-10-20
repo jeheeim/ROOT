@@ -42,12 +42,19 @@
 		패러미터 체크
 	*/
 	int pageMod = 0;
+	int param = 0;
 	
 	if(request.getParameter("mod") != null)
 	{
 		pageMod = Integer.parseInt(request.getParameter("mod"));
 
+	}	
+	if(request.getParameter("param") != null)
+	{
+		param = Integer.parseInt(request.getParameter("param"));
+
 	}
+	
 	switch(pageMod)
 	{
 		case 1:
@@ -70,6 +77,11 @@
 			mainBodyPage = "/worker/worker_myworkingList.jsp";
 			break;
 
+		// 업무 확인하기. 세부 업무 보기
+		case 105:
+			mainBodyPage = "/worker/task_detail.jsp?param=" + param;
+			break;
+
 		case 201:
 			mainBodyPage = "/notice/listNotice.jsp";
 			break;
@@ -77,6 +89,10 @@
 		case 202:
 			mainBodyPage = "/notice/addNotice.jsp";
 			break;
+
+		case 203:
+		    mainBodyPage = "/notice/detailNotice.jsp";
+		    break;
 
 		default:
 			if(check)
