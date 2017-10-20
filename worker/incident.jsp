@@ -130,9 +130,7 @@ element.addEventListener(event, handler, false);
 		<div class="form-group">
 			<label class="col-sm-1 control-label">내용</label>
 			<div class="col-sm-8">
-				<textarea class="well well-sm" readonly>이런
-				어떻게 쓰라는
-				거야</textarea>
+				<div class="well well-sm" readonly>내용이 들어 가는 곳입니다.</div>
 			</div>
 		</div>
 
