@@ -51,10 +51,18 @@
 	
 	switch(pageMod)
 	{
+		// 고객사 id
 		case 1:
 			mainBodyPage = "/client/client_mainBody.jsp";
 			break;
+		case 2:
+			mainBodyPage = "/client/client_currentService.jsp";
+			break;
+		case 3:
+			mainBodyPage = "/client/client_addService.jsp";
+			break;
 
+		// 근무자 id
 		case 101:
 			mainBodyPage = "/worker/worker_mainBody.jsp";
 			break;
@@ -76,6 +84,7 @@
 			mainBodyPage = "/worker/task_detail.jsp?param=" + param;
 			break;
 
+		// 공지사항, 로그아웃
 		case 201:
 			mainBodyPage = "/notice/listNotice.jsp";
 			break;
@@ -88,6 +97,7 @@
 		    mainBodyPage = "/notice/detailNotice.jsp";
 		    break;
 
+		// 디폴트. 로그인시.
 		default:
 			if(check == 0)
 			{
