@@ -38,19 +38,19 @@
   		<div class="form-group">
     		<label for="inputTitle" class="col-sm-2 control-label">제목</label>
     		<div class="col-sm-10">
-				<textarea type="text" class="form-control" id="inputTitle" rows="1" readonly><%=title%></textarea>
+				<textarea type="text" class="form-control" id="inputTitle" rows="1" readonly onfocus="this.blur()"><%=title%></textarea>
     		</div>
   		</div>
   		<div class="form-group">
     		<label for="inputClient" class="col-sm-2 control-label">등록자</label>
     		<div class="col-sm-10">
-				<textarea type="text" class="form-control" id="inputClient" rows="1" readonly><%=account%></textarea>
+				<textarea type="text" class="form-control" id="inputClient" rows="1" readonly onfocus="this.blur()"><%=account%></textarea>
     		</div>
   		</div>
 		  <div class="form-group">
     		<label for="inputDetail" class="col-sm-2 control-label">내용</label>
     		<div class="col-sm-10">
-				<textarea class="form-control" rows="8" id="inputDetail" readonly><%=content%></textarea>
+				<textarea class="form-control" rows="8" id="inputDetail" readonly onfocus="this.blur()"><%=content%></textarea>
     		</div>
   		</div>
   		<div class="form-group">
