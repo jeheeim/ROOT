@@ -140,15 +140,20 @@
 	</tbody>
 </table>
 
+<%
+String urlPaing = "../mainPage.jsp?mod=201&page=";
+String url_start_page = urlPaging + 1;
+String url_end_page = urlPaging + endPage;
+%>
+
 <nav>
 	<ul class="pagination">
 		<li>
-			<a href="#" aria-label="Previous">
+			<a href="<%=url_start_page%>" aria-label="Previous">
 				<span aria-hidden="true">&laquo;</span>
 			</a>
 		</li>
 		<%
-		String urlPaing = "../mainPage.jsp?mod=201&page=";
 
 		for(int i = 1; i <= endPage; i++)
 		{
@@ -159,7 +164,7 @@
 		}
 		%>
 		<li>
-		<a href="#" aria-label="Next">
+		<a href="<%=url_end_page%>" aria-label="Next">
 			<span aria-hidden="true">&raquo;</span>
 		</a>
 		</li>
