@@ -2,8 +2,8 @@
 
 <%@ page import="java.sql.*" %>
 <%@ page import="java.lang.*" %>
-<%@page session="true"%>
-<%@ include file="dbLogin.jspf" %>
+<%@ page session="true"%>
+<%@ include file="../dbLogin.jspf" %>
 
 <%
 request.setCharacterEncoding("UTF-8");
@@ -23,8 +23,8 @@ String user_name		= "";
 String user_company		= "";
 String user_department	= "";
 String user_rank		= "";
-int	   idtype = 0;
-	                
+int idtype = 0;
+
 // null로 초기화 한다.
 PreparedStatement pstmt = null;
 	
@@ -45,15 +45,16 @@ try
 		user_department = rs.getString("department");
 		user_rank = rs.getString("rank");
 		idtype = rs.getInt("isWorker");
+
+		out.println(idtype);
 	}
 
 	if(!password.equals(rs.getString("password")))
 	{
 		%> <script> alert("비밀번호 틀림"); history.go(-1); </script> <%
 	}
-	else{
-		//out.println(user_id+"님 로그인 성공하셨습니다.");
-		//out.println("<a href =\"mainPage.jsp\">회원 페이지로</a>");
+	else
+	{
 		/*
 		session 설정
 		session 값         변수
@@ -73,7 +74,7 @@ try
 		response.sendRedirect("mainPage.jsp");
 	}
 }
-catch(Exception e)
+catch(SQLException e)
 {
 	out.println(e.toString());
 }
