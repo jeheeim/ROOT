@@ -33,7 +33,7 @@
 			user_name = rs.getString("name");
 			user_category = rs.getString("department");
 			user_rank = rs.getString("rank");
-			idtype = rs.getString("ismanage");
+			idtype = rs.getString("isWorker");
 		}
 		if(!password.equals(rs.getString("password")))
 		{
@@ -56,12 +56,12 @@
   			session.setAttribute("user_category",   user_category);
   			session.setAttribute("user_rank",      user_rank);
   			session.setAttribute("user_idtype",      idtype);
-   
+
   			response.sendRedirect("mainPage.jsp");
 		}
 	}
 	catch(Exception e){
-		%> <script> alert("로그인 실패"); history.go(-1); </script> <%
+      %> <script> alert("로그인 실패"); history.go(-1); </script> <%
 	}
 	finally{                                                            // 쿼리가 성공 또는 실패에 상관없이 사용한 자원을 해제 한다. (순서중요)
 		if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){}            // PreparedStatement 객체 해제
