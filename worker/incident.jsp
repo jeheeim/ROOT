@@ -2,6 +2,29 @@
 
 <!DOCTYPE html>
 <html lang="ko">
+<!--
+well{
+	min-height:20px;
+	padding:19px;
+	margin-bottom:20px;
+	background-color:#f5f5f5;
+	border:1px solid #e3e3e3;
+	border-radius:4px;
+	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.05);
+	box-shadow:inset 0 1px 1px rgba(0,0,0,.05)
+}
+.well blockquote{
+	border-color:#ddd;
+	border-color:rgba(0,0,0,.15)
+}
+.well-lg{
+	padding:24px;
+	border-radius:6px
+}.well-sm{
+	padding:9px;
+	border-radius:3px
+}
+-->
 <head>
 	<title>인시던트</title>
 	<%@include file="/common_header.jsp"%>
@@ -48,58 +71,80 @@ element.addEventListener(event, handler, false);
 }
 	</script>
 </head>
-
 <body onload="init();">
-	<table border width="100%">
-		<tr width>
-			<td width="10%">번호</td>
-			<td width="10%">number</td>
-			<td width="10%"></td>
-			<td width="10%">제목</td>
-			<td width="60% "colspan="6">title</td>
-		</tr>
-		<tr>
-			<td width="10%">고객</td>
-			<td width="20%" colspan="2">client</td>
-			<td width="10%">접수경로</td>
-			<td width="10%">route</td>
-			<td width="10%">접수자</td>
-			<td width="10%">worker</td>
-			<td width="10%"></td>
-			<td width="10%"></td>
-			<td width="10%"></td>
-		</tr>
-		<tr>
-			<td width="10%">요청일시</td>
-			<td width="30%" colspan="3">request date</td>
-			<td></td>
-			<td width="10%">목표기한</td>
-			<td width="30%" colspan="3">goal date</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td width="10%">문제범위</td>
-			<td width="20%" colspan="2">problem range</td>
-			<td width="10%">긴급도</td>
-			<td width="20%" colspan="2">urgency</td>
-			<td width="10%">우선순위</td>
-			<td width="20%" colspan="2">priority</td>
-			<td width="10%"></td>
-		</tr>
-		<tr>
-			<td width="10%">내용</td>
-			<td width="90%" colspan="9">
-				<textarea id="text" style="width:100%; resize:none; overflow:hidden;" readonly onfocus="this.blur()"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td width="10%">접수자 의견</td>
-			<td width="90%" colspan="9">
-				<textarea id="text" style="width:100%; resize:none; overflow:hidden;" readonly onfocus="this.blur()"></textarea>
-			</td>
-		</tr>
-	</table>
+	<form class="form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-1 control-label">번호</label>
+			<div class="col-sm-2">
+				<div class="well well-sm">Number</div>
+			</div>
+			<label class="col-sm-1 control-label">제목</label>
+			<div class="col-sm-5">
+				<div class="well well-sm">제목은 이거다</div>
+			</div>
+		</div>
 
+		<div class="form-group">
+			<label class="col-sm-1 control-label">고객</label>
+			<div class="col-sm-2">
+				<div class="well well-sm">client</div>
+			</div>
+			<label class="col-sm-1 control-label">접수경로</label>
+			<div class="col-sm-2">
+				<div class="well well-sm">route</div>
+			</div>
+
+			<label class="col-sm-1 control-label">접수자</label>
+			<div class="col-sm-2">
+				<div class="well well-sm">worker</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-1 control-label">요청일시</label>
+			<div class="col-sm-2">
+				<div class="well well-sm">Request Date</div>
+			</div>
+			<div class="col-sm-3"></div>
+			<label class="col-sm-1 control-label">목표기한</label>
+			<div class="col-sm-2">
+				<div class="well well-sm">Deadline Date</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-1 control-label">문제범위</label>
+			<div class="col-sm-2">
+				<div class="well well-sm">range</div>
+			</div>
+			<label class="col-sm-1 control-label">긴급도</label>
+			<div class="col-sm-2">
+				<div class="well well-sm">emergency</div>
+			</div>
+			<label class="col-sm-1 control-label">우선순위</label>
+			<div class="col-sm-2">
+				<div class="well well-sm">priority</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-1 control-label">내용</label>
+			<div class="col-sm-8">
+				<div class="well well-sm" readonly>내용이 들어 가는 곳입니다.</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-1 control-label">담당자 의견</label>
+			<div class="col-sm-8">
+				<div class="well well-sm">
+					담당자의 의견이 들어가는 곳인데
+					얼마나 넣어야
+					textarea 처럼 나오는 것일까
+				</div>
+			</div>
+		</div>
+	</form>
 	<%@include file="/common_footer.jsp"%>
 </body>
 </html>
