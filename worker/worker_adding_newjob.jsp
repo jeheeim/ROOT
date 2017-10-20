@@ -114,18 +114,13 @@
 			</div>
 			<%
 				String priority				= "우선순위";
-				int temp = (document.getElementByName("inputEmergency").value + document.getElementByName("inputRange").value) / 2;
-				if(temp>=3)
-					priority = "상";	
-				else if(temp>=2)
-					priority = "중";
-				else 	
-					priority = "하";
 			%>
 			<!-- 범위, 긴급도 입력하면 자동으로 계산. 더하기해서 작은순으로 하면 될듯 -->
 			<label for="inputPriority" class="col-sm-2 control-label">우선순위</label>
 			<div class="col-sm-2">
-				<input disabled type="text" class="form-control" id="inputPriority" placeholder=<%=priority%>>
+				<input disabled type="text" class="form-control" id="inputPriority" placeholder=<%<script>
+			document.getElementsByName('inputEmergency').value
+			</script>%>>
 			</div>
 		</div>
 		
