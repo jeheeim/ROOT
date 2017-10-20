@@ -1,17 +1,12 @@
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
-<%@ include file="/common_header.jsp"%>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
     <title>공지사항</title>
+	<%@ include file="/common_header.jsp"%>
   </head>
 <body>
-    <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-    <script src="/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
-
 	<%
 		String dburl = "jdbc:mysql://localhost:3306/itsmdb";
 		// 사용하려는 데이터베이스명을 포함한 URL 기술
