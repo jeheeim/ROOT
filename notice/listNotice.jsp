@@ -1,3 +1,4 @@
+<!-- 이 파일은 문제 있습니다.-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
 <%@ include file="../dbLogin.jspf"%>
@@ -12,6 +13,17 @@
 <%
 	int total = 0;
 
+<<<<<<< HEAD
+=======
+	String dburl = "jdbc:mysql://localhost:3306/itsmdb";
+	// 사용하려는 데이터베이스명을 포함한 URL 기술
+	String dbuser = "root";
+	// 사용자 계정
+	String dbpw = "1234";
+	// 사용자 계정의 패스워드
+	
+
+>>>>>>> refs/remotes/origin/master
 	/*		db login	*/
 	try
 	{
@@ -27,14 +39,12 @@
 		{
 			total = rs.getInt(1);
 		}
+
+		rs.close();
 	}
 	catch(Exception e)
 	{
 		out.println(e.toString());
-	}
-	finally
-	{
-		rs.close();
 	}
 
 	/*		paging		*/
@@ -45,7 +55,11 @@
 	// page 번호
 	int pageNumber;
 
+<<<<<<< HEAD
 	if(request.getParameter("page") != null)
+=======
+	if(request.getParameter("pageNumber") != null)
+>>>>>>> refs/remotes/origin/master
 	{
 		pageNumber = Integer.parseInt(request.getParameter("page"));
 	}
@@ -68,7 +82,7 @@
 	}
 
 	/*		db		*/
-
+	String sqlList =null;
 	try
 	{
 		//String sqlList = "SELECT NUM, USERNAME, TITLE, TIME, HIT, INDENT from board1 where STEP2 >="+start + " and STEP2 <= "+ end +" order by step2 asc";
