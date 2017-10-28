@@ -2,33 +2,44 @@
 <%@ include file="../dbLogin.jspf"%>
 
 <%
-int service_inQueue = 0;
-int service_new = 1;
-int service_assigned = 2;
-int service_onProgress = 3;
-int service_finished = 4;
+/*
+number of tasks index
+0: 신규
+1: 접수
 
-int number_incident;
-int number_change;
-int number_release;
+--------
+2: 인시던트
+3: 변경관리
+4: 릴리즈
+-------
+
+5: 완료
+6: 작업중
+7: 서비스 요청 현황
+*/
+int number_of_tasks[] = new int[8];
+
+int i = 0;
 
 try
 {
 	stmt = conn.createStatement();
-
-	sql = "SELECT COUNT(*) COUNT(if(status=0, status, NULL)), COUNT(if(status=1, status, NULL)), COUNT(if(status = 2, status, NULL), COUNT(if(status = 3, status, NULL)), COUNT(if(status = 4, status, NULL)), COUNT(if(status = 5, status, NULL)) FROM incident_management";
+	sql = "SELECT COUNT(*) FROM incident_management GROUP BY status";
 	rs = stmt.executeQuery(sql);
 
-	if(rs.next())
+	while(rs.next())
 	{
-		service_inQueue  = rs.getInt(1);
-		service_new		 = rs.getInt(2);
-		service_assigned = rs.getInt(3);
-		number_incident  = rs.getInt(4);
-		number_change 	 = rs.getInt(5);
-		number_release 	 = rs.getInt(6);
-		service_finished = rs.getInt(7);
+		number_of_tasks[i]  = rs.getInt(1);
+
+		i++;
 	}
+
+	number_of_tasks[6] = number_of_tasks[2] + number_of_tasks[3] + number_of_tasks[4];
+	number_of_tasks[7] = number_of_tasks[0] + number_of_tasks[1] + number_of_tasks[5] + number_of_tasks[6];
+
+	rs.close();
+	stmt.close();
+	conn.close();
 }
 catch(SQLException sqle)
 {
@@ -37,12 +48,6 @@ catch(SQLException sqle)
 catch(Exception e)
 {
 	out.println(e.toString());
-}
-finally
-{
-	rs.close();
-	stmt.close();
-	conn.close();
 }
 %>
 
@@ -72,7 +77,7 @@ finally
 				4: 작업 완료된 서비스
 				*/
 				%>
-				<tbody><tr style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2'"><td colspan = "4"><p class="text-center"><%=service_inQueue%></td></tr></tbody>
+				<tbody><tr style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2'"><td colspan = "4"><p class="text-center"><%=number_of_tasks[7]%></td></tr></tbody>
 				
 				<thead>
 					<tr>
@@ -85,10 +90,10 @@ finally
 
 				<tbody>
 					<tr>
-						<td style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=1'"><p class="text-center"><%=service_new%></td>
-						<td style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=2'"><p class="text-center"><%=service_assigned%></td>
-						<td style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=3'"><p class="text-center"><%=service_onProgress%></td>
-						<td style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=4'"><p class="text-center"><%=service_finished%></td>
+						<td style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=1'"><p class="text-center"><%=number_of_tasks[0]%></td>
+						<td style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=2'"><p class="text-center"><%=number_of_tasks[1]%></td>
+						<td style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=3'"><p class="text-center"><%=number_of_tasks[6]%></td>
+						<td style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=4'"><p class="text-center"><%=number_of_tasks[5]%></td>
 					</tr>
 				</tbody>
 			</table>
