@@ -2,6 +2,13 @@
 <%@include file="../dbLogin.jspf"%>
 
 <%
+int param = 0;
+try
+{
+	param = Integer.parseInt(request.getParameter("param"));
+}
+catch(Exception e){}
+
 int index = 0;
 String date_added = "";
 String date_due = "";
