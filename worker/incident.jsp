@@ -79,7 +79,7 @@ element.addEventListener(event, handler, false);
 		stmt = conn.createStatement();
 
 		sql = "SELECT title, reception_path, customer, registration_date, deadline, "
-		+ "problem_scope, urgency, priority FROM incident_management WHERE incident_management.index=" + idx;
+		+ "problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음') FROM incident_management WHERE incident_management.index=" + idx;
 		rs = stmt.executeQuery(sql);
 
 		if(rs.next()){
@@ -91,6 +91,8 @@ element.addEventListener(event, handler, false);
 			int problem_scope = rs.getInt(6);
 			int urgency = rs.getInt(7);
 			int priority = rs.getInt(8);
+			String content = rs.getString(9);
+			String action_details = rs.getString(10);
 
 %>
 <body onload="init();">
@@ -168,18 +170,14 @@ element.addEventListener(event, handler, false);
 		<div class="form-group">
 			<label class="col-sm-1 control-label">내용</label>
 			<div class="col-sm-8">
-				<div class="well well-sm" readonly>내용이 들어 가는 곳입니다.</div>
+				<div class="well well-sm"><%=content%></div>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-1 control-label">담당자 의견</label>
 			<div class="col-sm-8">
-				<div class="well well-sm">
-					담당자의 의견이 들어가는 곳인데
-					얼마나 넣어야
-					textarea 처럼 나오는 것일까
-				</div>
+				<div class="well well-sm"><%=action_details%></div>
 			</div>
 		</div>
 	</form>
