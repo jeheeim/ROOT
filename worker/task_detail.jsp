@@ -35,11 +35,9 @@ try{
 try{
 	if (rs.next()) {
 		incident_param = rs.getInt(1);
-		out.println("inci idx" + incident_param);
 		if(rs.getInt(2) != 0) {
 			change_param = rs.getInt(2);
 			changeState = true;
-			out.println("chan idx " + change_param);
 		}
 		else{
 		    changeState = false;
@@ -54,7 +52,6 @@ catch (Exception e2){
 
 String incident_page = "incident.jsp?idx=" + incident_param;
 String change_page = "change.jsp?idx=" + change_param;
-out.println(incident_page);
 //~~~ incident param과 change param에 값을 넣어줄 쿼리문 실행할것
 // status 값도 구해서 넣을것
 %>
