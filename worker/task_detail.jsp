@@ -13,30 +13,45 @@ kms 테이블에서 idx값이 패러미터 param인 항목을 찾아야한다.
 */
 
 int param = Integer.parseInt(request.getParameter("param"));
-
+if(param < 1){
+    out.println("KMS에 DATA가 없습니다.");
+}
+else{
 int incident_param = 0;
 int change_param = 0;
 
-boolean changeState = true;
+boolean changeState = false;
 try {
-	sql = "SELECT incident_idx, change_idx FROM KMS WHERE kms_index=" + param;
+	sql = "SELECT incident_index, change_index FROM kms WHERE kms_index = " + param;
 	stmt = conn.createStatement();
+}catch (Exception e){
+    out.println(e.toString());
+}
+try{
 	rs = stmt.executeQuery(sql);
+}catch (SQLException e){
+    out.println(e.toString());
+}
+try{
 	if (rs.next()) {
 		incident_param = rs.getInt(1);
-		change_param = rs.getInt(2);
+		if(rs.getInt(2) != 0) {
+			change_param = rs.getInt(2);
+			changeState = true;
+		}
+		else{
+		    changeState = false;
+		}
 	}
 }
-catch (Exception e){
-	changeState = false;
+catch (Exception e2){
 }
 /*
 쿼리문을 실행해 incident_param에 incident_idx, change_param에 change_idx를 입력할것.
 */
 
-String incident_page = "/worker/incident.jsp?param=" + incident_param;
-String change_page = "/worker/change.jsp?param=" + change_param;
-
+String incident_page = "incident.jsp?idx=" + incident_param;
+String change_page = "change.jsp?idx=" + change_param;
 //~~~ incident param과 change param에 값을 넣어줄 쿼리문 실행할것
 // status 값도 구해서 넣을것
 %>
@@ -50,15 +65,16 @@ String change_page = "/worker/change.jsp?param=" + change_param;
 <body>
 	<h1>업무 상세보기</h1>
 	<div id="incidentFrame">
-		<jsp:include page="incident.jsp?idx=<%=incident_param%>" flush="true"/>
+		<jsp:include page="<%=incident_page%>" flush="true"/>
 	</div>
 
 	<div id="changeFrame">
 		<%
 			if(changeState){
-			    %><jsp:include page="change.jsp?idx=<%=change_param%>" flush="true"/><%
+			    %><jsp:include page="<%=change_page%>" flush="true"/><%
 			}
-		%>
+		}
+	%>
 
 	</div>
 
