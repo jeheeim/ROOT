@@ -111,8 +111,9 @@
 							//KMS Num 찾기
 							sqlKMSNum = "SELECT kms_index FROM kms WHERE incident_index=" + idx;
 							rs_kms = stmt_kms.executeQuery(sqlKMSNum);
+							int kms_idx = -1;
 							if(rs_kms.next())
-							    int kms_idx = rs_kms.getInt(1);
+							    kms_idx = rs_kms.getInt(1);
 							rs_kms.close();
 				%>
 				<tr>
@@ -122,7 +123,7 @@
 					</th>
 					<td>
 						<!--제목-->
-						<a href="/mainPage.jsp?mod=105&param=<%=rs_kms%>"><%=title%></a>
+						<a href="/mainPage.jsp?mod=105&param=<%=kms_idx%>"><%=title%></a>
 					</td>
 					<td>
 						<!--작성자-->
