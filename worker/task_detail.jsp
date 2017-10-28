@@ -17,8 +17,19 @@ int param = Integer.parseInt(request.getParameter("param"));
 int incident_param = 0;
 int change_param = 0;
 
-sql = "SELECT incident_idx, change_idx FROM KMS";
-
+boolean changeState = true;
+try {
+	sql = "SELECT incident_idx, change_idx FROM KMS WHERE kms_index=" + param;
+	stmt = conn.createStatement();
+	rs = stmt.executeQuery(sql);
+	if (rs.next()) {
+		incident_param = rs.getInt(1);
+		change_param = rs.getInt(2);
+	}
+}
+catch (Exception e){
+	changeState = false;
+}
 /*
 쿼리문을 실행해 incident_param에 incident_idx, change_param에 change_idx를 입력할것.
 */
@@ -39,7 +50,17 @@ String change_page = "/worker/change.jsp?param=" + change_param;
 <body>
 	<h1>업무 상세보기</h1>
 	<div id="incidentFrame">
-		<jsp:include page="<%= incident  %>" flush="true"/>
+		<jsp:include page="incident.jsp?idx=<%=incident_param%>" flush="true"/>
 	</div>
+
+	<div id="changeFrame">
+		<%
+			if(changeState){
+			    %><jsp:include page="change.jsp?idx=<%=change_param%>" flush="true"/><%
+			}
+		%>
+
+	</div>
+
 </body>
 </html>

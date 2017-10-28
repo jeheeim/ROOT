@@ -108,7 +108,6 @@
 </head>
 
 <body id="target">
-<%=check%>
 	<div class="container" style="margin-top:20px">
 		<div class="row">
 			<div class="col-md-3" role="complementary">
@@ -131,7 +130,7 @@
 							<div id="control">
 								<div class="btn-group" role="group" aria-label="...">
 									<a class="btn btn-default" href="/mainPage.jsp?mod=201" role="button">공지사항</a>
-									<a class="btn btn-default" href="#" role="button">로그아웃</a>
+									<a class="btn btn-default" href="/logout.jsp" role="button">로그아웃</a>
 								</div>
 							</div>
 						</div>

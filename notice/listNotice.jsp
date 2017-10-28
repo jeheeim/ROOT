@@ -1,6 +1,7 @@
 <!-- 이 파일은 문제 있습니다.-->
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
+<%@ include file="../dbLogin.jspf"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -12,24 +13,16 @@
 <%
 	int total = 0;
 
-	String dburl = "jdbc:mysql://localhost:3306/itsmdb";
-	// 사용하려는 데이터베이스명을 포함한 URL 기술
-	String dbuser = "root";
-	// 사용자 계정
-	String dbpw = "1234";
-	// 사용자 계정의 패스워드
-	
-
 	/*		db login	*/
 	try
 	{
 		Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-		Connection conn = DriverManager.getConnection(dburl,dbuser,dbpw);;
-		Statement stmt = conn.createStatement();
+		conn = DriverManager.getConnection(dburl,dbuser,dbpw);;
+		stmt = conn.createStatement();
 
-		String sqlCount = "SELECT COUNT(*) FROM notice";
-		ResultSet rs = stmt.executeQuery(sqlCount);
+		sql = "SELECT COUNT(*) FROM notice";
+		rs = stmt.executeQuery(sql);
 
 		if(rs.next())
 		{
@@ -51,7 +44,7 @@
 	// page 번호
 	int pageNumber;
 
-	if(request.getParameter("pageNumber") != null)
+	if(request.getParameter("page") != null)
 	{
 		pageNumber = Integer.parseInt(request.getParameter("page"));
 	}
@@ -60,13 +53,13 @@
 		pageNumber = 1;
 	}
 
-	int start	= (pageNumber*ROWSIZE) - (ROWSIZE-1); // 해당페이지에서 시작번호(step2)
-	int end		= (pageNumber*ROWSIZE); // 해당페이지에서 끝번호(step2)
-	int allPage = 0; // 전체 페이지수
+	// 전체 페이지수
+	int allPage = (int)Math.ceil(total/(double)ROWSIZE);
+
+	int start	= total - ((pageNumber - 1) * ROWSIZE); // 해당페이지에서 시작번호(step2)
+	int end		= start - ROWSIZE + 1; // 해당페이지에서 끝번호(step2)
 	int startPage = ((pageNumber-1)/BLOCK*BLOCK)+1; // 시작블럭숫자 (1~5페이지일경우 1, 6~10일경우 6)
 	int endPage = ((pageNumber-1)/BLOCK*BLOCK)+BLOCK; // 끝 블럭 숫자 (1~5일 경우 5, 6~10일경우 10)
-
-	allPage = (int)Math.ceil(total/(double)ROWSIZE);
 		
 	if(endPage > allPage)
 	{
@@ -78,8 +71,8 @@
 	try
 	{
 		//String sqlList = "SELECT NUM, USERNAME, TITLE, TIME, HIT, INDENT from board1 where STEP2 >="+start + " and STEP2 <= "+ end +" order by step2 asc";
-		sqlList = "SELECT num, created, title, account_id, isdeleted from notice order by NUM DESC WHERE idx >=" + start + "and idx" + end;
-		rs = stmt.executeQuery(sqlList);
+		sql = "SELECT * from notice WHERE num BETWEEN " + end + " and " + start + " order by NUM DESC";
+		rs = stmt.executeQuery(sql);
 %>
 
 <table class="table table-striped">
@@ -107,7 +100,7 @@
 				created = created.substring(0,10);
 				String title = rs.getString(3);
 				String account_id = rs.getString(4);
-				int isDeleted = rs.getInt(5);
+				int isDeleted = rs.getInt(6);
 
 				if(isDeleted == 1){ continue; }
 
@@ -140,7 +133,7 @@
 </table>
 
 <%
-String urlPaing = "../mainPage.jsp?mod=201&page=";
+String urlPaging = "../mainPage.jsp?mod=201&page=";
 String url_start_page = urlPaging + 1;
 String url_end_page = urlPaging + endPage;
 %>
@@ -156,9 +149,9 @@ String url_end_page = urlPaging + endPage;
 
 		for(int i = 1; i <= endPage; i++)
 		{
-			urlPaing += i;
+			String temp = urlPaging + i;
 		%>
-			<li><a href="<%=urlPaging%>"><%=i%></a></li>
+			<li><a href="<%=temp%>"><%=i%></a></li>
 		<%
 		}
 		%>

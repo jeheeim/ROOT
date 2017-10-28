@@ -1,23 +1,23 @@
 <%@page import="java.sql.*"%>
 <%
-	String dburl = "jdbc:mysql://localhost:3306/itsmdb";
-	// 사용하려는 데이터베이스명을 포함한 URL 기술
-	String dbuser = "root";
-	// 사용자 계정
-	String dbpw = "1234";
-	// 사용자 계정의 패스워드
-	Connection conn = null;
-	Statement stmt = null;
-	ResultSet rs = null;
-	
-	String sql = null;
+// 사용하려는 데이터베이스명을 포함한 URL 기술
+String dburl = "jdbc:mysql://localhost:3306/itsmdb";
+// 사용자 계정
+String dbuser = "root";
+// 사용자 계정의 패스워드
+String dbpw = "1234";
+
+Connection conn = null;
+Statement stmt = null;
+ResultSet rs = null;
+
+String sql = null;
+
 try
 {
 	Class.forName("com.mysql.jdbc.Driver").newInstance();
 
-	
 	conn = DriverManager.getConnection(dburl,dbuser,dbpw);;
-	
 }
 catch(ClassNotFoundException e)
 {

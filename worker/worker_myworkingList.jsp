@@ -25,14 +25,19 @@
 	//ResultSet rs=null;
 	String sqlList =null;
 	String sqlFindNameDepart=null;
+	String sqlKMSNum=null;
 	int total = 0;
 	//새로만든 rs
 	ResultSet rs_temp1 = null;
 	Statement stmt_temp = null;
+
+	ResultSet rs_kms = null;
+	Statement stmt_kms = null;
 	try{
 		//출처: http://seinarin.tistory.com/3 [행복을 찾아서]
 		stmt = conn.createStatement();
 		stmt_temp= conn.createStatement();
+		stmt_kms = conn.createStatement();
 		//String sqlCount = "SELECT COUNT(*) FROM incident_management"
 		sqlCount = "SELECT COUNT(*) FROM incident_management";
 		//ResultSet rs = stmt.executeQuery(sqlCount);
@@ -102,6 +107,13 @@
 							if(rs_temp1.next())
 								customerDepart = rs_temp1.getString("department");
 							rs_temp1.close();
+
+							//KMS Num 찾기
+							sqlKMSNum = "SELECT kms_index FROM kms WHERE incident_index=" + idx;
+							rs_kms = stmt_kms.executeQuery(sqlKMSNum);
+							if(rs_kms.next())
+							    int kms_idx = rs_kms.getInt(1);
+							rs_kms.close();
 				%>
 				<tr>
 					<th scope="row">
@@ -110,7 +122,7 @@
 					</th>
 					<td>
 						<!--제목-->
-						<%=title%>
+						<a href="/mainPage.jsp?mod=105&param=<%=rs_kms%>"><%=title%></a>
 					</td>
 					<td>
 						<!--작성자-->
