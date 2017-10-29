@@ -16,6 +16,8 @@
     String s = d.toString();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	String todayDate = sdf.format(d);
+	int selectNum=0;
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -24,7 +26,24 @@
 
 	<!--   BootStrap STARTING LINE   -->
 	<%@include file="/common_header.jsp"%>
-	
+	<script language="javascript">
+	function getSelectValue(frm)
+	{
+		var temp1 = frm.inputRange.options[frm.inputRange.selectedIndex].value;
+		var temp2 = frm.inputEmergency.options[frm.inputEmergency.selectedIndex].value;
+		//var temp = ( parseInt(temp1) + parseInt(temp2) ) /2;
+		var temp = ( parseInt(temp1) + parseInt(temp2) )/2;
+		if (temp <= 1){
+			frm.inputPriority.value = "상";
+		}
+		else if (temp > 1 && temp <= 2){
+			frm.inputPriority.value = "중";
+		}
+		else if (temp > 2){
+			frm.inputPriority.value = "하";
+		}
+	}
+</script>
 </head>
 
 <body>
@@ -51,19 +70,61 @@
 			<div class="col-sm-2">
 				<!-- 고객사 순서는 db의 고객사 테이블의 id가 되게 한다 -->
 				<select class="form-control" name="inputClient_company" style="width: 100%;">
-					<option value="1">삼성SDI</option>
-					<option value="2">LINE</option>
-					<option value="3">LG CNS</option>
-					<option value="4">돈많이 주는곳</option>
+				<%
+					String user_id = (String)session.getAttribute("user_id");
+					String dburl = "jdbc:mysql://localhost:3306/itsmdb";
+					String dbuser = "root";
+					String dbpw = "1234";
+					Connection conn = DriverManager.getConnection(dburl,dbuser,dbpw);;
+       				Statement stmt = null;
+					String sql_table = null;
+        			ResultSet rs = null;
+					String company_name = null;
+					String depart_name = null;
+					try{
+						stmt = conn.createStatement();
+						sql_table = "SELECT * FROM company";
+						rs = stmt.executeQuery(sql_table);
+						while(rs.next()){
+							company_name = rs.getString("companyName");			//회사명
+							selectNum++;
+				%>
+							<option value=<%=selectNum%>><%=company_name%></option>
+				<%
+						}
+						selectNum=0;
+						if(rs.next())
+							company_name = rs.getString("companyName");	
+						rs.close();
+					}catch(SQLException e){
+					out.println(e.toString() );
+					}
+				%>
 				</select>
 			</div>
 			<label for="inputClient_depart" class="col-sm-1 control-label">부서</label>
 			<div class="col-sm-2">
 				<select class="form-control" name="inputClient_depart" style="width: 100%;">
-					<option value="1">작전과</option>
-					<option value="2">정보과</option>
-					<option value="3">인사과</option>
-					<option value="4">군수과</option>
+				<%
+					try{
+						sql_table = "SELECT * FROM company WHERE companyName = \'"+company_name+"\'";
+						rs = stmt.executeQuery(sql_table);
+						//
+						//여기 할 차례 웬지 반응형으로 해야하니까 javascript로 해야 할 것 같다!
+						//
+						while(rs.next()){
+							depart_name = rs.getString("index");			//index
+							selectNum++;
+				%>
+					<option value=<%=selectNum%>><%=depart_name%></option>
+				<%
+						}
+						selectNum=0;
+						rs.close();
+					}catch(SQLException e){
+					out.println(e.toString() );
+					}
+				%>
 				</select>
 			</div>
 			<label for="inputClient" class="col-sm-1 control-label">이름</label>
@@ -94,33 +155,29 @@
 			</div>
 		</div>
 		
-
 		<div class="form-group">
 			<label for="inputRange" class="col-sm-2 control-label">문제범위</label>
 			<div class="col-sm-2">
-				<select class="form-control" name="inputRange" style="width: 100%;">
+				<select class="form-control" name="inputRange" style="width: 100%;" onChange="getSelectValue(this.form);">
 					<option value="1">전 회사</option>
 					<option value="2">부서</option>
 					<option value="3">개인</option>
 				</select>
 			</div>
+			
 			<label for="inputEmergency" class="col-sm-2 control-label">긴급도</label>
 			<div class="col-sm-2">
-				<select class="form-control" name="inputEmergency" style="width: 100%;">
+				<select class="form-control" name="inputEmergency" style="width: 100%;" onChange="getSelectValue(this.form);">
 					<option value="1">긴급</option>
 					<option value="2">중요</option>
 					<option value="3">경미</option>
 				</select>
 			</div>
-			<%
-				String priority				= "우선순위";
-			%>
+			
 			<!-- 범위, 긴급도 입력하면 자동으로 계산. 더하기해서 작은순으로 하면 될듯 -->
 			<label for="inputPriority" class="col-sm-2 control-label">우선순위</label>
 			<div class="col-sm-2">
-				<input disabled type="text" class="form-control" id="inputPriority" placeholder=<%<script>
-			document.getElementsByName('inputEmergency').value
-			</script>%>>
+				<input disabled type="text" class="form-control" id="inputPriority" placeholder="우선순위">
 			</div>
 		</div>
 		

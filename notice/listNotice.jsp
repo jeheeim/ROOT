@@ -12,7 +12,10 @@
 <body>
 <%
 	int total = 0;
-
+	//새로만든 rs
+	ResultSet rs_temp1 = null;
+	Statement stmt_temp = null;
+	String sqlFindNameDepart=null;
 	/*		db login	*/
 	try
 	{
@@ -20,7 +23,7 @@
 
 		conn = DriverManager.getConnection(dburl,dbuser,dbpw);;
 		stmt = conn.createStatement();
-
+		stmt_temp= conn.createStatement();
 		sql = "SELECT COUNT(*) FROM notice";
 		rs = stmt.executeQuery(sql);
 
@@ -103,15 +106,34 @@
 				int isDeleted = rs.getInt(6);
 
 				if(isDeleted == 1){ continue; }
+				//이름 구하기
+				sqlFindNameDepart = "SELECT name FROM account WHERE account.id = \'" + account_id +"\'";
+				rs_temp1 = stmt_temp.executeQuery(sqlFindNameDepart);
+				String customerName = null;
+				if(rs_temp1.next())
+				customerName = rs_temp1.getString("name");
+				rs_temp1.close();
+				String customerDepart = null;
+				sqlFindNameDepart = "SELECT department FROM account WHERE account.id = \'" + account_id +"\'";
+				rs_temp1 = stmt_temp.executeQuery(sqlFindNameDepart);
+				if(rs_temp1.next())
+					customerDepart = rs_temp1.getString("department");
+				rs_temp1.close();
+
+				sqlFindNameDepart = "SELECT department FROM company_department WHERE company_department.index = \'" + customerDepart +"\'";
+				rs_temp1 = stmt_temp.executeQuery(sqlFindNameDepart);
+				if(rs_temp1.next())
+					customerDepart = rs_temp1.getString("department");
+				rs_temp1.close();
 
 	%>
 
 		<tr>
 			<th><%=idx %></th>
 			<td><a href="/mainPage.jsp?mod=203&idx=<%=idx%>"><%=title%></a></td>
-			<td><%=created%></td>
-			<td><%=account_id%></td>
-			<td>Sample Department</td>
+			<td><%=created%></td>			
+			<td><%=customerName%></td>
+			<td><%=customerDepart%></td>
 		</tr>
 
 	<%
