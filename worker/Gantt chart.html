@@ -1,0 +1,29 @@
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['timeline']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var container = document.getElementById('gantt');
+            var chart = new google.visualization.Timeline(container);
+            var dataTable = new google.visualization.DataTable();
+
+            dataTable.addColumn({ type: 'string', id: 'item' });
+            dataTable.addColumn({ type: 'date', id: 'start' });
+            dataTable.addColumn({ type: 'date', id: 'end' });
+            dataTable.addRows([
+                //date 월 0~11 /일1~31 /ex)1월 1일 : 2017, 0, 1
+                [ '변경관리-장비 변경', new Date(2017, 4, 0), new Date(2017, 4, 4) ],
+                [ '변경관리-업데이트',      new Date(2017, 4, 5),  new Date(2017, 4, 5) ],
+                [ '변경관리-백업계획',      new Date(2017, 4, 3),  new Date(2017, 4, 4) ],
+                [ '릴리즈관리-백업계획',  new Date(2017, 4, 20),  new Date(2017, 4, 21) ]]);
+
+            chart.draw(dataTable);
+        }
+    </script>
+</head>
+<body>
+<div id="gantt"></div>
+</body>
+</html>
