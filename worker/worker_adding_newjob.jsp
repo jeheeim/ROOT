@@ -31,7 +31,6 @@
 	{
 		var temp1 = frm.inputRange.options[frm.inputRange.selectedIndex].value;
 		var temp2 = frm.inputEmergency.options[frm.inputEmergency.selectedIndex].value;
-		//var temp = ( parseInt(temp1) + parseInt(temp2) ) /2;
 		var temp = ( parseInt(temp1) + parseInt(temp2) )/2;
 		if (temp <= 1){
 			frm.inputPriority.value = "상";
@@ -104,6 +103,12 @@
 			</div>
 			<label for="inputClient_depart" class="col-sm-1 control-label">부서</label>
 			<div class="col-sm-2">
+			<select class="form-control" name="inputClient_depart" style="width: 100%;">
+					<option value="1">인사부</option>
+					<option value="2">경리부</option>
+					<option value="3">영업부</option>
+				</select>
+				<!--/*
 				<select class="form-control" name="inputClient_depart" style="width: 100%;">
 				<%
 					try{
@@ -116,7 +121,7 @@
 							depart_name = rs.getString("index");			//index
 							selectNum++;
 				%>
-					<option value=<%=selectNum%>><%=depart_name%></option>
+					<option value=<%=selectNum%>></option>
 				<%
 						}
 						selectNum=0;
@@ -126,11 +131,12 @@
 					}
 				%>
 				</select>
+				*/-->
 			</div>
 			<label for="inputClient" class="col-sm-1 control-label">이름</label>
 			<div class="col-sm-4">
 				<select class="form-control" name="inputClient" style="width: 100%;">
-					<option value="1">대위 김호룡</option>
+					<option value="1">김구라</option>
 					<option value="2">소령 서상인</option>
 					<option value="3">소위 김나도</option>
 					<option value="4">중위 김김김</option>
