@@ -17,6 +17,7 @@ String inputDetail			= request.getParameter("inputDetail");
 String inputComment			= request.getParameter("inputComment");
 String inputDate_submit		= request.getParameter("inputDate_submit");
 String inputdate_Deadline	= request.getParameter("inputdate_Deadline");
+String receptionist	= request.getParameter("inputClient");
 int priority = 0;
 PreparedStatement pstmt = null;
 /*	1. 한글 입력되게 해야함
@@ -36,7 +37,7 @@ try
 		user_index = rs.getString("Idx");
 
 	priority = ( Integer.parseInt(inputRange) + Integer.parseInt(inputEmergency) ) / 2;
-	sql = "INSERT INTO incident_management(title, reception_path, problem_scope, urgency, receptionist_opion, content, registration_date, deadline, status, customer, priority)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+	sql = "INSERT INTO incident_management(title, reception_path, problem_scope, urgency, receptionist_opion, content, registration_date, deadline, status, customer, priority,receptionist)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 	pstmt = conn.prepareStatement(sql);
 
 	pstmt.setString(1, title);					//제목
@@ -50,6 +51,7 @@ try
 	pstmt.setString(9, "0");		//상태
 	pstmt.setString(10, user_index);	//id
 	pstmt.setString(11, String.valueOf(priority));		//우선순위
+	pstmt.setString(12, String.valueOf(receptionist));		//우선순위
 	//입력: 부서, 우선순위,//출력: 연락처, 이름
 
 	
