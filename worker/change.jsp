@@ -16,14 +16,36 @@
 </style>
 <%
     int idx = Integer.parseInt(request.getParameter("idx"));
+    Statement stmt_backup = null;
+    Statement stmt_work = null;
+    Statement stmt_test = null;
+    Statement stmt_recovery = null;
+
+    ResultSet rs_backup = null;
+    ResultSet rs_work = null;
+    ResultSet rs_test = null;
+    ResultSet rs_recovery = null;
+
+    String sql_backup = null;
+    String sql_work = null;
+    String sql_test = null;
+    String sql_recovery = null;
+
     try{
-        stmt = conn.createStatement();
+
 
         sql = "SELECT status FROM incident_management WHERE incident_management.index=" + idx;
-        rs = stmt.executeQuery(sql);
+        sql_backup = "SELECT index, date, time, worker, equipment FROM back_up_plan WHERE back_up_plan.change_idx=" + idx;
+        sql_work = "SELECT index, summary, date, worker, remark FROM work_plan WHERE work_plan.change_idx="+idx;
+        sql_test = "SELECT index, date, manager, remark, test_case, expected_result FROM test_plan WHERE test_plan.change_idx="+idx;
+        sql_recovery = "SELECT index, target, time, worker, remark FROM recovery_plan WHERE recovery_plan.change_idx="+idx;
 
-        if(rs.next()){
-            int status = rs.getInt(1);
+
+
+
+
+
+
 %>
 <!--
 well{
@@ -118,22 +140,38 @@ well{
                         <th>장비</th>
                     </thead>
                     <tbody>
+                    <%
+                        try{
+                            %>backup_start<%
+                            stmt_backup = conn.createStatement();
+                            %>conn<%
+                            rs_backup = stmt_backup.executeQuery(sql_backup);
+                            %>back_while<%
+                        while(rs_backup.next()){
+                            //index, date, time, worker, equipment WHERE back_up_plan.change_idx=
+                            int index = rs_backup.getInt(1);
+                            String date = rs_backup.getString(2);
+                            String time = rs_backup.getString(3);
+                            String worker = rs_backup.getString(4);
+                            String equip = rs_backup.getString(5);
+                    %>
                     <tr>
-                        <th>No.SP</th>
-                        <td>Sample Target</td>
-                        <td>Sample Date</td>
-                        <td>Sample Time</td>
-                        <td>Sample Worker</td>
-                        <td>Sample Equipment</td>
+                        <th><%=index%></th>
+                        <td>target</td>
+                        <td><%=date%></td>
+                        <td><%=time%></td>
+                        <td><%=worker%></td>
+                        <td><%=equip%></td>
                     </tr>
-                    <tr>
-                        <th>No.SP</th>
-                        <td>Sample Target</td>
-                        <td>Sample Date</td>
-                        <td>Sample Time</td>
-                        <td>Sample Worker</td>
-                        <td>Sample Equipment</td>
-                    </tr>
+                    <%
+                        }
+                        %>backup_<%
+                        rs_backup.close();
+                        stmt_backup.close();
+                        }catch (Exception e2){
+                            e2.toString();
+                        }
+                    %>
                     </tbody>
                 </table>
             </div>
@@ -163,27 +201,33 @@ well{
                 </tr>
                 </thead>
                 <tbody>
+                <%
+                    try{
+                        %>work_start<%
+                        stmt_work = conn.createStatement();
+                        %>conn<%
+                        rs_work = stmt_work.executeQuery(sql_work);
+                        %>work while<%
+                    while(rs_work.next()){
+                        //index, summary, date, worker, remark
+                %>
                 <tr>
-                    <th>No. Sp</th>
+                    <th><%=rs_work.getInt(1)%></th>
                     <td>Sample target</td>
-                    <td>Sample Time</td>
-                    <td>Sample Worker</td>
-                    <td>Sample Note</td>
+                    <td><%=rs_work.getString(3)%></td>
+                    <td><%=rs_work.getString(4)%></td>
+                    <td><%=rs_work.getString(5)%></td>
                 </tr>
-                <tr>
-                    <th>No. Sp</th>
-                    <td>Sample target</td>
-                    <td>Sample Time</td>
-                    <td>Sample Worker</td>
-                    <td>Sample Note</td>
-                </tr>
-                <tr>
-                    <th>No. Sp</th>
-                    <td>Sample target</td>
-                    <td>Sample Date</td>
-                    <td>Sample Worker</td>
-                    <td>Sample Note</td>
-                </tr>
+                <%
+                    }
+                    rs_work.close();
+                    stmt_work.close();
+                    }catch (Exception e3){
+                        e3.toString();
+                    }
+                %>
+
+
                 </tbody>
             </table>
         </div>
@@ -213,22 +257,33 @@ well{
             <th>예상결과</th>
         </thead>
         <tbody>
+        <%
+            try{
+                %>test<%
+                stmt_test = conn.createStatement();
+                %>conn<%
+                rs_test = stmt_test.executeQuery(sql_test);
+                %>test while<%
+            while (rs_test.next()){
+                //index, date, manager, remark, test_case, expected_result
+        %>
         <tr>
-            <th>No.Sp</th>
-            <td>Sample Date</td>
-            <td>Sample Worker</td>
-            <td>Sample Note</td>
-            <td>Sample Case</td>
-            <td>Sample Result</td>
+            <th><%=rs_test.getInt(1)%></th>
+            <td><%=rs_test.getString(2)%></td>
+            <td><%=rs_test.getString(3)%></td>
+            <td><%=rs_test.getString(4)%></td>
+            <td><%=rs_test.getString(5)%></td>
+            <td><%=rs_test.getString(6)%></td>
         </tr>
-        <tr>
-            <th>No.Sp</th>
-            <td>Sample Date</td>
-            <td>Sample Worker</td>
-            <td>Sample Note</td>
-            <td>Sample Case</td>
-            <td>Sample Result</td>
-        </tr>
+        <%
+            }
+            rs_test.close();
+            stmt_test.close();
+            }catch (Exception e4){
+                e4.toString();
+            }
+        %>
+
         </tbody>
     </table>
     </div>
@@ -259,20 +314,30 @@ well{
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>No.Sp</td>
-                        <td>S Target</td>
-                        <td>S Time</td>
-                        <td>S Worker</td>
-                        <td>S Note</td>
-                    </tr>
-                    <tr>
-                        <td>No.Sp</td>
-                        <td>S Target</td>
-                        <td>S Time</td>
-                        <td>S Worker</td>
-                        <td>S Note</td>
-                    </tr>
+                <%
+                    try{
+                        stmt_recovery = conn.createStatement();
+                        %>conn<%
+                        rs_recovery = stmt_recovery.executeQuery(sql_recovery);
+                        %>exe<%
+                    while(rs_recovery.next()){
+                        //index, target, time, worker, remark
+                %>
+                <tr>
+                    <td><%=rs_recovery.getInt(1)%></td>
+                    <td><%=rs_recovery.getString(2)%></td>
+                    <td><%=rs_recovery.getString(3)%></td>
+                    <td><%=rs_recovery.getString(4)%></td>
+                    <td><%=rs_recovery.getString(5)%></td>
+                </tr>
+                <%
+                    }
+                    rs_recovery.close();
+                    stmt_recovery.close();
+                    }catch (Exception e5){
+                        e5.toString();
+                    }
+                %>
                 </tbody>
             </table>
         </div>
@@ -292,22 +357,29 @@ well{
     </div>
     <div class="form-group">
         <div class="col-sm-1"></div>
-        <%switch (status){
-            case 0:
-            case 1:
-                break;
-            case 2:
-                %><button type="submit" class="btn btn-default">다음단계</button><%
-                break;
-            case 3:
-                %><button type="submit" class="btn btn-default">완료</button><%
+        <%
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                int status = rs.getInt(1);
+                switch (status){
+                case 0:
+                case 1:
+                    break;
+                case 2:
+                    %><button type="submit" class="btn btn-default">다음단계</button><%
+                    break;
+                case 3:
+                    %><button type="submit" class="btn btn-default">완료</button><%
+        }
         }%>
     </div>
 </form>
     <!--검토사항 끝-->
 <%@include file="/common_footer.jsp"%>
 </body>
-<%  }//if
-}catch (Exception e){
+<%
+}catch (SQLException e){
+        e.toString();
 }%>
 </html>
