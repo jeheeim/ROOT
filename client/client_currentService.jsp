@@ -63,7 +63,7 @@ String user_id = (String)session.getAttribute("user_id");
 							worker_name = "(미배정)";
 						}
 				%>
-				<tr style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=<%=index%>'">
+				<tr style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=4&param=<%=index%>'">
 					<th scope="row" ><%=index%></th>
 					<td><%=date_added%></td>
 					<td><%=date_due%></td>
