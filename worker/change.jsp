@@ -101,7 +101,8 @@ well{
             <label class="col-sm-1 control-label">백업 계획</label>
             <div class="col-sm-7"></div>
             <div class="col-sm-1">
-                <button class="btn btn-default" type="submit">추가</button>
+                <a class="btn btn-default"
+                   onclick="window.open('../worker_popup/worker_backup_add.jsp', '백업계획 추가',''); return false;" target="_blank">추가</a>
             </div>
         </div>
         <div class="form-group">
@@ -144,7 +145,8 @@ well{
         <label class="col-sm-1 control-label">작업일정</label>
         <div class="col-sm-7"></div>
         <div class="col-sm-1">
-            <button class="btn btn-default" type="submit">추가</button>
+            <a class="btn btn-default"
+               onclick="window.open('../worker_popup/worker_workplan_add.jsp', '작업일정 추가',''); return false;" target="_blank">추가</a>
         </div>
     </div>
     <div class="form-group">
@@ -194,7 +196,8 @@ well{
         <label class="col-sm-1 control-label">테스트 계획</label>
         <div class="col-sm-7"></div>
         <div class="col-sm-1">
-            <button class="btn btn-default" type="submit">추가</button>
+            <a class="btn btn-default"
+               onclick="window.open('../worker_popup/worker_testplan_add.jsp', '테스트계획 추가',''); return false;" target="_blank">추가</a>
         </div>
     </div>
     <div class="form-group">
@@ -238,7 +241,8 @@ well{
         <label class="col-sm-1 control-label">복구 계획</label>
         <div class="col-sm-7"></div>
         <div class="col-sm-1">
-            <button class="btn btn-default" type="submit">추가</button>
+            <a class="btn btn-default"
+               onclick="window.open('../worker_popup/worker_recovery_add.jsp', '복구 계획 추가',''); return false;" target="_blank">추가</a>
         </div>
     </div>
     <div class="form-group">
