@@ -39,11 +39,12 @@ String user_id = (String)session.getAttribute("user_id");
 				{
 					stmt = conn.createStatement();
 					sql = "SELECT"
-					+ " kms.kms_index, incident_management.registration_date, incident_management.deadline, incident_management.title, incident_management.status, account.name"
-					+ " FROM kms"
+					+ " kms.kms_index, incident_management.registration_date, incident_management.deadline, incident_management.title, incident_management.status,"
+					+ " workers.name as worker_name, clients.id as client_id FROM kms"
 					+ " LEFT JOIN incident_management ON kms.incident_index=incident_management.index"
-					+ " LEFT JOIN account ON incident_management.customer=account.idx"
-					+ " WHERE account.id=\'" + user_id + "\'"
+					+ " LEFT JOIN account as workers ON kms.workerIdx=workers.idx"
+					+ " LEFT JOIN account as clients ON incident_management.customer=clients.idx"
+					+ " WHERE clients.id=\'" + user_id + "\'"
 					+ " ORDER BY kms.kms_index DESC";
 
 					rs = stmt.executeQuery(sql);
@@ -56,8 +57,13 @@ String user_id = (String)session.getAttribute("user_id");
 						title = rs.getString(4);
 						status = rs.getInt(5);
 						worker_name = rs.getString(6);
+
+						if(worker_name == null)
+						{
+							worker_name = "(미배정)";
+						}
 				%>
-				<tr>
+				<tr style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=<%=index%>'">
 					<th scope="row" ><%=index%></th>
 					<td><%=date_added%></td>
 					<td><%=date_due%></td>

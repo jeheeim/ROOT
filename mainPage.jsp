@@ -61,6 +61,9 @@
 		case 3:
 			mainBodyPage = "/client/client_addService.jsp";
 			break;
+		case 4:
+			mainBodyPage = "/client/client_serviceState.jsp?param=" + param;
+			break;
 
 		// 근무자 id
 		case 101:

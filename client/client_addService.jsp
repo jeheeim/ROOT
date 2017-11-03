@@ -20,23 +20,12 @@ catch(Exception e){}
 <body>
 	<form class="form-horizontal" action="/client/client_addService_process.jsp" method="post" accept-charset="UTF-8">
 		<div class="form-group">
-			<div class="col-sm-1"><label for="client">요청자</label></div>
+			<div class="col-sm-2"><label for="client">요청자</label></div>
 			<div class="col-sm-2">
 				<p class="form-control-static" name = "name"><%=name%></p>
 			</div>
 
-			<div class="col-sm-1"><label for="route">접수경로</label></div>
-			
-			<div class="col-sm-2">
-				<select class="form-control" name="route" style="width: 100%;">
-					<option value="1">전화</option>
-					<option value="2">회의</option>
-					<option value="3">이메일</option>
-					<option value="4">기타</option>
-				</select>
-			</div>
-
-			<div class="col-sm-1"><label for="range">문제범위</label></div>
+			<div class="col-sm-2"><label for="range">문제범위</label></div>
 			<div class="col-sm-2">
 				<select class="form-control" name="range" style="width: 100%;">
 					<option value="1">회사</option>
@@ -45,7 +34,7 @@ catch(Exception e){}
 				</select>
 			</div>
 
-			<div class="col-sm-1"><label for="emergency">긴급도</label></div>
+			<div class="col-sm-2"><label for="emergency">긴급도</label></div>
 			<div class="col-sm-2">
 				<select class="form-control" name="emergency" style="width: 100%;">
 					<option value="1">긴급</option>
