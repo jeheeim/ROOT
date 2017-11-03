@@ -1,69 +1,100 @@
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="../dbLogin.jspf"%>
+
+<%
+int param = 0;
+try
+{
+	param = Integer.parseInt(request.getParameter("param"));
+}
+catch(Exception e){}
+
+int index = 0;
+String date_added = "";
+String date_due = "";
+String title = "";
+int status = 0;
+String status_name = "";
+String worker_name = "";
+
+String user_id = (String)session.getAttribute("user_id");
+
+%>
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
-    <title>client ID</title>
+<head>
+	<%@ include file="../common_header.jsp"%>
+	<title>client ID</title>
+</head>
+<body>
+	<div class="bs-example" data-example-id="striped-table">
+		<table class="table table-striped">
+			<thead><tr>
+				<th width = "20">번호</th><th width = "50">일자</th><th width = "50">기한</th><th width = "200">제목</th><th width = "70">상태</th><th width = "70">담당자</th>
+			</tr></thead>
+		
+			<tbody>
+				<%
+				try
+				{
+					stmt = conn.createStatement();
+					sql = "SELECT"
+					+ " kms.kms_index, incident_management.registration_date, incident_management.deadline, incident_management.title, incident_management.status,"
+					+ " workers.name as worker_name, clients.id as client_id FROM kms"
+					+ " LEFT JOIN incident_management ON kms.incident_index=incident_management.index"
+					+ " LEFT JOIN account as workers ON kms.workerIdx=workers.idx"
+					+ " LEFT JOIN account as clients ON incident_management.customer=clients.idx"
+					+ " WHERE clients.id=\'" + user_id + "\'"
+					+ " ORDER BY kms.kms_index DESC";
 
-    <!-- 부트스트랩 -->
-    <link href="/bootstrap-3.3.2-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/worker/worker_mainBody.css" rel="stylesheet">
-    <!-- IE8 에서 HTML5 요소와 미디어 쿼리를 위한 HTML5 shim 와 Respond.js -->
-    <!-- WARNING: Respond.js 는 당신이 file:// 을 통해 페이지를 볼 때는 동작하지 않습니다. -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
-    <script src="/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
+					rs = stmt.executeQuery(sql);
 
-     <div class="bs-example" data-example-id="striped-table">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th width = "20">번호</th>
-          <th width = "50">일자</th>
-          <th width = "50">기한</th>
-          <th width = "200">제목</th>
-		      <th width = "70">상태</th>
-		      <th width = "70">담당자</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row" >1</th>
-          <td>Sample Date</td>
-          <td>Sample Deadline</td>
-          <td>Sample Title</td>
-		  <td>Sample State</td>
-		  <td>Sample Worker</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Sample Date</td>
-          <td>Sample Deadline</td>
-          <td>Sample Title</td>
-		  <td>Sample State</td>
-		  <td>Sample Worker</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Sample Date</td>
-          <td>Sample Deadline</td>
-          <td>Sample Title</td>
-		  <td>Sample State</td>
-		  <td>Sample Worker</td>
-        </tr>
-      </tbody>
-    </table>
-  </div><!-- /example -->
-  
+					while(rs.next())
+					{
+						index = rs.getInt(1);
+						date_added = rs.getString(2);
+						date_due = rs.getString(3);
+						title = rs.getString(4);
+						status = rs.getInt(5);
+						worker_name = rs.getString(6);
+
+						if(worker_name == null)
+						{
+							worker_name = "(미배정)";
+						}
+				%>
+				<tr style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=<%=index%>'">
+					<th scope="row" ><%=index%></th>
+					<td><%=date_added%></td>
+					<td><%=date_due%></td>
+					<td><%=title%></td>
+					<td><%=status%></td>
+					<td><%=worker_name%></td>
+				</tr>
+
+
+				<%
+					}
+
+					rs.close();
+					stmt.close();
+					conn.close();
+				}
+				catch(SQLException sqle)
+				{
+					out.println(sqle.toString());
+				}
+				catch(Exception e)
+				{
+					out.println(e.toString());
+				}				
+				%>
+					
+			</tbody>
+		</table>
+	</div>
+
+	<%@include file="../common_footer.jsp"%>
+
   </body>
 </html>
