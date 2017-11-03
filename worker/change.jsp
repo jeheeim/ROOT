@@ -40,12 +40,6 @@
         sql_test = "SELECT index, date, manager, remark, test_case, expected_result FROM test_plan WHERE test_plan.change_idx="+idx;
         sql_recovery = "SELECT index, target, time, worker, remark FROM recovery_plan WHERE recovery_plan.change_idx="+idx;
 
-
-
-
-
-
-
 %>
 <!--
 well{
@@ -367,7 +361,7 @@ well{
                 case 1:
                     break;
                 case 2:
-                    %><button type="submit" class="btn btn-default">다음단계</button><%
+                    %><button type="submit" class="btn btn-default">다음단계<%=status%></button><%
                     break;
                 case 3:
                     %><button type="submit" class="btn btn-default">완료</button><%
