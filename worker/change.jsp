@@ -1,5 +1,5 @@
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ include file="../dbLogin.jspf"%>
 <!DOCTYPE html>
 <html lang="ko">
 <style type="text/css">
@@ -14,6 +14,17 @@
         box-shadow:inset 0 1px 1px rgba(0,0,0,.05)
     }
 </style>
+<%
+    int idx = Integer.parseInt(request.getParameter("idx"));
+    try{
+        stmt = conn.createStatement();
+
+        sql = "SELECT status FROM incident_management WHERE incident_management.index=" + idx;
+        rs = stmt.executeQuery(sql);
+
+        if(rs.next()){
+            int status = rs.getInt(1);
+%>
 <!--
 well{
 	min-height:20px;
@@ -275,8 +286,22 @@ well{
             <div class="well well-sm">검토사항 내용을 넣으면 됩니다.</div>
         </div>
     </div>
+    <div class="form-group">
+        <div class="col-sm-1"></div>
+        <%switch (status){
+            case 0:
+            case 1:
+                break;
+            case 2:
+                %><button type="submit" class="btn btn-default">다음단계</button><%
+                break;
+        }%>
+    </div>
 </form>
     <!--검토사항 끝-->
 <%@include file="/common_footer.jsp"%>
 </body>
+<%  }//if
+}catch (Exception e){
+}%>
 </html>

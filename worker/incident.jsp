@@ -182,15 +182,18 @@ element.addEventListener(event, handler, false);
 			</div>
 		</div>
 		<div class="form-group">
+			<div class="col-sm-1"></div>
 		<%switch(status){
 		    case 0:
 		%><button type="submit" class="btn btn-default">작업시작</button><%
 			break;
 			case 1:
-		        %><button type="submit" class="btn btn-default">작업완료</button>
-				<button type="submit" class="btn btn-default">변경이관</button><%
+		        %>
+				<button type="submit" class="btn btn-default">수정</button>
+				<button type="submit" class="btn btn-default">작업완료</button>
+				<button type="submit" class="btn btn-default">변경이관</button>
+				<%
 			break;
-		        %><%
 		}%>
 		</div>
 	</form>
