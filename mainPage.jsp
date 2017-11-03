@@ -64,7 +64,7 @@
 
 		// 근무자 id
 		case 101:
-			mainBodyPage = "/worker/worker_mainBody.jsp";
+			mainBodyPage = "/worker/myWorkingNumber.jsp";
 			break;
 
 		case 102:
@@ -105,7 +105,7 @@
 			}
 			else
 			{
-				mainBodyPage = "/worker/worker_mainBody.jsp";
+				mainBodyPage = "/worker/myWorkingNumber.jsp";
 			}
 			break;
 	}
