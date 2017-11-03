@@ -38,7 +38,13 @@ String user_id = (String)session.getAttribute("user_id");
 				try
 				{
 					stmt = conn.createStatement();
-					sql = "SELECT A.kms_index, B.registration_date, B.deadline, B.title, B.status, C.name FROM kms A, incident_management B, account C WHERE A.kms_index=B.index AND A.workerIdx=C.Idx AND B.customer=C.Idx";
+					sql = "SELECT"
+					+ " kms.kms_index, incident_management.registration_date, incident_management.deadline, incident_management.title, incident_management.status, account.name"
+					+ " FROM kms"
+					+ " LEFT JOIN incident_management ON kms.incident_index=incident_management.index"
+					+ " LEFT JOIN account ON incident_management.customer=account.idx"
+					+ " WHERE account.id=\'" + user_id + "\'"
+					+ " ORDER BY kms.kms_index DESC";
 
 					rs = stmt.executeQuery(sql);
 
@@ -56,7 +62,7 @@ String user_id = (String)session.getAttribute("user_id");
 					<td><%=date_added%></td>
 					<td><%=date_due%></td>
 					<td><%=title%></td>
-					<td><%=status_name%></td>
+					<td><%=status%></td>
 					<td><%=worker_name%></td>
 				</tr>
 
