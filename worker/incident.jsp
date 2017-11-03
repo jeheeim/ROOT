@@ -75,49 +75,25 @@ element.addEventListener(event, handler, false);
 </head>
 <%
 	int idx = Integer.parseInt(request.getParameter("idx"));
-	String sqlFindNameDepart=null;
-	ResultSet rs_temp1 = null;
-	Statement stmt_temp = null;
 	try{
 		stmt = conn.createStatement();
-		stmt_temp= conn.createStatement();
 
 		sql = "SELECT title, reception_path, customer, registration_date, deadline, "
-		+ "problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음'),receptionist FROM incident_management WHERE incident_management.index=" + idx;
+		+ "problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음'), status FROM incident_management WHERE incident_management.index=" + idx;
 		rs = stmt.executeQuery(sql);
 
 		if(rs.next()){
-			String title = rs.getString(1);					//title
-			int reception_path = rs.getInt(2);				//reception_path
-			int customer = rs.getInt(3);					//customer
-			String registration_data = rs.getString(4);		//registration_date
-			String deadline = rs.getString(5);				//deadline
-			int problem_scope = rs.getInt(6);				//problem_scope
-			int urgency = rs.getInt(7);						//urgency
-			int priority = rs.getInt(8);					//priority
-			String content = rs.getString(9);				//content
-			String action_details = rs.getString(10);		//IFNULL(action_details,'내용없음')
-			String receptionist = rs.getString(11);		//receptionist
-			String problem_scope_str ="";
-			String urgency_str = "";
-			String priority_str = "";
-			
-			if(problem_scope==1) {problem_scope_str ="전회사";}
-			else if(problem_scope==2) {problem_scope_str ="부서";}
-			else if(problem_scope==3) {problem_scope_str ="개인";}
-			if(urgency==1) {urgency_str ="긴급";}
-			else if(urgency==2) {urgency_str ="중요";}
-			else if(urgency==3) {urgency_str ="경미";	}	
-			if(priority==1) {priority_str ="상";}
-			else if(priority==2){ priority_str ="중";}
-			else if(priority==3) {priority_str ="하";}
-
-			sqlFindNameDepart = "SELECT name FROM account WHERE account.Idx = \'" + customer +"\'";
-			rs_temp1 = stmt_temp.executeQuery(sqlFindNameDepart);
-			String customerName = null;
-			if(rs_temp1.next())
-				customerName = rs_temp1.getString("name");
-			rs_temp1.close();	
+			String title = rs.getString(1);
+			int reception_path = rs.getInt(2);
+			int customer = rs.getInt(3);
+			String registration_data = rs.getString(4);
+			String deadline = rs.getString(5);
+			int problem_scope = rs.getInt(6);
+			int urgency = rs.getInt(7);
+			int priority = rs.getInt(8);
+			String content = rs.getString(9);
+			String action_details = rs.getString(10);
+			int status = rs.getInt(11);
 
 %>
 <body onload="init();">
@@ -136,7 +112,7 @@ element.addEventListener(event, handler, false);
 		<div class="form-group">
 			<label class="col-sm-1 control-label">고객</label>
 			<div class="col-sm-2">
-				<div class="well well-sm"><%=receptionist%></div>
+				<div class="well well-sm">...</div>
 			</div>
 			<label class="col-sm-1 control-label">접수경로</label>
 			<div class="col-sm-2">
@@ -161,7 +137,7 @@ element.addEventListener(event, handler, false);
 
 			<label class="col-sm-1 control-label">접수자</label>
 			<div class="col-sm-2">
-				<div class="well well-sm"><%=customerName%></div>
+				<div class="well well-sm"><%=customer%></div>
 			</div>
 		</div>
 
@@ -180,15 +156,15 @@ element.addEventListener(event, handler, false);
 		<div class="form-group">
 			<label class="col-sm-1 control-label">문제범위</label>
 			<div class="col-sm-2">
-				<div class="well well-sm"><%=problem_scope_str%></div>
+				<div class="well well-sm"><%=problem_scope%></div>
 			</div>
 			<label class="col-sm-1 control-label">긴급도</label>
 			<div class="col-sm-2">
-				<div class="well well-sm"><%=urgency_str%></div>
+				<div class="well well-sm"><%=urgency%></div>
 			</div>
 			<label class="col-sm-1 control-label">우선순위</label>
 			<div class="col-sm-2">
-				<div class="well well-sm"><%=priority_str%></div>
+				<div class="well well-sm"><%=priority%></div>
 			</div>
 		</div>
 
@@ -204,6 +180,21 @@ element.addEventListener(event, handler, false);
 			<div class="col-sm-8">
 				<div class="well well-sm"><%=action_details%></div>
 			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-1"></div>
+		<%switch(status){
+		    case 0:
+		%><button type="submit" class="btn btn-default">작업시작</button><%
+			break;
+			case 1:
+		        %>
+				<button type="submit" class="btn btn-default">수정</button>
+				<button type="submit" class="btn btn-default">작업완료</button>
+				<button type="submit" class="btn btn-default">변경이관</button>
+				<%
+			break;
+		}%>
 		</div>
 	</form>
 	<%@include file="/common_footer.jsp"%>

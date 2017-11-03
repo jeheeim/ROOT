@@ -1,5 +1,5 @@
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ include file="../dbLogin.jspf"%>
 <!DOCTYPE html>
 <html lang="ko">
 <style type="text/css">
@@ -14,6 +14,17 @@
         box-shadow:inset 0 1px 1px rgba(0,0,0,.05)
     }
 </style>
+<%
+    int idx = Integer.parseInt(request.getParameter("idx"));
+    try{
+        stmt = conn.createStatement();
+
+        sql = "SELECT status FROM incident_management WHERE incident_management.index=" + idx;
+        rs = stmt.executeQuery(sql);
+
+        if(rs.next()){
+            int status = rs.getInt(1);
+%>
 <!--
 well{
 	min-height:20px;
@@ -90,7 +101,8 @@ well{
             <label class="col-sm-1 control-label">백업 계획</label>
             <div class="col-sm-7"></div>
             <div class="col-sm-1">
-                <button class="btn btn-default" type="submit">추가</button>
+                <a class="btn btn-default"
+                   onclick="window.open('../worker_popup/worker_backup_add.jsp', '백업계획 추가',''); return false;" target="_blank">추가</a>
             </div>
         </div>
         <div class="form-group">
@@ -133,7 +145,8 @@ well{
         <label class="col-sm-1 control-label">작업일정</label>
         <div class="col-sm-7"></div>
         <div class="col-sm-1">
-            <button class="btn btn-default" type="submit">추가</button>
+            <a class="btn btn-default"
+               onclick="window.open('../worker_popup/worker_workplan_add.jsp', '작업일정 추가',''); return false;" target="_blank">추가</a>
         </div>
     </div>
     <div class="form-group">
@@ -183,7 +196,8 @@ well{
         <label class="col-sm-1 control-label">테스트 계획</label>
         <div class="col-sm-7"></div>
         <div class="col-sm-1">
-            <button class="btn btn-default" type="submit">추가</button>
+            <a class="btn btn-default"
+               onclick="window.open('../worker_popup/worker_testplan_add.jsp', '테스트계획 추가',''); return false;" target="_blank">추가</a>
         </div>
     </div>
     <div class="form-group">
@@ -227,7 +241,8 @@ well{
         <label class="col-sm-1 control-label">복구 계획</label>
         <div class="col-sm-7"></div>
         <div class="col-sm-1">
-            <button class="btn btn-default" type="submit">추가</button>
+            <a class="btn btn-default"
+               onclick="window.open('../worker_popup/worker_recovery_add.jsp', '복구 계획 추가',''); return false;" target="_blank">추가</a>
         </div>
     </div>
     <div class="form-group">
@@ -275,8 +290,24 @@ well{
             <div class="well well-sm">검토사항 내용을 넣으면 됩니다.</div>
         </div>
     </div>
+    <div class="form-group">
+        <div class="col-sm-1"></div>
+        <%switch (status){
+            case 0:
+            case 1:
+                break;
+            case 2:
+                %><button type="submit" class="btn btn-default">다음단계</button><%
+                break;
+            case 3:
+                %><button type="submit" class="btn btn-default">완료</button><%
+        }%>
+    </div>
 </form>
     <!--검토사항 끝-->
 <%@include file="/common_footer.jsp"%>
 </body>
+<%  }//if
+}catch (Exception e){
+}%>
 </html>
