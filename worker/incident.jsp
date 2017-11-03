@@ -190,10 +190,7 @@ element.addEventListener(event, handler, false);
 		        %><button type="submit" class="btn btn-default">작업완료</button>
 				<button type="submit" class="btn btn-default">변경이관</button><%
 			break;
-			case 2:
-			case 3:
 		        %><%
-			break;
 		}%>
 		</div>
 	</form>
