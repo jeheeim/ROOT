@@ -79,7 +79,7 @@ element.addEventListener(event, handler, false);
 		stmt = conn.createStatement();
 
 		sql = "SELECT title, reception_path, customer, registration_date, deadline, "
-		+ "problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음') FROM incident_management WHERE incident_management.index=" + idx;
+		+ "problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음'), status FROM incident_management WHERE incident_management.index=" + idx;
 		rs = stmt.executeQuery(sql);
 
 		if(rs.next()){
@@ -93,6 +93,7 @@ element.addEventListener(event, handler, false);
 			int priority = rs.getInt(8);
 			String content = rs.getString(9);
 			String action_details = rs.getString(10);
+			int status = rs.getInt(11);
 
 %>
 <body onload="init();">
@@ -179,6 +180,21 @@ element.addEventListener(event, handler, false);
 			<div class="col-sm-8">
 				<div class="well well-sm"><%=action_details%></div>
 			</div>
+		</div>
+		<div class="form-group">
+		<%switch(status){
+		    case 0:
+		%><button type="submit" class="btn btn-default">작업시작</button><%
+			break;
+			case 1:
+		        %><button type="submit" class="btn btn-default">작업완료</button>
+				<button type="submit" class="btn btn-default">변경이관</button><%
+			break;
+			case 2:
+			case 3:
+		        %><%
+			break;
+		}%>
 		</div>
 	</form>
 	<%@include file="/common_footer.jsp"%>
