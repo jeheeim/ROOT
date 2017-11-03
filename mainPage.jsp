@@ -56,7 +56,7 @@
 			mainBodyPage = "/client/client_mainBody.jsp";
 			break;
 		case 2:
-			mainBodyPage = "/client/client_currentService.jsp";
+			mainBodyPage = "/client/client_currentService.jsp?param=" + param;
 			break;
 		case 3:
 			mainBodyPage = "/client/client_addService.jsp";
