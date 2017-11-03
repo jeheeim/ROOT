@@ -16,6 +16,8 @@ number of tasks index
 5: 완료
 6: 작업중
 7: 서비스 요청 현황
+
+그래프화 하고 싶으면 여기 있는 number_of_tasks[] 배열을 사용하는 것을 권장!
 */
 int number_of_tasks[] = new int[8];
 
@@ -24,7 +26,19 @@ int i = 0;
 try
 {
 	stmt = conn.createStatement();
-	sql = "SELECT COUNT(*) FROM incident_management GROUP BY status";
+	sql = "SELECT"
+		+ " COUNT(*) AS count0,"
+		+ " COUNT(CASE WHEN 'status'=0 THEN 1 END) AS count1,"
+		+ " COUNT(CASE WHEN 'status'=1 THEN 1 END) AS count2,"
+		+ " COUNT(CASE WHEN 'status'=2 THEN 1 END) AS count3,"
+		+ " COUNT(CASE WHEN 'status'=3 THEN 1 END) AS count4,"
+		+ " COUNT(CASE WHEN 'status'=4 THEN 1 END) AS count5,"
+		+ " COUNT(CASE WHEN 'status'=5 THEN 1 END) AS count6,"
+		+ " COUNT(CASE WHEN 'status'=6 THEN 1 END) AS count7"
+		+ " FROM incident_management"
+		+ " LEFT JOIN account ON incident_management.customer=account.idx"
+		+ " WHERE account.id=\'" + session.getAttribute("user_id") + "\'";
+
 	rs = stmt.executeQuery(sql);
 
 	while(rs.next())
