@@ -3,16 +3,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <style type="text/css">
-    wall{
-        min-height:20px;
-        padding:19px;
-        margin-bottom:20px;
-        background-color:#d0d0d0;
-        border:1px solid #e3e3e3;
-        border-radius:4px;
-        -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.05);
-        box-shadow:inset 0 1px 1px rgba(0,0,0,.05)
-    }
 </style>
 <%
     int idx = Integer.parseInt(request.getParameter("idx"));
@@ -32,9 +22,7 @@
     String sql_recovery = null;
 
     try{
-
-
-        sql = "SELECT status FROM incident_management WHERE incident_management.index=" + idx;
+        sql = "SELECT status FROM incident_management WHERE incident_management.idx=" + idx;
         sql_backup = "SELECT idx, date, time, worker, equipment FROM back_up_plan WHERE back_up_plan.change_idx=" + idx;
         sql_work = "SELECT idx, summary, date, worker, remark FROM work_plan WHERE work_plan.change_idx="+idx;
         sql_test = "SELECT idx, date, manager, remark, test_case, expected_result FROM test_plan WHERE test_plan.change_idx="+idx;
@@ -119,7 +107,7 @@
                         while(rs_backup.next()){
                             //index, date, time, worker, equipment WHERE back_up_plan.change_idx=
                             int index = rs_backup.getInt(1);
-                            String date = "0";//rs_backup.getString(2);
+                            String date = rs_backup.getString(2);
                             String time = rs_backup.getString(3);
                             String worker = rs_backup.getString(4);
                             String equip = rs_backup.getString(5);
@@ -144,6 +132,7 @@
                 </table>
             </div>
         </div>
+
     </form>
     <!--작업 일정 시작-->
     <form class="form-horizontal">
@@ -325,12 +314,21 @@
                 switch (status){
                 case 0:
                 case 1:
+                    %><%=status%><%
                     break;
                 case 2:
-                    %><button type="submit" class="btn btn-default">다음단계<%=status%></button><%
+                    %>
+        <a class="btn btn-default"
+           onclick="window.open('changeToRelease.jsp?idx=<%=idx%>', '복구 계획 추가',''); return false;" target="_blank">릴리즈로 변경</a><%
                     break;
                 case 3:
-                    %><button type="submit" class="btn btn-default">완료</button><%
+                    %>
+        <a class="btn btn-default"
+           onclick="window.open('releaseToComplete.jsp?idx=<%=idx%>', '복구 계획 추가',''); return false;" target="_blank">완료로 변경</a><%
+                    break;
+                case 4:
+                    %><div class="btn btn-default">완료입니다</div><%
+                    break;
         }
         }%>
     </div>
