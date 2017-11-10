@@ -42,16 +42,12 @@ if(!sub19.equals("0")) receptionist = sub19;
 if(!sub20.equals("0")) receptionist = sub20;
 
 int priority = 0;
-PreparedStatement pstmt = null;
-/*	1. 한글 입력되게 해야함
-	2. db연동 기초작업
-*/
+
 String id="";
 String user_index = "";
 
 try
 {
-	conn=DriverManager.getConnection(dburl,dbuser,dbpw);
 	id = (String)session.getAttribute("user_id");
 	sql = "SELECT * FROM account WHERE account.id = \'" + id+"\'";       
 	pstmt = conn.prepareStatement(sql);
@@ -79,16 +75,7 @@ try
 
 	
 	pstmt.executeUpdate();
-	out.println(sub11);
-	out.println(sub12);
-	out.println(sub13);
-	out.println(sub14);
-	out.println(sub15);
-	out.println(sub16);
-	out.println(sub17);
-	out.println(sub18);
-	out.println(sub19);
-	out.println(sub20);
+	%> <script> alert("등록 성공!"); history.go(-1); </script> <%
 }
 catch(Exception e)
 {
