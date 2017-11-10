@@ -11,10 +11,7 @@
 
 
 <%
-	String sqlCount=null;
-	//ResultSet rs=null;
-	int total = 0;
-	//새로만든 rs
+	int param = request.getParameter("param");
 	String worker_id = "";
 
 	worker_id = (String)session.getAttribute("user_id");
