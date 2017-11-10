@@ -35,35 +35,13 @@
 
 
         sql = "SELECT status FROM incident_management WHERE incident_management.index=" + idx;
-        sql_backup = "SELECT index, date, time, worker, equipment FROM back_up_plan WHERE back_up_plan.change_idx=" + idx;
-        sql_work = "SELECT index, summary, date, worker, remark FROM work_plan WHERE work_plan.change_idx="+idx;
-        sql_test = "SELECT index, date, manager, remark, test_case, expected_result FROM test_plan WHERE test_plan.change_idx="+idx;
-        sql_recovery = "SELECT index, target, time, worker, remark FROM recovery_plan WHERE recovery_plan.change_idx="+idx;
+        sql_backup = "SELECT idx, date, time, worker, equipment FROM back_up_plan WHERE back_up_plan.change_idx=" + idx;
+        sql_work = "SELECT idx, summary, date, worker, remark FROM work_plan WHERE work_plan.change_idx="+idx;
+        sql_test = "SELECT idx, date, manager, remark, test_case, expected_result FROM test_plan WHERE test_plan.change_idx="+idx;
+        sql_recovery = "SELECT idx, target, time, worker, remark FROM recovery_plan WHERE recovery_plan.change_idx="+idx;
 
 %>
-<!--
-well{
-	min-height:20px;
-	padding:19px;
-	margin-bottom:20px;
-	background-color:#f5f5f5;
-	border:1px solid #e3e3e3;
-	border-radius:4px;
-	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.05);
-	box-shadow:inset 0 1px 1px rgba(0,0,0,.05)
-}
-.well blockquote{
-	border-color:#ddd;
-	border-color:rgba(0,0,0,.15)
-}
-.well-lg{
-	padding:24px;
-	border-radius:6px
-}.well-sm{
-	padding:9px;
-	border-radius:3px
-}
--->
+
 <head>
     <title>변경관리</title>
     <%@include file="/common_header.jsp"%>
@@ -136,15 +114,12 @@ well{
                     <tbody>
                     <%
                         try{
-                            %>backup_start<%
                             stmt_backup = conn.createStatement();
-                            %>conn<%
                             rs_backup = stmt_backup.executeQuery(sql_backup);
-                            %>back_while<%
                         while(rs_backup.next()){
                             //index, date, time, worker, equipment WHERE back_up_plan.change_idx=
                             int index = rs_backup.getInt(1);
-                            String date = rs_backup.getString(2);
+                            String date = "0";//rs_backup.getString(2);
                             String time = rs_backup.getString(3);
                             String worker = rs_backup.getString(4);
                             String equip = rs_backup.getString(5);
@@ -159,7 +134,6 @@ well{
                     </tr>
                     <%
                         }
-                        %>backup_<%
                         rs_backup.close();
                         stmt_backup.close();
                         }catch (Exception e2){
@@ -197,18 +171,15 @@ well{
                 <tbody>
                 <%
                     try{
-                        %>work_start<%
                         stmt_work = conn.createStatement();
-                        %>conn<%
                         rs_work = stmt_work.executeQuery(sql_work);
-                        %>work while<%
                     while(rs_work.next()){
                         //index, summary, date, worker, remark
                 %>
                 <tr>
                     <th><%=rs_work.getInt(1)%></th>
                     <td>Sample target</td>
-                    <td><%=rs_work.getString(3)%></td>
+                    <td>Sample date</td>
                     <td><%=rs_work.getString(4)%></td>
                     <td><%=rs_work.getString(5)%></td>
                 </tr>
@@ -253,17 +224,14 @@ well{
         <tbody>
         <%
             try{
-                %>test<%
                 stmt_test = conn.createStatement();
-                %>conn<%
                 rs_test = stmt_test.executeQuery(sql_test);
-                %>test while<%
             while (rs_test.next()){
                 //index, date, manager, remark, test_case, expected_result
         %>
         <tr>
             <th><%=rs_test.getInt(1)%></th>
-            <td><%=rs_test.getString(2)%></td>
+            <td>Sample date</td>
             <td><%=rs_test.getString(3)%></td>
             <td><%=rs_test.getString(4)%></td>
             <td><%=rs_test.getString(5)%></td>
@@ -311,9 +279,7 @@ well{
                 <%
                     try{
                         stmt_recovery = conn.createStatement();
-                        %>conn<%
                         rs_recovery = stmt_recovery.executeQuery(sql_recovery);
-                        %>exe<%
                     while(rs_recovery.next()){
                         //index, target, time, worker, remark
                 %>

@@ -27,7 +27,6 @@ int idtype = 0;
 	
 try
 {
-	conn=DriverManager.getConnection(dburl,dbuser,dbpw);              
 	
 	sql = "SELECT account.name, company.companyName, company_department.department, account.rank, account.isWorker, account.password FROM account, company, company_department WHERE account.id = \'" + user_id+
 	"\' AND account.company_name = company.idx AND account.department = company_department.idx";
