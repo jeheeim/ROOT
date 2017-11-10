@@ -95,7 +95,7 @@
 					</th>
 					<td>
 						<!--제목-->
-						<a href="/mainPage.jsp?mod=105&param=<%=title%>"><%=title%></a>
+						<a href="/mainPage.jsp?mod=105&param=<%=idx%>"><%=title%></a>
 					</td>
 					<td>
 						<!--고객-->
