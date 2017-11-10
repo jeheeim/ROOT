@@ -70,16 +70,18 @@
 			mainBodyPage = "/worker/myWorkingNumber.jsp";
 			break;
 
+		// param 값이 0 이면 내 업무 검색, 1이면 배정되지않은 업무 전체 검색
 		case 102:
-			mainBodyPage = "/worker/worker_myworkingList.jsp";
+			mainBodyPage = "/worker/worker_myworkingList.jsp?param=" + param;
 			break;
 
 		case 103:
 			mainBodyPage = "/worker/worker_adding_newjob.jsp";
 			break;
 
+		// param 값이 0 이면 내 업무 검색, 1이면 배정되지않은 업무 전체 검색
 		case 104:
-			mainBodyPage = "/worker/worker_myworkingList.jsp";
+			mainBodyPage = "/worker/worker_myworkingList.jsp?param=" + param;
 			break;
 
 		// 업무 확인하기. 세부 업무 보기

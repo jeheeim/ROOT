@@ -35,7 +35,7 @@
 <div id="donutchart" style="width: 900px; height: 500px;"></div>
 <div  class="col-md-3"></div>
 <div  class="col-md-4">
-	<a href="/mainPage.jsp?mod=201"  >마감기간이 임박한 작업이 5개 있습니다.</a>
+	<a href="/mainPage.jsp?mod=102&param=0">마감기간이 임박한 작업이 5개 있습니다.</a>
 </div>
 <%@ include file="/common_footer.jsp"%>
 </body>
