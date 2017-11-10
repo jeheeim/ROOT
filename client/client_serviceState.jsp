@@ -40,12 +40,15 @@ String deadline = "";
 String startdate = "";
 String end_date = "";
 
+String result = "";
+
 try
 {
 	stmt = conn.createStatement();
 	sql = "SELECT kms_index, incident_index, change_index, inci.title, inci.status, clients.name, clientCompany.companyName as clientCompany, "
 		+ "clients.rank, clients.phone, inci.reception_path, inci.problem_scope, inci.urgency, inci.priority, worker.name, worker_dept.department, "
-		+ "worker.rank, worker.phone, inci.action_details, inci.receptionist, inci.registration_date, inci.deadline, inci.start_date, inci.end_date FROM kms "
+		+ "worker.rank, worker.phone, inci.content, inci.receptionist_opion, inci.registration_date, inci.deadline, inci.start_date, inci.end_date, "
+		+ "inci.action_details FROM kms "
 		+ "LEFT JOIN incident_management as inci ON incident_index=inci.idx "
 		+ "LEFT JOIN account as clients ON inci.customer=clients.idx "
 		+ "LEFT JOIN company as clientCompany ON clients.company_name=clientCompany.idx "
@@ -101,6 +104,10 @@ try
 
 		problemDetail = rs.getString(18);
 		comment = rs.getString(19);
+		if(comment == null)
+		{
+			comment = "아직 접수되지 않았습니다.";
+		}
 
 		regi_date = rs.getString(20);
 		if(regi_date == null)
@@ -124,6 +131,12 @@ try
 		if(end_date == null)
 		{
 			end_date = "";
+		}
+
+		result = rs.getString(24);
+		if(result == null)
+		{
+			result = "";
 		}
 	}
 
@@ -331,7 +344,7 @@ catch(SQLException sqle)
 		<div class="form-group">
 			<label for="inputResult" class="col-sm-1 control-label">조치내역</label>
 			<div class="col-sm-11">
-				<textarea name = "result" class="form-control" rows="3" placeholder="결과 내용" readonly style="resize:vertical;"></textarea>
+				<textarea name = "result" class="form-control" rows="3" placeholder="결과 내용" readonly style="resize:vertical;"><%=result%></textarea>
 			</div>
 		</div>
 
