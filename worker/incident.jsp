@@ -2,76 +2,9 @@
 <%@ include file="../dbLogin.jspf"%>
 <!DOCTYPE html>
 <html lang="ko">
-<!--
-well{
-	min-height:20px;
-	padding:19px;
-	margin-bottom:20px;
-	background-color:#f5f5f5;
-	border:1px solid #e3e3e3;
-	border-radius:4px;
-	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.05);
-	box-shadow:inset 0 1px 1px rgba(0,0,0,.05)
-}
-.well blockquote{
-	border-color:#ddd;
-	border-color:rgba(0,0,0,.15)
-}
-.well-lg{
-	padding:24px;
-	border-radius:6px
-}.well-sm{
-	padding:9px;
-	border-radius:3px
-}
--->
 <head>
 	<title>인시던트</title>
 	<%@include file="/common_header.jsp"%>
-	<!--
-	<script>
-var observe;
-if (window.attachEvent)
-{
-observe = function (element, event, handler)
-{
-element.attachEvent('on'+event, handler);
-};
-}
-else
-{
-observe = function (element, event, handler)
-{
-element.addEventListener(event, handler, false);
-    		};
-		}
-		function init ()
-		{
-    		var text = document.getElementById('text');
-    		function resize ()
-			{
-        		text.style.height = 'auto';
-        		text.style.height = text.scrollHeight+'px';
-    		}
-/* 0-timeout to get the already changed text */
-    
-	function delayedResize ()
-	{
-		window.setTimeout(resize, 0);
-	}
-    	
-		observe(text, 'change',  resize);
-		observe(text, 'cut',     delayedResize);
-	observe(text, 'paste',   delayedResize);
-	observe(text, 'drop',    delayedResize);
-	observe(text, 'keydown', delayedResize);
-
-	text.focus();
-	text.select();
-    resize();
-}
-	</script>
-	-->
 </head>
 <%
 	int idx = Integer.parseInt(request.getParameter("idx"));
@@ -79,7 +12,7 @@ element.addEventListener(event, handler, false);
 		stmt = conn.createStatement();
 
 		sql = "SELECT title, reception_path, customer, registration_date, deadline, "
-		+ "problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음'), status FROM incident_management WHERE incident_management.index=" + idx;
+		+ "problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음'), status FROM incident_management WHERE incident_management.idx=" + idx;
 		rs = stmt.executeQuery(sql);
 
 		if(rs.next()){
@@ -185,13 +118,17 @@ element.addEventListener(event, handler, false);
 			<div class="col-sm-1"></div>
 		<%switch(status){
 		    case 0:
-		%><button type="submit" class="btn btn-default">작업시작</button><%
+		%>
+			<a class="btn btn-default"
+			   onclick="window.open('submitToIncident.jsp?idx=<%=idx%>', '인시던트로 변경',''); return false;" target="_blank">작업시작</a><%
 			break;
 			case 1:
 		        %>
 				<button type="submit" class="btn btn-default">수정</button>
-				<button type="submit" class="btn btn-default">작업완료</button>
-				<button type="submit" class="btn btn-default">변경이관</button>
+				<a class="btn btn-default"
+			   onclick="window.open('incidentToComplete.jsp?idx=<%=idx%>', '작업완료로 변경',''); return false;" target="_blank">작업완료</a>
+				<a class="btn btn-default"
+			   onclick="window.open('incidentToComplete.jsp?idx=<%=idx%>', '변경관리로 변경',''); return false;" target="_blank">변경이관</a>
 				<%
 			break;
 		}%>
