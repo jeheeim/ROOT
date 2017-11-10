@@ -10,7 +10,7 @@ String dbpw = "1234";
 Connection conn = null;
 Statement stmt = null;
 ResultSet rs = null;
-
+PreparedStatement pstmt = null;
 String sql = null;
 
 try
