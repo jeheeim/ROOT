@@ -4,7 +4,6 @@
 	근로자가 새 업무를 등록하는 페이지.
 	새 업무를 등록하면 submit_new_task.jsp 파일로 이동,
 	db에 저장 후 내 할일로 간다.
-
 	취소하면 지움
 -->
 <%@ page import="java.sql.*" %>
@@ -32,7 +31,7 @@
 		var temp1 = frm.inputRange.options[frm.inputRange.selectedIndex].value;
 		var temp2 = frm.inputEmergency.options[frm.inputEmergency.selectedIndex].value;
 		var temp = ( parseInt(temp1) + parseInt(temp2) )/2;
-		if (temp <= 1){
+		if (temp == 1){
 			frm.inputPriority.value = "상";
 		}
 		else if (temp > 1 && temp <= 2){
@@ -41,13 +40,174 @@
 		else if (temp > 2){
 			frm.inputPriority.value = "하";
 		}
+		else{
+			frm.inputPriority.value = "우선순위";
+		}
 	}
+	function getPhoneNumber(frm)
+	{
+		var temp11 = frm.SUB11.options[frm.SUB11.selectedIndex].value;
+		var temp12 = frm.SUB12.options[frm.SUB12.selectedIndex].value;
+		var temp13 = frm.SUB13.options[frm.SUB13.selectedIndex].value;
+		var temp14 = frm.SUB14.options[frm.SUB14.selectedIndex].value;
+		var temp15 = frm.SUB15.options[frm.SUB15.selectedIndex].value;
+		var temp16 = frm.SUB16.options[frm.SUB16.selectedIndex].value;
+		var temp17 = frm.SUB17.options[frm.SUB17.selectedIndex].value;
+		var temp18 = frm.SUB18.options[frm.SUB18.selectedIndex].value;
+		var temp19 = frm.SUB19.options[frm.SUB19.selectedIndex].value;
+		var temp20 = frm.SUB20.options[frm.SUB20.selectedIndex].value;
+
+		if (temp11 == "고길동"){
+			frm.inputPhone.value = "01012345678";
+		}
+		else if (temp12 == "홍길동"){
+			frm.inputPhone.value = "01098765432";
+		}
+		else if (temp13 == "서장훈"){
+			frm.inputPhone.value = "01013572468";
+		}
+		else if (temp14 == "이재명"){
+			frm.inputPhone.value = "01011112222";
+		}
+		else if (temp15 == "김구라"){
+			frm.inputPhone.value = "01022223333";
+		}
+		else if (temp16 == "강호동"){
+			frm.inputPhone.value = "01099999999";
+		}
+		else if (temp17 == "이수근"){
+			frm.inputPhone.value = "01010101010";
+		}
+		else if (temp18 == "김병만"){
+			frm.inputPhone.value = "01000000001";
+		}
+		else if (temp19 == "정글만"){
+			frm.inputPhone.value = "01023456789";
+		}
+		else if (temp20 == "독고탁"){
+			frm.inputPhone.value = "01010000000";
+		}
+		else {
+			frm.inputPhone.value = "연락처";
+		}
+	}
+	function showSub(obj) {
+
+    f = document.forms.select_machine;
+
+    if(obj == 1) {
+    
+        f.inputClient_depart.style.display = "";
+        f.SUB2.style.display = "none";
+        f.SUB3.style.display = "none";
+        f.SUB4.style.display = "none";
+        f.SUB5.style.display = "none";
+        
+    } else  if(obj == 2){
+
+        f.inputClient_depart.style.display = "none";
+        f.SUB2.style.display = "";
+        f.SUB3.style.display = "none";
+        f.SUB4.style.display = "none";
+        f.SUB5.style.display = "none";
+        
+     } else  if(obj == 3){
+
+        f.inputClient_depart.style.display = "none";
+        f.SUB2.style.display = "none";
+        f.SUB3.style.display = "";
+        f.SUB4.style.display = "none";
+        f.SUB5.style.display = "none";
+     } else  if(obj == 4){
+
+        f.inputClient_depart.style.display = "none";
+        f.SUB2.style.display = "none";
+        f.SUB3.style.display = "none";
+        f.SUB4.style.display = "";
+        f.SUB5.style.display = "none";
+     }
+	 else{
+		f.inputClient_depart.style.display = "none";
+        f.SUB2.style.display = "none";
+        f.SUB3.style.display = "none";
+        f.SUB4.style.display = "none";
+        f.SUB5.style.display = "none";
+	 }
+	}
+	function showSub2(obj) {
+
+    f = document.forms.select_machine;
+
+    if(obj == 1) {
+        f.SUB11.style.display = "";f.SUB12.style.display = "none";f.SUB13.style.display = "none";
+        f.SUB14.style.display = "none";f.SUB15.style.display = "none";f.SUB16.style.display = "none";
+        f.SUB17.style.display = "none";f.SUB18.style.display = "none";f.SUB19.style.display = "none";
+        f.SUB20.style.display = "none";
+        
+    } else  if(obj == 2){
+		f.SUB11.style.display = "none";f.SUB12.style.display = "";f.SUB13.style.display = "none";
+        f.SUB14.style.display = "none";f.SUB15.style.display = "none";f.SUB16.style.display = "none";
+        f.SUB17.style.display = "none";f.SUB18.style.display = "none";f.SUB19.style.display = "none";
+        f.SUB20.style.display = "none";
+     } else  if(obj == 3){
+		f.SUB11.style.display = "none";f.SUB12.style.display = "none";f.SUB13.style.display = "";
+        f.SUB14.style.display = "none";f.SUB15.style.display = "none";f.SUB16.style.display = "none";
+        f.SUB17.style.display = "none";f.SUB18.style.display = "none";f.SUB19.style.display = "none";
+        f.SUB20.style.display = "none";
+     } else  if(obj == 4){
+		f.SUB11.style.display = "none";f.SUB12.style.display = "none";f.SUB13.style.display = "none";
+        f.SUB14.style.display = "";f.SUB15.style.display = "none";f.SUB16.style.display = "none";
+        f.SUB17.style.display = "none";f.SUB18.style.display = "none";f.SUB19.style.display = "none";
+        f.SUB20.style.display = "none";	
+     }
+	 else if(obj == 5) {
+        f.SUB11.style.display = "none";f.SUB12.style.display = "none";f.SUB13.style.display = "none";
+        f.SUB14.style.display = "none";f.SUB15.style.display = "";f.SUB16.style.display = "none";
+        f.SUB17.style.display = "none";f.SUB18.style.display = "none";f.SUB19.style.display = "none";
+        f.SUB20.style.display = "none";
+        
+    } else  if(obj == 6){
+		f.SUB11.style.display = "none";f.SUB12.style.display = "none";f.SUB13.style.display = "none";
+        f.SUB14.style.display = "none";f.SUB15.style.display = "none";f.SUB16.style.display = "";
+        f.SUB17.style.display = "none";f.SUB18.style.display = "none";f.SUB19.style.display = "none";
+        f.SUB20.style.display = "none";
+     } else  if(obj == 7){
+		f.SUB11.style.display = "none";f.SUB12.style.display = "none";f.SUB13.style.display = "none";
+        f.SUB14.style.display = "none";f.SUB15.style.display = "none";f.SUB16.style.display = "none";
+        f.SUB17.style.display = "";f.SUB18.style.display = "none";f.SUB19.style.display = "none";
+        f.SUB20.style.display = "none";
+     } else  if(obj == 8){
+		f.SUB11.style.display = "none";f.SUB12.style.display = "none";f.SUB13.style.display = "none";
+        f.SUB14.style.display = "none";f.SUB15.style.display = "none";f.SUB16.style.display = "none";
+        f.SUB17.style.display = "none";f.SUB18.style.display = "";f.SUB19.style.display = "none";
+        f.SUB20.style.display = "none";	
+     } else  if(obj == 9){
+		f.SUB11.style.display = "none";f.SUB12.style.display = "none";f.SUB13.style.display = "none";
+        f.SUB14.style.display = "none";f.SUB15.style.display = "none";f.SUB16.style.display = "none";
+        f.SUB17.style.display = "none";f.SUB18.style.display = "none";f.SUB19.style.display = "";
+        f.SUB20.style.display = "none";
+     } else  if(obj == 10){
+		f.SUB11.style.display = "none";f.SUB12.style.display = "none";f.SUB13.style.display = "none";
+        f.SUB14.style.display = "none";f.SUB15.style.display = "none";f.SUB16.style.display = "none";
+        f.SUB17.style.display = "none";f.SUB18.style.display = "none";f.SUB19.style.display = "none";
+        f.SUB20.style.display = "";	
+     }
+	 else{
+		f.SUB11.style.display = "none";f.SUB12.style.display = "none";f.SUB13.style.display = "none";
+        f.SUB14.style.display = "none";f.SUB15.style.display = "none";f.SUB16.style.display = "none";
+        f.SUB17.style.display = "none";f.SUB18.style.display = "none";f.SUB19.style.display = "none";
+        f.SUB20.style.display = "none";
+	 }
+	}
+
+
 </script>
+
 </head>
 
 <body>
 	<h1 align="center">New Task</h1>
-	<form class="form-horizontal" action="/worker/submit_new_task.jsp" method="post" accept-charset="UTF-8">
+	<form name="select_machine" class="form-horizontal" action="/worker/submit_new_task.jsp" method="post" accept-charset="UTF-8">
 		<div class="form-group">
 			<label for="inputTitle" class="col-sm-2 control-label">제목</label>
 			<div class="col-sm-6">
@@ -68,7 +228,8 @@
 			<label for="inputClient" class="col-sm-2 control-label">고객사</label>
 			<div class="col-sm-2">
 				<!-- 고객사 순서는 db의 고객사 테이블의 id가 되게 한다 -->
-				<select class="form-control" name="inputClient_company" style="width: 100%;">
+				<select class="form-control" name="inputClient_company" style="width: 100%;" onChange="showSub(this.options[this.selectedIndex].value);">
+				<option value="0">----------</option>
 				<%
 					String user_id = (String)session.getAttribute("user_id");
 					String dburl = "jdbc:mysql://localhost:3306/itsmdb";
@@ -103,43 +264,73 @@
 			</div>
 			<label for="inputClient_depart" class="col-sm-1 control-label">부서</label>
 			<div class="col-sm-2">
-			<select class="form-control" name="inputClient_depart" style="width: 100%;">
-					<option value="1">인사부</option>
-					<option value="2">경리부</option>
-					<option value="3">영업부</option>
+				<select class="form-control" name="inputClient_depart" style="width: 100%;" onChange="showSub2(this.options[this.selectedIndex].value);">
+					<option value="0">----------</option>
+					<option value="1">작전과</option>
+					<option value="2">군수과</option>
+					<option value="3">보급과</option>
+					<option value="4">정보과</option>
 				</select>
-				<!--/*
-				<select class="form-control" name="inputClient_depart" style="width: 100%;">
-				<%
-					try{
-						sql_table = "SELECT * FROM company WHERE companyName = \'"+company_name+"\'";
-						rs = stmt.executeQuery(sql_table);
-						//
-						//여기 할 차례 웬지 반응형으로 해야하니까 javascript로 해야 할 것 같다!
-						//
-						while(rs.next()){
-							depart_name = rs.getString("index");			//index
-							selectNum++;
-				%>
-					<option value=<%=selectNum%>></option>
-				<%
-						}
-						selectNum=0;
-						rs.close();
-					}catch(SQLException e){
-					out.println(e.toString() );
-					}
-				%>
+				<select class="form-control" name="SUB2" style=" display: none;" onChange="showSub2(this.options[this.selectedIndex].value);">
+					<option value="0">----------</option>
+					<option value="5">인사부</option>
+					<option value="6">영업부</option>
+					<option value="7">개발부</option>
 				</select>
-				*/-->
+				<select class="form-control" name="SUB3" style="display: none;" onChange="showSub2(this.options[this.selectedIndex].value);">
+					<option value="0">----------</option>
+					<option value="8">인사부</option>
+					<option value="9">이사회</option>
+				</select>
+				<select class="form-control" name="SUB4" style="display: none;" onChange="showSub2(this.options[this.selectedIndex].value);">
+					<option value="0">----------</option>
+					<option value="10">국제협작부</option>
+				</select>
+				<select class="form-control" name="SUB5" style="display: none;" onChange="showSub2(this.options[this.selectedIndex].value);">
+					<option value="0">----------</option>
+				</select>
 			</div>
-			<label for="inputClient" class="col-sm-1 control-label">이름</label>
+			<label for="inputReceptionist" class="col-sm-1 control-label">이름</label>
 			<div class="col-sm-4">
-				<select class="form-control" name="inputClient" style="width: 100%;">
-					<option value="1">김구라</option>
-					<option value="2">소령 서상인</option>
-					<option value="3">소위 김나도</option>
-					<option value="4">중위 김김김</option>
+				<select class="form-control" name="SUB11" style="width: 100%;" onChange="getPhoneNumber(this.form);">
+					<option value="0">----------</option>
+					<option value="고길동">고길동</option>
+				</select>
+				<select class="form-control" name="SUB12" style=" display: none;" onChange="getPhoneNumber(this.form);">
+					<option value="0">----------</option>
+					<option value="홍길동">홍길동</option>
+				</select>
+				<select class="form-control" name="SUB13" style=" display: none;" onChange="getPhoneNumber(this.form);">
+					<option value="0">----------</option>
+					<option value="서장훈">서장훈</option>
+				</select>
+				<select class="form-control" name="SUB14" style=" display: none;" onChange="getPhoneNumber(this.form);">
+					<option value="0">----------</option>
+					<option value="이재명">이재명</option>
+				</select>
+				<select class="form-control" name="SUB15" style=" display: none;" onChange="getPhoneNumber(this.form);">
+					<option value="0">----------</option>
+					<option value="김구라">김구라</option>
+				</select>
+				<select class="form-control" name="SUB16" style=" display: none;" onChange="getPhoneNumber(this.form);">
+					<option value="0">----------</option>
+					<option value="강호동">강호동</option>
+				</select>
+				<select class="form-control" name="SUB17" style=" display: none;" onChange="getPhoneNumber(this.form);">
+					<option value="0">----------</option>
+					<option value="이수근">이수근</option>
+				</select>
+				<select class="form-control" name="SUB18" style=" display: none;" onChange="getPhoneNumber(this.form);">
+					<option value="0">----------</option>
+					<option value="김병만">김병만</option>
+				</select>
+				<select class="form-control" name="SUB19" style=" display: none;" onChange="getPhoneNumber(this.form);">
+					<option value="0">----------</option>
+					<option value="정글만">정글만</option>
+				</select>
+				<select class="form-control" name="SUB20" style=" display: none;" onChange="getPhoneNumber(this.form);">
+					<option value="0">----------</option>
+					<option value="독고탁">독고탁</option>
 				</select>
 			</div>
 		</div>
@@ -165,6 +356,7 @@
 			<label for="inputRange" class="col-sm-2 control-label">문제범위</label>
 			<div class="col-sm-2">
 				<select class="form-control" name="inputRange" style="width: 100%;" onChange="getSelectValue(this.form);">
+					<option value="0">----------</option>
 					<option value="1">전 회사</option>
 					<option value="2">부서</option>
 					<option value="3">개인</option>
@@ -174,6 +366,7 @@
 			<label for="inputEmergency" class="col-sm-2 control-label">긴급도</label>
 			<div class="col-sm-2">
 				<select class="form-control" name="inputEmergency" style="width: 100%;" onChange="getSelectValue(this.form);">
+					<option value="0">----------</option>
 					<option value="1">긴급</option>
 					<option value="2">중요</option>
 					<option value="3">경미</option>
