@@ -11,10 +11,7 @@
 
 
 <%
-	String sqlCount=null;
-	//ResultSet rs=null;
-	int total = 0;
-	//새로만든 rs
+	int param = Integer.parseInt(request.getParameter("param"));
 	String worker_id = "";
 
 	worker_id = (String)session.getAttribute("user_id");
@@ -31,7 +28,9 @@
 	try{
 		stmt = conn.createStatement();
 
-		sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status, worker.id from kms "
+		if(param == 0)
+		{
+			sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status, worker.id from kms "
 				+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
 				+ "LEFT JOIN account as client ON inci.customer=client.idx "
 				+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
@@ -39,8 +38,21 @@
 				+ "WHERE worker.id=\'" + worker_id + "\' "
 				+ "ORDER BY kms_index DESC, inci.priority ASC";
 		
+		}
+		else
+		{
+			sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status from kms "
+				+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
+				+ "LEFT JOIN account as client ON inci.customer=client.idx "
+				+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
+				+ "WHERE kms.workerIdx=0 "
+				+ "ORDER BY kms_index DESC, inci.priority ASC";
+		}
+		
 		rs = stmt.executeQuery(sql);
+		rs.last();
 		count = rs.getRow();
+		rs.beforeFirst();
 %>
 
 
