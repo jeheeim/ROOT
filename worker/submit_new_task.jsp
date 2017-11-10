@@ -17,7 +17,30 @@ String inputDetail			= request.getParameter("inputDetail");
 String inputComment			= request.getParameter("inputComment");
 String inputDate_submit		= request.getParameter("inputDate_submit");
 String inputdate_Deadline	= request.getParameter("inputdate_Deadline");
-String receptionist	= request.getParameter("inputClient");
+String receptionist			= request.getParameter("SUB11");
+
+String sub11 = request.getParameter("SUB11");
+String sub12 = request.getParameter("SUB12");
+String sub13 = request.getParameter("SUB13");
+String sub14 = request.getParameter("SUB14");
+String sub15 = request.getParameter("SUB15");
+String sub16 = request.getParameter("SUB16");
+String sub17 = request.getParameter("SUB17");
+String sub18 = request.getParameter("SUB18");
+String sub19 = request.getParameter("SUB19");
+String sub20 = request.getParameter("SUB20");
+
+if(!sub11.equals("0")) receptionist = sub11;
+if(!sub12.equals("0")) receptionist = sub12;
+if(!sub13.equals("0")) receptionist = sub13;
+if(!sub14.equals("0")) receptionist = sub14;
+if(!sub15.equals("0")) receptionist = sub15;
+if(!sub16.equals("0")) receptionist = sub16;
+if(!sub17.equals("0")) receptionist = sub17;
+if(!sub18.equals("0")) receptionist = sub18;
+if(!sub19.equals("0")) receptionist = sub19;
+if(!sub20.equals("0")) receptionist = sub20;
+
 int priority = 0;
 PreparedStatement pstmt = null;
 /*	1. 한글 입력되게 해야함
@@ -51,12 +74,21 @@ try
 	pstmt.setString(9, "0");		//상태
 	pstmt.setString(10, user_index);	//id
 	pstmt.setString(11, String.valueOf(priority));		//우선순위
-	pstmt.setString(12, String.valueOf(receptionist));		//우선순위
+	pstmt.setString(12, receptionist);		//우선순위
 	//입력: 부서, 우선순위,//출력: 연락처, 이름
 
 	
 	pstmt.executeUpdate();
-	out.println("성공");
+	out.println(sub11);
+	out.println(sub12);
+	out.println(sub13);
+	out.println(sub14);
+	out.println(sub15);
+	out.println(sub16);
+	out.println(sub17);
+	out.println(sub18);
+	out.println(sub19);
+	out.println(sub20);
 }
 catch(Exception e)
 {
