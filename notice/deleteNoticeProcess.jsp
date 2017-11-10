@@ -26,11 +26,10 @@
         Connection conn = DriverManager.getConnection(dburl,dbuser,dbpw);;
         Statement stmt = conn.createStatement();
 
-        ResultSet rs = stmt.executeQuery(sql);
+        stmt.executeUpdate(sql);
 %>
 <script>self.window.alert("글이삭제되었습니다.")</script>
 <%
-    rs.close();
     stmt.close();
     conn.close();
     }

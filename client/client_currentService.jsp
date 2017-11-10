@@ -41,7 +41,7 @@ String user_id = (String)session.getAttribute("user_id");
 					sql = "SELECT"
 					+ " kms.kms_index, incident_management.registration_date, incident_management.deadline, incident_management.title, incident_management.status,"
 					+ " workers.name as worker_name, clients.id as client_id FROM kms"
-					+ " LEFT JOIN incident_management ON kms.incident_index=incident_management.index"
+					+ " LEFT JOIN incident_management ON kms.incident_index=incident_management.idx"
 					+ " LEFT JOIN account as workers ON kms.workerIdx=workers.idx"
 					+ " LEFT JOIN account as clients ON incident_management.customer=clients.idx"
 					+ " WHERE clients.id=\'" + user_id + "\'"
@@ -63,7 +63,7 @@ String user_id = (String)session.getAttribute("user_id");
 							worker_name = "(미배정)";
 						}
 				%>
-				<tr style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=<%=index%>'">
+				<tr style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=4&param=<%=index%>'">
 					<th scope="row" ><%=index%></th>
 					<td><%=date_added%></td>
 					<td><%=date_due%></td>
