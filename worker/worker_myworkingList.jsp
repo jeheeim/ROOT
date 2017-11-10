@@ -33,6 +33,11 @@
 
 	ResultSet rs_kms = null;
 	Statement stmt_kms = null;
+
+	String worker_id = "";
+
+	worker_id = (String)session.getAttribute("user_id");
+
 	try{
 		//출처: http://seinarin.tistory.com/3 [행복을 찾아서]
 		stmt = conn.createStatement();
@@ -49,7 +54,11 @@
 
 		out.print("총 게시물 : " + total + "개");
 
-		sqlList = "SELECT incident_management.index, title, customer, priority, status from incident_management ORDER BY incident_management.index DESC, priority ASC";
+		sqlList = "SELECT kms_index, inci.title, inci.customer, inci.priority, inci.status, worker.id from kms "
+				+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
+				+ "LEFT JOIN account as worker ON worker.idx=kms.workerIdx "
+				+ "WHERE id=\'" + worker_id + "\'"
+				+ "ORDER BY kms_index DESC, inci.priority ASC ";
 		
 		rs = stmt.executeQuery(sqlList);
 	
@@ -102,7 +111,7 @@
 								customerDepart = rs_temp1.getString("department");
 							rs_temp1.close();
 
-							sqlFindNameDepart = "SELECT department FROM company_department WHERE company_department.index = \'" + customerDepart +"\'";
+							sqlFindNameDepart = "SELECT department FROM company_department WHERE company_department.idx = \'" + customerDepart +"\'";
 							rs_temp1 = stmt_temp.executeQuery(sqlFindNameDepart);
 							if(rs_temp1.next())
 								customerDepart = rs_temp1.getString("department");
