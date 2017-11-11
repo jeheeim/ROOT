@@ -394,15 +394,15 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="keyword1" class="col-sm-2 control-label">키워드1</label>
+			<label for="keyword1" class="col-sm-2 control-label">대분류 키워드</label>
 			<div class="col-sm-2">
 				<input type="text" class="form-control" name="keyword1" placeholder="키워드1">
 			</div>
-			<label for="keyword2" class="col-sm-2 control-label">키워드2</label>
+			<label for="keyword2" class="col-sm-2 control-label">중분류 키워드</label>
 			<div class="col-sm-2">
 				<input type="text" class="form-control" name="keyword2" placeholder="키워드2">
 			</div>
-			<label for="keyword3" class="col-sm-2 control-label">키워드3</label>
+			<label for="keyword3" class="col-sm-2 control-label">소분류 키워드</label>
 			<div class="col-sm-2">
 				<input type="text" class="form-control" name="keyword3" placeholder="키워드3">
 			</div>
