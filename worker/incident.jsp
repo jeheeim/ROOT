@@ -1,99 +1,124 @@
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../dbLogin.jspf"%>
+
 <!DOCTYPE html>
 <html lang="ko">
-<!--
-well{
-	min-height:20px;
-	padding:19px;
-	margin-bottom:20px;
-	background-color:#f5f5f5;
-	border:1px solid #e3e3e3;
-	border-radius:4px;
-	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.05);
-	box-shadow:inset 0 1px 1px rgba(0,0,0,.05)
-}
-.well blockquote{
-	border-color:#ddd;
-	border-color:rgba(0,0,0,.15)
-}
-.well-lg{
-	padding:24px;
-	border-radius:6px
-}.well-sm{
-	padding:9px;
-	border-radius:3px
-}
--->
+
 <head>
 	<title>인시던트</title>
 	<%@include file="/common_header.jsp"%>
-	<!--
-	<script>
-var observe;
-if (window.attachEvent)
-{
-observe = function (element, event, handler)
-{
-element.attachEvent('on'+event, handler);
-};
-}
-else
-{
-observe = function (element, event, handler)
-{
-element.addEventListener(event, handler, false);
-    		};
-		}
-		function init ()
-		{
-    		var text = document.getElementById('text');
-    		function resize ()
-			{
-        		text.style.height = 'auto';
-        		text.style.height = text.scrollHeight+'px';
-    		}
-/* 0-timeout to get the already changed text */
-    
-	function delayedResize ()
-	{
-		window.setTimeout(resize, 0);
-	}
-    	
-		observe(text, 'change',  resize);
-		observe(text, 'cut',     delayedResize);
-	observe(text, 'paste',   delayedResize);
-	observe(text, 'drop',    delayedResize);
-	observe(text, 'keydown', delayedResize);
-
-	text.focus();
-	text.select();
-    resize();
-}
-	</script>
-	-->
 </head>
 <%
-	int idx = Integer.parseInt(request.getParameter("idx"));
+	String title = "";
+	String client_name = "";
+	
+	int reception_path = 0;
+	String route = "";
+	
+	String receptionist = "";
+	String registration_date = "";
+	String deadline = "";
+	
+	int problem_scope_value = 0;
+	String problem_scope = "";
+	
+	int urgency_value = 0;
+	String urgency = "";
+
+	int priority_value = 0;
+	String priority = "";
+	
+	String content = "";
+	String action_details = "";
+	int status = 0;
+	
+	
+	int idx = 0;
+	
+	idx = Integer.parseInt(request.getParameter("param"));
+
 	try{
 		stmt = conn.createStatement();
 
-		sql = "SELECT title, reception_path, customer, registration_date, deadline, "
-		+ "problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음'), status FROM incident_management WHERE incident_management.index=" + idx;
+		sql = "SELECT title, client.name, reception_path, receptionist, registration_date, deadline, problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음'), "
+			+ "status FROM incident_management "
+			+ "LEFT JOIN account as client ON incident_management.customer=client.idx "
+			+ "WHERE incident_management.idx=" + idx;
 		rs = stmt.executeQuery(sql);
 
 		if(rs.next()){
-			String title = rs.getString(1);
-			int reception_path = rs.getInt(2);
-			int customer = rs.getInt(3);
-			String registration_data = rs.getString(4);
-			String deadline = rs.getString(5);
-			int problem_scope = rs.getInt(6);
-			int urgency = rs.getInt(7);
-			int priority = rs.getInt(8);
-			String content = rs.getString(9);
-			String action_details = rs.getString(10);
-			int status = rs.getInt(11);
+			title = rs.getString(1);
+			client_name = rs.getString(2);
+			reception_path = rs.getInt(3);
+			receptionist = rs.getString(4);
+			registration_date = rs.getString(5);
+			deadline = rs.getString(6);
+			problem_scope_value = rs.getInt(7);
+			urgency_value = rs.getInt(8);
+			priority_value = rs.getInt(9);
+			content = rs.getString(10);
+			action_details = rs.getString(11);
+			status = rs.getInt(12);
+
+			route = "";
+
+			switch(reception_path)
+			{
+			case 1:
+				route = "전화";
+				break;
+			case 2:
+				route = "회의";
+				break;
+			case 3:
+				route = "이메일";
+				break;
+			case 4:
+				route = "기타";
+				break;
+			case 5:
+				route = "시스템";
+				break;
+			}
+
+			switch(problem_scope_value)
+			{
+			case 1:
+				problem_scope = "전 회사";
+				break;
+			case 2:
+				problem_scope = "부서";
+				break;
+			case 3:
+				problem_scope = "개인";
+				break;
+			}
+
+			switch(urgency_value)
+			{
+			case 1:
+				urgency = "긴급";
+				break;
+			case 2:
+				urgency = "중요";
+				break;
+			case 3:
+				urgency = "경미";
+				break;
+			}
+
+			switch(priority_value)
+			{
+			case 1:
+				priority = "상";
+				break;
+			case 2:
+				priority = "중";
+				break;
+			case 3:
+				priority = "하";
+				break;
+			}
 
 %>
 <body onload="init();">
@@ -112,39 +137,23 @@ element.addEventListener(event, handler, false);
 		<div class="form-group">
 			<label class="col-sm-1 control-label">고객</label>
 			<div class="col-sm-2">
-				<div class="well well-sm">...</div>
+				<div class="well well-sm"><%=client_name%></div>
 			</div>
 			<label class="col-sm-1 control-label">접수경로</label>
 			<div class="col-sm-2">
-				<div class="well well-sm">
-					<%switch (reception_path){
-						case 1:
-						    %>전화<%
-						    break;
-						case 2:
-						    %>회의<%
-						    break;
-						case 3:
-						    %>이메일<%
-						    break;
-						case 4:
-						    %>기타<%
-						    break;
-					}
-					%>
-				</div>
+				<div class="well well-sm"><%=route%></div>
 			</div>
 
 			<label class="col-sm-1 control-label">접수자</label>
 			<div class="col-sm-2">
-				<div class="well well-sm"><%=customer%></div>
+				<div class="well well-sm"><%=client_name%></div>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label class="col-sm-1 control-label">요청일시</label>
 			<div class="col-sm-2">
-				<div class="well well-sm"><%=registration_data%></div>
+				<div class="well well-sm"><%=registration_date%></div>
 			</div>
 			<div class="col-sm-3"></div>
 			<label class="col-sm-1 control-label">목표기한</label>
@@ -201,7 +210,12 @@ element.addEventListener(event, handler, false);
 </body>
 <%
 		}
-	}catch (Exception e){
+	}catch(SQLException sqle)
+	{
+		out.println(sqle.toString());
+	}
+	catch (Exception e){
+		out.println(e.toString());
 		}
 %>
 </html>

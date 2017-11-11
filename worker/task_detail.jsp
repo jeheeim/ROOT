@@ -21,31 +21,26 @@ int incident_param = 0;
 int change_param = 0;
 
 boolean changeState = false;
-try {
+
+try
+{
 	sql = "SELECT incident_index, change_index FROM kms WHERE kms_index = " + param;
 	stmt = conn.createStatement();
-}catch (Exception e){
-    out.println(e.toString());
-}
-try{
 	rs = stmt.executeQuery(sql);
-}catch (SQLException e){
-    out.println(e.toString());
-}
-try{
-	if (rs.next()) {
+	if (rs.next())
+	{
 		incident_param = rs.getInt(1);
-		if(rs.getInt(2) != 0) {
+
+		if(rs.getInt(2) != 0)
+		{
 			change_param = rs.getInt(2);
 			changeState = true;
 		}
-		else{
-		    changeState = false;
-		}
 	}
 }
-catch (Exception e2){
-}
+catch (SQLException e) { out.println(e.toString()); }
+catch (Exception e) { out.println(e.toString()); }
+
 /*
 쿼리문을 실행해 incident_param에 incident_idx, change_param에 change_idx를 입력할것.
 */
