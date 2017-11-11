@@ -3,7 +3,10 @@
 
 <!DOCTYPE html>
 <html lang="ko">
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/master
 <head>
 	<title>인시던트</title>
 	<%@include file="/common_header.jsp"%>
@@ -40,10 +43,15 @@
 	try{
 		stmt = conn.createStatement();
 
+<<<<<<< HEAD
 		sql = "SELECT title, client.name, reception_path, receptionist, registration_date, deadline, problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음'), "
 			+ "status FROM incident_management "
 			+ "LEFT JOIN account as client ON incident_management.customer=client.idx "
 			+ "WHERE incident_management.idx=" + idx;
+=======
+		sql = "SELECT title, reception_path, customer, registration_date, deadline, "
+		+ "problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음'), status FROM incident_management WHERE incident_management.idx=" + idx;
+>>>>>>> refs/remotes/origin/master
 		rs = stmt.executeQuery(sql);
 
 		if(rs.next()){
@@ -194,13 +202,17 @@
 			<div class="col-sm-1"></div>
 		<%switch(status){
 		    case 0:
-		%><button type="submit" class="btn btn-default">작업시작</button><%
+		%>
+			<a class="btn btn-default"
+			   onclick="window.open('submitToIncident.jsp?idx=<%=idx%>', '인시던트로 변경',''); return false;" target="_blank">작업시작</a><%
 			break;
 			case 1:
 		        %>
 				<button type="submit" class="btn btn-default">수정</button>
-				<button type="submit" class="btn btn-default">작업완료</button>
-				<button type="submit" class="btn btn-default">변경이관</button>
+				<a class="btn btn-default"
+			   onclick="window.open('incidentToComplete.jsp?idx=<%=idx%>', '작업완료로 변경',''); return false;" target="_blank">작업완료</a>
+				<a class="btn btn-default"
+			   onclick="window.open('incidentToComplete.jsp?idx=<%=idx%>', '변경관리로 변경',''); return false;" target="_blank">변경이관</a>
 				<%
 			break;
 		}%>
