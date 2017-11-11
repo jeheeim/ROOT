@@ -6,6 +6,7 @@
 
 <%
 request.setCharacterEncoding("UTF-8");
+
 String title				= request.getParameter("inputTitle");
 String inputGetBy			= request.getParameter("inputGetBy"); // 1: 전화 2:회의 3:이메일 4: 기타
 String inputClient_company	= request.getParameter("inputClient_company"); //1.삼성SDI 2.LINE 3.LG CNS 4.돈 많이 주는 곳
@@ -47,7 +48,7 @@ if(!sub20.equals("0")) receptionist = sub20;
 
 int priority = 0;
 
-String id="";
+String id = "";
 String user_index = "";
 String incident_index = "";
 

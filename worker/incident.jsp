@@ -120,7 +120,7 @@
 			}
 
 %>
-<body onload="init();">
+<body>
 	<form class="form-horizontal">
 		<div class="form-group">
 			<label class="col-sm-1 control-label">번호</label>
@@ -213,12 +213,8 @@
 </body>
 <%
 		}
-	}catch(SQLException sqle)
-	{
-		out.println(sqle.toString());
 	}
-	catch (Exception e){
-		out.println(e.toString());
-		}
+	catch (SQLException sqle) { out.println(sqle.toString()); }
+	catch (Exception e) { out.println(e.toString()); }
 %>
 </html>
