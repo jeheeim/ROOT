@@ -13,9 +13,11 @@ int incident = 0;
 int change = 0;
 int release = 0;
 int finish = 0;
+String nameStr ="";
 try
 {
    id = (String)session.getAttribute("user_id");
+   nameStr = id + "님의 현황";
    sql = "select count(if(inci.status = 1, 1, null)), count(if(inci.status = 2, 1, null)), count(if(inci.status = 3, 1, null)), count(if(inci.status = 4, 1, null)) from kms "+
       "left join account on account.idx = workerIdx "+
       "left join incident_management as inci on inci.idx = kms.incident_index "+
@@ -49,7 +51,7 @@ try
             ]);
 
             var options = {
-                title: 'user01의 현황' ,
+                title: '<%=nameStr%>' ,
                 pieHole: 0.4,
             pieSliceText: 'value',
             pieSliceTextStyle :{
