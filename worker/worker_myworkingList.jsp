@@ -1,16 +1,6 @@
-<!-- 에러가 납니다. 하지만 경고 수준입니다.
-	이유는 rs가 stmt를 사용하고 rs_temp1도 사용합니다.
-	rs.close()하기전에 rs_temp1 = stmt.executeQuery(sqlFindNameDepart);하므로
-	문제가 생기는 듯 합니다.-->
-
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../dbLogin.jspf"%>
-<!--
-	DB와 연동 후 작업해야함!
 
-
-
--->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -21,38 +11,47 @@
 
 
 <%
-	String sqlCount=null;
-	//ResultSet rs=null;
-	String sqlList =null;
-	String sqlFindNameDepart=null;
-	String sqlKMSNum=null;
-	int total = 0;
-	//새로만든 rs
-	ResultSet rs_temp1 = null;
-	Statement stmt_temp = null;
+	int param = Integer.parseInt(request.getParameter("param"));
+	String worker_id = "";
 
-	ResultSet rs_kms = null;
-	Statement stmt_kms = null;
+	worker_id = (String)session.getAttribute("user_id");
+
+	int count = 0;
+
+	int idx = 0;
+	String title = "";
+	String client_name = "";
+	String client_dept = "";
+	int priority = 0;
+	int status = 0;
+
 	try{
-		//출처: http://seinarin.tistory.com/3 [행복을 찾아서]
 		stmt = conn.createStatement();
-		stmt_temp= conn.createStatement();
-		stmt_kms = conn.createStatement();
-		//String sqlCount = "SELECT COUNT(*) FROM incident_management"
-		sqlCount = "SELECT COUNT(*) FROM incident_management";
-		//ResultSet rs = stmt.executeQuery(sqlCount);
-		rs = stmt.executeQuery(sqlCount);
-		if(rs.next()){
-			total = rs.getInt(1);
-		}
-		rs.close();
 
-		out.print("총 게시물 : " + total + "개");
-
-		sqlList = "SELECT incident_management.index, title, customer, priority, status from incident_management ORDER BY incident_management.index DESC, priority ASC";
+		if(param == 0)
+		{
+			sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status, worker.id from kms "
+				+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
+				+ "LEFT JOIN account as client ON inci.customer=client.idx "
+				+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
+				+ "LEFT JOIN account as worker ON worker.idx=kms.workerIdx "
+				+ "WHERE worker.id=\'" + worker_id + "\' "
+				+ "ORDER BY kms_index DESC, inci.priority ASC";
 		
-		rs = stmt.executeQuery(sqlList);
-	
+		}
+		else
+		{
+			sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status from kms "
+				+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
+				+ "LEFT JOIN account as client ON inci.customer=client.idx "
+				+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
+				+ "ORDER BY kms_index DESC, inci.priority ASC";
+		}
+		
+		rs = stmt.executeQuery(sql);
+		rs.last();
+		count = rs.getRow();
+		rs.beforeFirst();
 %>
 
 
@@ -72,7 +71,7 @@
 			<tbody>
 			
 				<%
-					if(total == 0){	//등록된 글이 없을 경우
+					if(count == 0){	//등록된 글이 없을 경우
 				%>
 						<tr align="center">
 							<td colspan="6">등록된 글이 없습니다.</td>
@@ -81,40 +80,12 @@
 					}//if
 					else{	//등록된 글이 1개 이상 있다면
 						while(rs.next()){
-							int idx = rs.getInt(1);			//index
-							String title = rs.getString(2);	//title
-							String managerId = rs.getString(3);	//manager_id
-							int priority = rs.getInt(4);	//priority
-							int status = rs.getInt(5);
-							
-							//이름 구하기
-							sqlFindNameDepart = "SELECT name FROM account WHERE account.Idx = \'" + managerId +"\'";
-							rs_temp1 = stmt_temp.executeQuery(sqlFindNameDepart);
-							String customerName = null;
-							String customerDepart = null;
-							if(rs_temp1.next())
-								customerName = rs_temp1.getString("name");
-							rs_temp1.close();
-
-							sqlFindNameDepart = "SELECT department FROM account WHERE account.Idx = \'" + managerId +"\'";
-							rs_temp1 = stmt_temp.executeQuery(sqlFindNameDepart);
-							if(rs_temp1.next())
-								customerDepart = rs_temp1.getString("department");
-							rs_temp1.close();
-
-							sqlFindNameDepart = "SELECT department FROM company_department WHERE company_department.index = \'" + customerDepart +"\'";
-							rs_temp1 = stmt_temp.executeQuery(sqlFindNameDepart);
-							if(rs_temp1.next())
-								customerDepart = rs_temp1.getString("department");
-							rs_temp1.close();
-
-							//KMS Num 찾기
-							sqlKMSNum = "SELECT kms_index FROM kms WHERE incident_index=" + idx;
-							rs_kms = stmt_kms.executeQuery(sqlKMSNum);
-							int kms_idx = -1;
-							if(rs_kms.next())
-							    kms_idx = rs_kms.getInt(1);
-							rs_kms.close();
+							idx = rs.getInt(1);
+							title = rs.getString(2);
+							client_name = rs.getString(3);
+							client_dept = rs.getString(4);
+							priority = rs.getInt(5);
+							status = rs.getInt(6);
 				%>
 				<tr>
 					<th scope="row">
@@ -123,15 +94,15 @@
 					</th>
 					<td>
 						<!--제목-->
-						<a href="/mainPage.jsp?mod=105&param=<%=kms_idx%>"><%=title%></a>
+						<a href="/mainPage.jsp?mod=105&param=<%=idx%>"><%=title%></a>
 					</td>
 					<td>
-						<!--작성자-->
-						<%=customerName%>
+						<!--고객-->
+						<%=client_name%>
 					</td>
 					<td>
 						<!--소속-->
-						<%=customerDepart%>
+						<%=client_dept%>
 					</td>
 					<td>
 						<!--우선순위-->
@@ -144,11 +115,20 @@
 					<td>
 						<!--상태-->
 						<%
-						if(status == 0) out.println("신규");
-						else if(status == 1) out.println("접수");
-						else if(status == 2) out.println("인시던트");
-						else if(status == 1) out.println("변경");
-						else if(status == 2) out.println("릴리즈");
+						switch(status)
+						{
+						case 0: out.println("신규");
+							break;
+						case 1: out.println("인시던트");
+							break;
+						case 2: out.println("변경");
+							break;
+						case 3: out.println("릴리즈");
+							break;
+						case 4: out.println("완료");
+							break;
+						}
+						
 						%>
 					</td>
 				</tr>
@@ -168,7 +148,6 @@
 	</div><!-- /example -->
 
 	<%@include file="/common_footer.jsp"%>
-
 </body>
 
 

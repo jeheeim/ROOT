@@ -35,7 +35,9 @@ out.println(content);
 out.println(fm.format(nowDate).toString());
 out.println(deadline);
 
-
+String keyword_1 = request.getParameter("keyword1");
+String keyword_2 = request.getParameter("keyword2");
+String keyword_3 = request.getParameter("keyword3");
 try
 {
 	conn=DriverManager.getConnection(dburl,dbuser,dbpw);
@@ -67,7 +69,8 @@ try
 
 	pstmt.executeUpdate();
 
-	sql = "INSERT INTO kms (incident_index, workerIdx) VALUES (LAST_INSERT_ID(), 0)";
+	sql = "INSERT INTO kms (incident_index, workerIdx, keyword_1, keyword_2, keyword_3) VALUES (LAST_INSERT_ID(), 0,\'"
+	+ keyword_1+"\',\'"+ keyword_2+"\',\'"+ keyword_3+"\')";
 	pstmt = conn.prepareStatement(sql);
 	pstmt.executeUpdate(sql);
 	

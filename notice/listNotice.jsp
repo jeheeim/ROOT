@@ -120,7 +120,7 @@
 					customerDepart = rs_temp1.getString("department");
 				rs_temp1.close();
 
-				sqlFindNameDepart = "SELECT department FROM company_department WHERE company_department.index = \'" + customerDepart +"\'";
+				sqlFindNameDepart = "SELECT department FROM company_department WHERE company_department.idx = \'" + customerDepart +"\'";
 				rs_temp1 = stmt_temp.executeQuery(sqlFindNameDepart);
 				if(rs_temp1.next())
 					customerDepart = rs_temp1.getString("department");

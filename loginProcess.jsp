@@ -24,16 +24,12 @@ String user_company		= "";
 String user_department	= "";
 String user_rank		= "";
 int idtype = 0;
-
-// null로 초기화 한다.
-PreparedStatement pstmt = null;
 	
 try
 {
-	conn=DriverManager.getConnection(dburl,dbuser,dbpw);              
 	
 	sql = "SELECT account.name, company.companyName, company_department.department, account.rank, account.isWorker, account.password FROM account, company, company_department WHERE account.id = \'" + user_id+
-	"\' AND account.company_name = company.index AND account.department = company_department.index";
+	"\' AND account.company_name = company.idx AND account.department = company_department.idx";
 		
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();

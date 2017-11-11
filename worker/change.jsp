@@ -1,313 +1,94 @@
-<%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../dbLogin.jspf"%>
+<%
+        int idx = Integer.parseInt(request.getParameter("param"));
+        String backup_page = "backup_plan.jsp?idx="+idx;
+        String work_page = "work_plan.jsp?idx="+idx;
+        String test_page = "test_plan.jsp?idx="+idx;
+        String recovery_page = "recovery_plan.jsp?idx="+idx;
+
+        sql = "SELECT status FROM incident_management WHERE incident_management.idx=" + idx;
+        String sql_review = "SELECT review FROM change_management WHERE change_management.idx="+idx;
+        try{
+%>
+
 <!DOCTYPE html>
 <html lang="ko">
-<style type="text/css">
-    wall{
-        min-height:20px;
-        padding:19px;
-        margin-bottom:20px;
-        background-color:#d0d0d0;
-        border:1px solid #e3e3e3;
-        border-radius:4px;
-        -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.05);
-        box-shadow:inset 0 1px 1px rgba(0,0,0,.05)
-    }
-</style>
-<%
-    int idx = Integer.parseInt(request.getParameter("idx"));
-    try{
-        stmt = conn.createStatement();
-
-        sql = "SELECT status FROM incident_management WHERE incident_management.index=" + idx;
-        rs = stmt.executeQuery(sql);
-
-        if(rs.next()){
-            int status = rs.getInt(1);
-%>
-<!--
-well{
-	min-height:20px;
-	padding:19px;
-	margin-bottom:20px;
-	background-color:#f5f5f5;
-	border:1px solid #e3e3e3;
-	border-radius:4px;
-	-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.05);
-	box-shadow:inset 0 1px 1px rgba(0,0,0,.05)
-}
-.well blockquote{
-	border-color:#ddd;
-	border-color:rgba(0,0,0,.15)
-}
-.well-lg{
-	padding:24px;
-	border-radius:6px
-}.well-sm{
-	padding:9px;
-	border-radius:3px
-}
--->
 <head>
-    <title>변경관리</title>
-    <%@include file="/common_header.jsp"%>
-    <script>
-        var observe;
-        if (window.attachEvent)
-        {
-            observe = function (element, event, handler)
-            {
-                element.attachEvent('on'+event, handler);
-            };
-        }
-        else
-        {
-            observe = function (element, event, handler)
-            {
-                element.addEventListener(event, handler, false);
-            };
-        }
-        function init ()
-        {
-            var text = document.getElementById('text');
-            function resize ()
-            {
-                text.style.height = 'auto';
-                text.style.height = text.scrollHeight+'px';
-            }
-            /* 0-timeout to get the already changed text */
-
-            function delayedResize ()
-            {
-                window.setTimeout(resize, 0);
-            }
-
-            observe(text, 'change',  resize);
-            observe(text, 'cut',     delayedResize);
-            observe(text, 'paste',   delayedResize);
-            observe(text, 'drop',    delayedResize);
-            observe(text, 'keydown', delayedResize);
-
-            text.focus();
-            text.select();
-            resize();
-        }
-    </script>
+    <%@include file="../common_header.jsp"%>
+    <title>Change.jsp</title>
 </head>
-<body onload="init();">
-    <!-- 백업 계획-->
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label class="col-sm-1 control-label">백업 계획</label>
-            <div class="col-sm-7"></div>
-            <div class="col-sm-1">
-                <a class="btn btn-default"
-                   onclick="window.open('../worker_popup/worker_backup_add.jsp', '백업계획 추가',''); return false;" target="_blank">추가</a>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-8">
-                <table class="table table-striped">
-                    <thead>
-                        <th>번호</th>
-                        <th>대상</th>
-                        <th>일자</th>
-                        <th>시간</th>
-                        <th>작업자</th>
-                        <th>장비</th>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th>No.SP</th>
-                        <td>Sample Target</td>
-                        <td>Sample Date</td>
-                        <td>Sample Time</td>
-                        <td>Sample Worker</td>
-                        <td>Sample Equipment</td>
-                    </tr>
-                    <tr>
-                        <th>No.SP</th>
-                        <td>Sample Target</td>
-                        <td>Sample Date</td>
-                        <td>Sample Time</td>
-                        <td>Sample Worker</td>
-                        <td>Sample Equipment</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </form>
-    <!--작업 일정 시작-->
-    <form class="form-horizontal">
-    <div class="form-group">
-        <label class="col-sm-1 control-label">작업일정</label>
-        <div class="col-sm-7"></div>
-        <div class="col-sm-1">
-            <a class="btn btn-default"
-               onclick="window.open('../worker_popup/worker_workplan_add.jsp', '작업일정 추가',''); return false;" target="_blank">추가</a>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-8">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>구분</th>
-                    <th>일시</th>
-                    <th>작업자</th>
-                    <th>비고</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <th>No. Sp</th>
-                    <td>Sample target</td>
-                    <td>Sample Time</td>
-                    <td>Sample Worker</td>
-                    <td>Sample Note</td>
-                </tr>
-                <tr>
-                    <th>No. Sp</th>
-                    <td>Sample target</td>
-                    <td>Sample Time</td>
-                    <td>Sample Worker</td>
-                    <td>Sample Note</td>
-                </tr>
-                <tr>
-                    <th>No. Sp</th>
-                    <td>Sample target</td>
-                    <td>Sample Date</td>
-                    <td>Sample Worker</td>
-                    <td>Sample Note</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    </form>
-    <!--작업 일정 끝-->
-    <!--테스트 계획 시작-->
+<body>
+<div id="BackUpFrame">
+    <jsp:include page="<%=backup_page%>" flush="true"/>
+</div>
+
+<div id="WorkFrame">
+    <jsp:include page="<%=work_page%>" flush="true"/>
+</div>
+
+<div id="TestFrame">
+    <jsp:include page="<%=test_page%>" flush="true"/>
+</div>
+
+<div id="RecoveryFrame">
+    <jsp:include page="<%=recovery_page%>" flush="true"/>
+</div>
+<!--검토사항 시작-->
 <form class="form-horizontal">
     <div class="form-group">
-        <label class="col-sm-1 control-label">테스트 계획</label>
-        <div class="col-sm-7"></div>
-        <div class="col-sm-1">
-            <a class="btn btn-default"
-               onclick="window.open('../worker_popup/worker_testplan_add.jsp', '테스트계획 추가',''); return false;" target="_blank">추가</a>
-        </div>
-    </div>
-    <div class="form-group">
-    <div class="col-sm-1"></div>
-    <div class="col-sm-8">
-    <table class="table table-striped">
-        <thead>
-            <th>번호</th>
-            <th>계획일자</th>
-            <th>담당자</th>
-            <th>비고</th>
-            <th>테스트 케이스</th>
-            <th>예상결과</th>
-        </thead>
-        <tbody>
-        <tr>
-            <th>No.Sp</th>
-            <td>Sample Date</td>
-            <td>Sample Worker</td>
-            <td>Sample Note</td>
-            <td>Sample Case</td>
-            <td>Sample Result</td>
-        </tr>
-        <tr>
-            <th>No.Sp</th>
-            <td>Sample Date</td>
-            <td>Sample Worker</td>
-            <td>Sample Note</td>
-            <td>Sample Case</td>
-            <td>Sample Result</td>
-        </tr>
-        </tbody>
-    </table>
-    </div>
-    </div>
-</form>
-    <!--테스트 계획 끝-->
-    <!--복구 계획 시작-->
-<form class="form-horizontal">
-    <div class="form-group">
-        <label class="col-sm-1 control-label">복구 계획</label>
-        <div class="col-sm-7"></div>
-        <div class="col-sm-1">
-            <a class="btn btn-default"
-               onclick="window.open('../worker_popup/worker_recovery_add.jsp', '복구 계획 추가',''); return false;" target="_blank">추가</a>
-        </div>
+        <label class="col-sm-1 control-label">검토사항</label>
     </div>
     <div class="form-group">
         <div class="col-sm-1"></div>
+<%
+        stmt = conn.createStatement();
+        rs = stmt.executeQuery(sql_review);
+        String review = null;
+        if(rs.next()){
+            review = rs.getString(1);
+        }
+%>
         <div class="col-sm-8">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>복구대상</th>
-                        <th>복구시간</th>
-                        <th>작업자</th>
-                        <th>비고</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>No.Sp</td>
-                        <td>S Target</td>
-                        <td>S Time</td>
-                        <td>S Worker</td>
-                        <td>S Note</td>
-                    </tr>
-                    <tr>
-                        <td>No.Sp</td>
-                        <td>S Target</td>
-                        <td>S Time</td>
-                        <td>S Worker</td>
-                        <td>S Note</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</form>
-    <!--복구 계획 끝-->
-    <!--검토사항 시작-->
-<form class="form-horizontal">
-    <div class="form-group">
-        <label for="inputReview" class="col-sm-1 control-label">검토사항</label>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-8">
-            <div class="well well-sm">검토사항 내용을 넣으면 됩니다.</div>
+            <div class="well well-sm"><%=review%></div>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-1"></div>
-        <%switch (status){
+<%
+        rs.close();
+    rs = stmt.executeQuery(sql);
+    if(rs.next()){
+        int status = rs.getInt(1);
+        switch (status){
             case 0:
             case 1:
-                break;
-            case 2:
-                %><button type="submit" class="btn btn-default">다음단계</button><%
-                break;
-            case 3:
-                %><button type="submit" class="btn btn-default">완료</button><%
-        }%>
+%><%=status%><%
+        break;
+    case 2:
+%>
+        <a class="btn btn-default"
+           onclick="window.open('changeToRelease.jsp?idx=<%=idx%>', '복구 계획 추가',''); return false;" target="_blank">릴리즈로 변경</a><%
+        break;
+    case 3:
+%>
+        <a class="btn btn-default"
+           onclick="window.open('releaseToComplete.jsp?idx=<%=idx%>', '복구 계획 추가',''); return false;" target="_blank">완료로 변경</a><%
+            break;
+        case 4:
+    %><div class="btn btn-default">완료입니다</div><%
+                    break;
+            }
+    }
+
+    }catch (Exception e){
+    e.toString();
+    }
+%>
     </div>
 </form>
-    <!--검토사항 끝-->
+<!--검토사항 끝-->
 <%@include file="/common_footer.jsp"%>
+
 </body>
-<%  }//if
-}catch (Exception e){
-}%>
 </html>
