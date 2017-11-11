@@ -45,7 +45,6 @@
 				+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
 				+ "LEFT JOIN account as client ON inci.customer=client.idx "
 				+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
-				+ "WHERE kms.workerIdx=0 "
 				+ "ORDER BY kms_index DESC, inci.priority ASC";
 		}
 		
