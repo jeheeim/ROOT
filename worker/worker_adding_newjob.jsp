@@ -393,6 +393,20 @@
 				<textarea style="resize:none;" name = "inputComment" class="form-control" rows="3" placeholder="담당자의 의견이 들어갑니다."></textarea>
 			</div>
 		</div>
+		<div class="form-group">
+			<label for="keyword1" class="col-sm-2 control-label">키워드1</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="keyword1" placeholder="키워드1">
+			</div>
+			<label for="keyword2" class="col-sm-2 control-label">키워드2</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="keyword2" placeholder="키워드2">
+			</div>
+			<label for="keyword3" class="col-sm-2 control-label">키워드3</label>
+			<div class="col-sm-2">
+				<input type="text" class="form-control" name="keyword3" placeholder="키워드3">
+			</div>
+		</div>
 		<div align="center">
 			<button type="submit" class="btn btn-default">등록</button>
 			<button type="cancel" class="btn btn-default">취소</button>

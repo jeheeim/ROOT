@@ -19,6 +19,10 @@ String inputDate_submit		= request.getParameter("inputDate_submit");
 String inputdate_Deadline	= request.getParameter("inputdate_Deadline");
 String receptionist			= request.getParameter("SUB11");
 
+String keyword_1 = request.getParameter("keyword1");
+String keyword_2 = request.getParameter("keyword2");
+String keyword_3 = request.getParameter("keyword3");
+
 String sub11 = request.getParameter("SUB11");
 String sub12 = request.getParameter("SUB12");
 String sub13 = request.getParameter("SUB13");
@@ -81,12 +85,15 @@ try
 	if(rs.next())
 		incident_index = rs.getString("MAX(incident_management.idx)");
 
-	sql = "INSERT INTO kms(incident_index, change_index, workerIdx, is_delete) VALUES(?,?,?,?)";
+	sql = "INSERT INTO kms(incident_index, change_index, workerIdx, is_delete, keyword_1, keyword_2, keyword_3) VALUES(?,?,?,?,?,?,?)";
 	pstmt = conn.prepareStatement(sql);
 	pstmt.setString(1, incident_index);			//incident index
-	pstmt.setInt(2, 0);					//change index
+	pstmt.setInt(2, 0);							//change index
 	pstmt.setString(3, user_index);				//worker index
-	pstmt.setInt(4, 0);					//is delete
+	pstmt.setInt(4, 0);							//is delete
+	pstmt.setString(5, keyword_1);				//keyword_1
+	pstmt.setString(6, keyword_2);				//keyword_2
+	pstmt.setString(7, keyword_3);				//keyword_3
 	pstmt.executeUpdate();
 	
 	%> <script> alert("등록 성공!"); history.go(-1); </script> <%
