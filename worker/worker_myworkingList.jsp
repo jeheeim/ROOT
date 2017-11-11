@@ -119,13 +119,13 @@
 						{
 						case 0: out.println("신규");
 							break;
-						case 1: out.println("접수");
+						case 1: out.println("인시던트");
 							break;
-						case 2: out.println("인시던트");
+						case 2: out.println("변경");
 							break;
-						case 3: out.println("변경");
+						case 3: out.println("릴리즈");
 							break;
-						case 4: out.println("릴리즈");
+						case 4: out.println("완료");
 							break;
 						}
 						
