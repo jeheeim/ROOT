@@ -195,19 +195,19 @@
 		</div>
 		<div class="form-group">
 			<div class="col-sm-1"></div>
-		<%switch(status){
+		<% switch(status){
 		    case 0:
 		%>
 			<a class="btn btn-default"
-			   onclick="window.open('submitToIncident.jsp?idx=<%=param%>', '인시던트로 변경',''); return false;" target="_blank">작업시작</a><%
+			   href="/worker/submitToIncident.jsp?idx=<%=param%>">작업시작</a><%
 			break;
 			case 1:
 		        %>
 				<button type="submit" class="btn btn-default">수정</button>
 				<a class="btn btn-default"
-			   onclick="window.open('incidentToComplete.jsp?idx=<%=param%>', '작업완료로 변경',''); return false;" target="_blank">작업완료</a>
+			   onclick="window.open('/worker/incidentToComplete.jsp?idx=<%=param%>', '작업완료로 변경',''); return false;" target="_blank">작업완료</a>
 				<a class="btn btn-default"
-			   onclick="window.open('incidentToComplete.jsp?idx=<%=param%>', '변경관리로 변경',''); return false;" target="_blank">변경이관</a>
+			   onclick="window.open('/worker/incidentToComplete.jsp?idx=<%=param%>', '변경관리로 변경',''); return false;" target="_blank">변경이관</a>
 				<%
 			break;
 		}%>
