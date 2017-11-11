@@ -8,6 +8,9 @@
 	<%@include file="/common_header.jsp"%>
 </head>
 <%
+	int param = 0;
+	int index = 0;
+
 	String title = "";
 	String client_name = "";
 	
@@ -32,32 +35,33 @@
 	int status = 0;
 	
 	
-	int idx = 0;
 	
-	idx = Integer.parseInt(request.getParameter("param"));
+	param = Integer.parseInt(request.getParameter("param"));
 
 	try{
 		stmt = conn.createStatement();
 
-		sql = "SELECT title, client.name, reception_path, receptionist, registration_date, deadline, problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음'), "
+		sql = "SELECT kms.kms_index, title, client.name, reception_path, receptionist, registration_date, deadline, problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음'), "
 			+ "status FROM incident_management "
+			+ "LEFT JOIN kms ON incident_management.idx=kms.incident_index "
 			+ "LEFT JOIN account as client ON incident_management.customer=client.idx "
-			+ "WHERE incident_management.idx=" + idx;
+			+ "WHERE incident_management.idx=" + param;
 		rs = stmt.executeQuery(sql);
 
 		if(rs.next()){
-			title = rs.getString(1);
-			client_name = rs.getString(2);
-			reception_path = rs.getInt(3);
-			receptionist = rs.getString(4);
-			registration_date = rs.getString(5);
-			deadline = rs.getString(6);
-			problem_scope_value = rs.getInt(7);
-			urgency_value = rs.getInt(8);
-			priority_value = rs.getInt(9);
-			content = rs.getString(10);
-			action_details = rs.getString(11);
-			status = rs.getInt(12);
+			index = rs.getInt(1);
+			title = rs.getString(2);
+			client_name = rs.getString(3);
+			reception_path = rs.getInt(4);
+			receptionist = rs.getString(5);
+			registration_date = rs.getString(6);
+			deadline = rs.getString(7);
+			problem_scope_value = rs.getInt(8);
+			urgency_value = rs.getInt(9);
+			priority_value = rs.getInt(10);
+			content = rs.getString(11);
+			action_details = rs.getString(12);
+			status = rs.getInt(13);
 
 			route = "";
 
@@ -125,7 +129,7 @@
 		<div class="form-group">
 			<label class="col-sm-1 control-label">번호</label>
 			<div class="col-sm-2">
-				<div class="well well-sm"><%=idx%></div>
+				<div class="well well-sm"><%=index%></div>
 			</div>
 			<label class="col-sm-1 control-label">제목</label>
 			<div class="col-sm-5">
@@ -195,15 +199,15 @@
 		    case 0:
 		%>
 			<a class="btn btn-default"
-			   onclick="window.open('submitToIncident.jsp?idx=<%=idx%>', '인시던트로 변경',''); return false;" target="_blank">작업시작</a><%
+			   onclick="window.open('submitToIncident.jsp?idx=<%=param%>', '인시던트로 변경',''); return false;" target="_blank">작업시작</a><%
 			break;
 			case 1:
 		        %>
 				<button type="submit" class="btn btn-default">수정</button>
 				<a class="btn btn-default"
-			   onclick="window.open('incidentToComplete.jsp?idx=<%=idx%>', '작업완료로 변경',''); return false;" target="_blank">작업완료</a>
+			   onclick="window.open('incidentToComplete.jsp?idx=<%=param%>', '작업완료로 변경',''); return false;" target="_blank">작업완료</a>
 				<a class="btn btn-default"
-			   onclick="window.open('incidentToComplete.jsp?idx=<%=idx%>', '변경관리로 변경',''); return false;" target="_blank">변경이관</a>
+			   onclick="window.open('incidentToComplete.jsp?idx=<%=param%>', '변경관리로 변경',''); return false;" target="_blank">변경이관</a>
 				<%
 			break;
 		}%>
