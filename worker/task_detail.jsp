@@ -45,8 +45,8 @@ catch (Exception e) { out.println(e.toString()); }
 쿼리문을 실행해 incident_param에 incident_idx, change_param에 change_idx를 입력할것.
 */
 
-String incident_page = "incident.jsp?idx=" + incident_param;
-String change_page = "change.jsp?idx=" + change_param;
+String incident_page = "incident.jsp?param=" + incident_param;
+String change_page = "change.jsp?param=" + change_param;
 //~~~ incident param과 change param에 값을 넣어줄 쿼리문 실행할것
 // status 값도 구해서 넣을것
 %>

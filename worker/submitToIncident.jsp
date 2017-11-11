@@ -1,23 +1,43 @@
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../dbLogin.jspf"%>
-<!DOCTYPE html>
-<html lang="ko">
-<style type="text/css"></style>
-<head><title>Change To Release</title>
-    <%@include file="/common_header.jsp"%>
-</head>
-<%
-    int idx = Integer.parseInt(request.getParameter("idx"));
-    try {
-        stmt = conn.createStatement();
-        sql = "UPDATE incident_management SET status = '1' WHERE idx=" + idx;
-        stmt.executeUpdate(sql);
 
-    }catch (Exception e){
-%><%=e.toString()%><%
-    }
+<%
+int idx = 0;
+int user_idx = 0;
+String user_id = "";
+
+try
+{
+	user_id = (String)session.getAttribute("user_id");
+	idx = Integer.parseInt(request.getParameter("idx"));
+
+	stmt = conn.createStatement();
+
+	conn.setAutoCommit(false);
+
+	sql = "SELECT idx FROM account WHERE id=\'" + user_id + "\'";
+	rs = stmt.executeQuery(sql);
+
+	if(rs.next())
+	{
+		user_idx = rs.getInt(1);
+	}
+	
+	sql = "UPDATE incident_management SET status = '1' WHERE idx=" + idx;
+	stmt.executeUpdate(sql);
+
+	sql = "UPDATE kms SET workerIdx=" + user_idx + " WHERE incident_index=" + idx;
+	stmt.executeUpdate(sql);
+
+	conn.commit();
+}
+catch (SQLException sqle) { out.println(sqle.toString()); }
+catch (Exception e) { out.println(e.toString()); }
+finally
+{
+	stmt.close();
+	conn.close();
+	
+	response.sendRedirect("../mainPage.jsp?mod=102&param=0");
+}
 %>
-<body>
-<%@include file="/common_footer.jsp"%>
-</body>
-</html>
