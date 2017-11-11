@@ -45,6 +45,7 @@ int priority = 0;
 
 String id="";
 String user_index = "";
+String incident_index = "";
 
 try
 {
@@ -54,7 +55,7 @@ try
 	rs = pstmt.executeQuery();
 	if(rs.next())
 		user_index = rs.getString("Idx");
-
+		
 	priority = ( Integer.parseInt(inputRange) + Integer.parseInt(inputEmergency) ) / 2;
 	sql = "INSERT INTO incident_management(title, reception_path, problem_scope, urgency, receptionist_opion, content, registration_date, deadline, status, customer, priority,receptionist)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 	pstmt = conn.prepareStatement(sql);
@@ -72,9 +73,22 @@ try
 	pstmt.setString(11, String.valueOf(priority));		//우선순위
 	pstmt.setString(12, receptionist);		//우선순위
 	//입력: 부서, 우선순위,//출력: 연락처, 이름
-
-	
 	pstmt.executeUpdate();
+	
+	sql = "SELECT MAX(incident_management.idx) FROM incident_management";       
+	pstmt = conn.prepareStatement(sql);
+	rs = pstmt.executeQuery();
+	if(rs.next())
+		incident_index = rs.getString("MAX(incident_management.idx)");
+
+	sql = "INSERT INTO kms(incident_index, change_index, workerIdx, is_delete) VALUES(?,?,?,?)";
+	pstmt = conn.prepareStatement(sql);
+	pstmt.setString(1, incident_index);			//incident index
+	pstmt.setInt(2, 0);					//change index
+	pstmt.setString(3, user_index);				//worker index
+	pstmt.setInt(4, 0);					//is delete
+	pstmt.executeUpdate();
+	
 	%> <script> alert("등록 성공!"); history.go(-1); </script> <%
 }
 catch(Exception e)
