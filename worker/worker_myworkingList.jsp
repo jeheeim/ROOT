@@ -69,24 +69,23 @@
 				</tr>
 			</thead>
 			<tbody>
-			
-				<%
-					if(count == 0){	//등록된 글이 없을 경우
-				%>
-						<tr align="center">
-							<td colspan="6">등록된 글이 없습니다.</td>
-						</tr>
-				<%
-					}//if
-					else{	//등록된 글이 1개 이상 있다면
-						while(rs.next()){
-							idx = rs.getInt(1);
-							title = rs.getString(2);
-							client_name = rs.getString(3);
-							client_dept = rs.getString(4);
-							priority = rs.getInt(5);
-							status = rs.getInt(6);
-				%>
+			<%
+				if(count == 0){	//등록된 글이 없을 경우
+			%>
+				<tr align="center">
+					<td colspan="6">등록된 글이 없습니다.</td>
+				</tr>
+			<%
+				}//if
+				else{	//등록된 글이 1개 이상 있다면
+					while(rs.next()){
+						idx = rs.getInt(1);
+						title = rs.getString(2);
+						client_name = rs.getString(3);
+						client_dept = rs.getString(4);
+						priority = rs.getInt(5);
+						status = rs.getInt(6);
+			%>
 				<tr>
 					<th scope="row">
 						<!--번호-->
@@ -107,9 +106,15 @@
 					<td>
 						<!--우선순위-->
 						<%
-						if(priority == 1) out.println("하");
-						else if(priority == 2) out.println("중");
-						else if(priority == 3) out.println("상");
+						switch(priority)
+						{
+						case 1: out.println("상");
+							break;
+						case 2: out.println("중");
+							break;
+						case 3: out.println("하");
+							break;
+						}
 						%>
 					</td>
 					<td>
@@ -128,27 +133,25 @@
 						case 4: out.println("완료");
 							break;
 						}
-						
+
 						%>
 					</td>
 				</tr>
 				<%
-						}//while
-					}//else
-					rs.close();
-					stmt.close();
-					conn.close();
-				} catch(SQLException e){
-					out.println(e.toString() );
-				}
-				%>
-				
+					}//while
+				}//else
+				rs.close();
+				stmt.close();
+				conn.close();
+			}
+			catch(SQLException sqle) { out.println(sqle.toString()); }
+			catch(Exception e) { out.println(e.toString()); }
+			%>
+
 			</tbody>
 		</table>
-	</div><!-- /example -->
+	</div>
 
 	<%@include file="/common_footer.jsp"%>
 </body>
-
-
 </html>

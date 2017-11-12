@@ -1,4 +1,4 @@
-<%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../dbLogin.jspf"%>
 
 <%
@@ -35,6 +35,8 @@ catch (SQLException sqle) { out.println(sqle.toString()); }
 catch (Exception e) { out.println(e.toString()); }
 finally
 {
+	conn.setAutoCommit(true);
+
 	stmt.close();
 	conn.close();
 	
