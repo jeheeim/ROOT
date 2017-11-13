@@ -1,52 +1,51 @@
-<%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../dbLogin.jspf"%>
 
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-	<%@ include file="/common_header.jsp"%>
-	<title>Worker's Job List</title>
-</head>
-
-
 <%
-int param = Integer.parseInt(request.getParameter("param"));
+// param: url로 입력받는 parameter값. worker_id는 session으로 넘겨받는 작업자 id.
+int param = 0;
 String worker_id = "";
 
-worker_id = (String)session.getAttribute("user_id");
-
+// query문에 따라 검색된 항목의 수
 int count = 0;
 
+// 글 번호, 제목, 고객이름, 부서, 우선순위값, 우선순위, 상태값, 상태
 int idx = 0;
 String title = "";
 String client_name = "";
 String client_dept = "";
+
 int priority_val = 0;
 String priority = "";
+
 int status_val = 0;
 String status = "";
 
 try
 {
 	stmt = conn.createStatement();
+	worker_id = (String)session.getAttribute("user_id");
+	param = Integer.parseInt(request.getParameter("param"));
 
+	// param = 0 -> 내 업무 검색
+	// param = 1 -> 모든 업무 검색
 	if(param == 0)
 	{
 		sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status, worker.id from kms "
-			+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
-			+ "LEFT JOIN account as client ON inci.customer=client.idx "
-			+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
-			+ "LEFT JOIN account as worker ON worker.idx=kms.workerIdx "
+			+ "LEFT JOIN incident_management AS inci ON inci.idx=kms.incident_index "
+			+ "LEFT JOIN account AS client ON inci.customer=client.idx "
+			+ "LEFT JOIN company_department AS dept ON client.department=dept.idx "
+			+ "LEFT JOIN account AS worker ON worker.idx=kms.workerIdx "
 			+ "WHERE worker.id=\'" + worker_id + "\' "
 			+ "ORDER BY kms_index DESC, inci.priority ASC";
 		
 	}
 	else
 	{
-		sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status from kms "
-			+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
-			+ "LEFT JOIN account as client ON inci.customer=client.idx "
-			+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
+		sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status FROM kms "
+			+ "LEFT JOIN incident_management AS inci ON inci.idx=kms.incident_index "
+			+ "LEFT JOIN account AS client ON inci.customer=client.idx "
+			+ "LEFT JOIN company_department AS dept ON client.department=dept.idx "
 			+ "ORDER BY kms_index DESC, inci.priority ASC";
 	}
 		
@@ -55,6 +54,13 @@ try
 	count = rs.getRow();
 	rs.beforeFirst();
 %>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<%@ include file="/common_header.jsp"%>
+	<title>Worker's Job List</title>
+</head>
 
 <body>
 	<div>
@@ -88,14 +94,14 @@ try
 					case 3: priority = "하"; break;
 					}
 					
-					status = rs.getInt(6);
+					status_val = rs.getInt(6);
 					switch(status_val)
 					{
 					case 1: status = "신규"; break;
 					case 2: status = "인시던트"; break;
 					case 3: status = "변경"; break;
-					case 3: status = "릴리즈"; break;
-					case 3: status = "완료"; break;
+					case 4: status = "릴리즈"; break;
+					case 5: status = "완료"; break;
 					}
 
 			%>
@@ -126,7 +132,6 @@ try
 		catch(SQLException sqle) { out.println(sqle.toString()); }
 		catch(Exception e) { out.println(e.toString()); }
 		%>
-
 			</tbody>
 		</table>
 	</div>
