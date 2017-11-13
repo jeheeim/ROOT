@@ -1,3 +1,5 @@
+<!--메인페이지로 보내서 조그마하게 출력해야한다.-->
+
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.lang.*" %>
 <%@ page import="java.util.Date"%>
