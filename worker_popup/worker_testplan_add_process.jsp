@@ -6,29 +6,26 @@
 
 <%
 request.setCharacterEncoding("UTF-8");
-String date				= request.getParameter("inputDate");
-String equipment		= request.getParameter("inputEquip");
-String storage			= request.getParameter("inputCapacity");
-String time				= request.getParameter("inputTime");
-String worker			= request.getParameter("inputWorker");
-String method			= request.getParameter("method");
-String temp_time		= request.getParameter("inputHour");
-int change_idx			=  Integer.parseInt(request.getParameter("change_idx"));
-//String temp_change_idx	= "5";//일시적으로 popup창으로 값 가져오기 성공 아직 못함
+String date_1				= request.getParameter("inputDate");
+String date_2				= request.getParameter("inputDate_2");
+String worker				= request.getParameter("inputWorker");
+String test_case			= request.getParameter("testcase");
+String expected_result		= request.getParameter("result");
+String note					= request.getParameter("note");
+int change_idx				= Integer.parseInt(request.getParameter("change_idx"));
 
-date += " " + time;
+date_1 += " " + date_2;
 try
 {
-	sql = "INSERT INTO back_up_plan(date, equipment, storage, time, worker, method,change_idx)VALUES(?,?,?,?,?,?,?)";
+	sql = "INSERT INTO test_plan(date, manager, test_case, expected_result, remark, change_idx)VALUES(?,?,?,?,?,?)";
 	pstmt = conn.prepareStatement(sql);
 
-	pstmt.setString(1, date);					//일자
-	pstmt.setString(2, equipment);				//장비
-	pstmt.setString(3, storage);				//저장공간
-	pstmt.setString(4, temp_time);				//작업시간
-	pstmt.setString(5, worker);					//작업자
-	pstmt.setString(6, method);					//방식
-	pstmt.setInt(7, change_idx);				//change index
+	pstmt.setString(1, date_1);					//일자
+	pstmt.setString(2, worker);					//작업자
+	pstmt.setString(3, test_case);				//test_case
+	pstmt.setString(4, expected_result);		//결과
+	pstmt.setString(5, note);					//비고
+	pstmt.setInt(6, change_idx);				//change index
 
 	pstmt.executeUpdate();
 	if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){} // PreparedStatement 객체 해제
