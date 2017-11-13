@@ -5,148 +5,127 @@
 <html lang="ko">
 <head>
 	<%@ include file="/common_header.jsp"%>
-
 	<title>Worker's Job List</title>
 </head>
 
 
 <%
-	int param = Integer.parseInt(request.getParameter("param"));
-	String worker_id = "";
+int param = Integer.parseInt(request.getParameter("param"));
+String worker_id = "";
 
-	worker_id = (String)session.getAttribute("user_id");
+worker_id = (String)session.getAttribute("user_id");
 
-	int count = 0;
+int count = 0;
 
-	int idx = 0;
-	String title = "";
-	String client_name = "";
-	String client_dept = "";
-	int priority = 0;
-	int status = 0;
+int idx = 0;
+String title = "";
+String client_name = "";
+String client_dept = "";
+int priority_val = 0;
+String priority = "";
+int status_val = 0;
+String status = "";
 
-	try{
-		stmt = conn.createStatement();
+try
+{
+	stmt = conn.createStatement();
 
-		if(param == 0)
-		{
-			sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status, worker.id from kms "
-				+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
-				+ "LEFT JOIN account as client ON inci.customer=client.idx "
-				+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
-				+ "LEFT JOIN account as worker ON worker.idx=kms.workerIdx "
-				+ "WHERE worker.id=\'" + worker_id + "\' "
-				+ "ORDER BY kms_index DESC, inci.priority ASC";
+	if(param == 0)
+	{
+		sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status, worker.id from kms "
+			+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
+			+ "LEFT JOIN account as client ON inci.customer=client.idx "
+			+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
+			+ "LEFT JOIN account as worker ON worker.idx=kms.workerIdx "
+			+ "WHERE worker.id=\'" + worker_id + "\' "
+			+ "ORDER BY kms_index DESC, inci.priority ASC";
 		
-		}
-		else
-		{
-			sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status from kms "
-				+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
-				+ "LEFT JOIN account as client ON inci.customer=client.idx "
-				+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
-				+ "ORDER BY kms_index DESC, inci.priority ASC";
-		}
+	}
+	else
+	{
+		sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status from kms "
+			+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
+			+ "LEFT JOIN account as client ON inci.customer=client.idx "
+			+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
+			+ "ORDER BY kms_index DESC, inci.priority ASC";
+	}
 		
-		rs = stmt.executeQuery(sql);
-		rs.last();
-		count = rs.getRow();
-		rs.beforeFirst();
+	rs = stmt.executeQuery(sql);
+	rs.last();
+	count = rs.getRow();
+	rs.beforeFirst();
 %>
-
 
 <body>
 	<div>
 		<table class="table table-striped">
-			<thead>
-				<tr>
-				<th>번호</th>
-				<th>제목</th>
-				<th>작성자</th>
-				<th>소속_depart</th>
-				<th>우선순위</th>
-				<th>상태</th>
-				</tr>
-			</thead>
+			<thead><tr><th>번호</th><th>제목</th><th>작성자</th><th>소속_depart</th><th>우선순위</th><th>상태</th></tr></thead>
+
 			<tbody>
 			<%
-				if(count == 0){	//등록된 글이 없을 경우
+			//등록된 글이 없을 경우
+			if(count == 0)
+			{
 			%>
-				<tr align="center">
-					<td colspan="6">등록된 글이 없습니다.</td>
-				</tr>
+				<tr align="center"><td colspan="6">등록된 글이 없습니다.</td></tr>
 			<%
-				}//if
-				else{	//등록된 글이 1개 이상 있다면
-					while(rs.next()){
-						idx = rs.getInt(1);
-						title = rs.getString(2);
-						client_name = rs.getString(3);
-						client_dept = rs.getString(4);
-						priority = rs.getInt(5);
-						status = rs.getInt(6);
+			}//if
+			//등록된 글이 1개 이상 있다면
+			else
+			{
+				while(rs.next())
+				{
+					idx = rs.getInt(1);
+					title = rs.getString(2);
+					client_name = rs.getString(3);
+					client_dept = rs.getString(4);
+
+					priority_val = rs.getInt(5);
+					switch(priority_val)
+					{
+					case 1: priority = "상"; break;
+					case 2: priority = "중"; break;
+					case 3: priority = "하"; break;
+					}
+					
+					status = rs.getInt(6);
+					switch(status_val)
+					{
+					case 1: status = "신규"; break;
+					case 2: status = "인시던트"; break;
+					case 3: status = "변경"; break;
+					case 3: status = "릴리즈"; break;
+					case 3: status = "완료"; break;
+					}
+
 			%>
 				<tr>
-					<th scope="row">
-						<!--번호-->
-						<%=idx%>
-					</th>
+					<!--번호-->
+					<th scope="row"><%=idx%></th>
 					<td>
 						<!--제목-->
 						<a href="/mainPage.jsp?mod=105&param=<%=idx%>"><%=title%></a>
 					</td>
-					<td>
-						<!--고객-->
-						<%=client_name%>
-					</td>
-					<td>
-						<!--소속-->
-						<%=client_dept%>
-					</td>
-					<td>
-						<!--우선순위-->
-						<%
-						switch(priority)
-						{
-						case 1: out.println("상");
-							break;
-						case 2: out.println("중");
-							break;
-						case 3: out.println("하");
-							break;
-						}
-						%>
-					</td>
-					<td>
-						<!--상태-->
-						<%
-						switch(status)
-						{
-						case 0: out.println("신규");
-							break;
-						case 1: out.println("인시던트");
-							break;
-						case 2: out.println("변경");
-							break;
-						case 3: out.println("릴리즈");
-							break;
-						case 4: out.println("완료");
-							break;
-						}
-
-						%>
-					</td>
+					<!--고객-->
+					<td><%=client_name%></td>
+					<!--소속-->
+					<td><%=client_dept%></td>
+					<!--우선순위-->
+					<td><%=priority%></td>
+					<!--상태-->
+					<td><%=status%></td>
 				</tr>
-				<%
-					}//while
-				}//else
-				rs.close();
-				stmt.close();
-				conn.close();
-			}
-			catch(SQLException sqle) { out.println(sqle.toString()); }
-			catch(Exception e) { out.println(e.toString()); }
-			%>
+			<%
+				}//while
+			}//else
+
+			rs.close();
+			stmt.close();
+			conn.close();
+		}
+		catch(SQLException sqle) { out.println(sqle.toString()); }
+		catch(Exception e) { out.println(e.toString()); }
+		%>
 
 			</tbody>
 		</table>
