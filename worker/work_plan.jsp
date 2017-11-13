@@ -47,8 +47,10 @@
             %>
             dataTable.addRows([
                 ['<%=index%>',
-                    new Date(<%=date.substring(0,4)%>, <%=date.substring(5,7)%>, <%=date.substring(8,10)%>),
-                    new Date(<%=date.substring(0,4)%>, <%=date.substring(5,7)%>, <%=date.substring(8,10)%> + 1)]
+                    new Date(<%=date.substring(0,4)%>, <%=Integer.parseInt(date.substring(5,7)) - 1%>, <%=date.substring(8,10)%>,
+                        <%=Integer.parseInt(date.substring(11,13))%>, <%=date.substring(14,16)%>, <%=date.substring(17,19)%>),
+                    new Date(<%=date.substring(0,4)%>, <%=Integer.parseInt(date.substring(5,7)) - 1%>, <%=date.substring(8,10)%>,
+                        <%=Integer.parseInt(date.substring(11,13))+1%>, <%=date.substring(14,16)%>, <%=date.substring(17,19)%>)]
             ]);
             <%
             }
