@@ -59,7 +59,7 @@ try
 		</div>
 	</div>
 	<div class="form-group">
-		div class="col-sm-1"></div>
+		<div class="col-sm-1"></div>
 <%
 	rs.close();
 	rs = stmt.executeQuery(sql);
