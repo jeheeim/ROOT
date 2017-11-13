@@ -4,15 +4,11 @@
 <% request.setCharacterEncoding("UTF-8");%>
 
 <%
-	/*
-	세션 및 아이디 체크
-	
-
-	*/ 
+	/* 세션 및 아이디 체크 */ 
 	int check = 0;
 
 	// 로그인 상황. 고객사: ture, 업무담당자: false
-	String navbarListPage = null;
+	String navbarListPage = "/template/template-navbar.jsp";
 	String mainBodyPage = null;
 	
 	try
@@ -30,7 +26,7 @@
 	}
 	catch(Exception e)
 	{
-		check = (int)session.getAttribute("user_idtype");
+		response.sendRedirect("/login.jsp");
 	}
 
 	/*
