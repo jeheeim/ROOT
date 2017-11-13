@@ -66,7 +66,7 @@
         <div class="col-sm-7"></div>
         <div class="col-sm-1">
             <a class="btn btn-default"
-               onclick="window.open('../worker_popup/worker_workplan_add.jsp', '작업일정 추가',''); return false;" target="_blank">추가</a>
+               onclick="window.open('../worker_popup/worker_workplan_add.jsp?idx=<%=idx%>', '작업일정 추가',''); return false;" target="_blank">추가</a>
         </div>
     </div>
     <div class="form-group">

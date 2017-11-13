@@ -1,5 +1,7 @@
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%
+	String change_idx = request.getParameter("idx");
+%>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -25,30 +27,31 @@
     <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
     <script src="/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
 	
-	<form class="form-horizontal">
+	<form class="form-horizontal" action="/worker_popup/worker_workplan_add_process.jsp?change_idx=<%=change_idx%>" method="post" accept-charset="UTF-8">
+	
   		<div class="form-group">
     		<label for="inputTarget" class="col-sm-2 control-label">구분</label>
     		<div class="col-sm-8">
-      			<input type="text" class="form-control" id="inputTarget" placeholder="구분">
+      			<input type="text" class="form-control" name="inputTarget" placeholder="구분">
     		</div>
   		</div>
 		<div class="form-group">
     		<label for="inputDate" class="col-sm-2 control-label">일시</label>
     		<div class="col-sm-2">
-				<input type="date" class="form-control" id="inputDate_1">
-				<input type="time" class="form-control" id="inputDate_2">
+				<input type="date" class="form-control" name="inputDate_1">
+				<input type="time" class="form-control" name="inputDate_2">
     		</div>
   		</div>
 		<div class="form-group">
 			<label for="inputWorker" class="col-sm-2 control-label">작업자</label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control" id="inputWorker" placeholder="작업자">
+				<input type="text" class="form-control" name="inputWorker" placeholder="작업자">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="inputworkDetail" class="col-sm-2 control-label">세부내역</label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control" id="inputworkDetail" placeholder="세부내역">
+				<input type="text" class="form-control" name="inputworkDetail" placeholder="세부내역">
 			</div>
 		</div>
 		<div class="form-group">
