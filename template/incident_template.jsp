@@ -3,9 +3,8 @@
 <!DOCTYPE html>
 <html lang="ko">
   <head>
-	<title>인시던트</title>
-    
 	<%@include file="/common_header.jsp"%>
+	<title>인시던트</title>
   </head>
 <body>
 	<h1>인시던트</h1>
