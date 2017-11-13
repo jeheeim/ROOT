@@ -9,7 +9,7 @@
 
 <body>
 <%
-String id = "";
+String name = "";
 int incident = 0;
 int change = 0;
 int release = 0;
@@ -18,15 +18,15 @@ String nameStr ="";
 
 try
 {
-	id = (String)session.getAttribute("user_id");
-	nameStr = id + "님의 현황";
+	name = (String)session.getAttribute("user_name");
+	nameStr = name + "님의 현황";
 
 	stmt = conn.createStatement();
 
-	sql = "SELECT COUNT(IF(inci.status = 1, 1, NULL)), COUNT(IF(inci.status = 2, 1, NULL)), COUNT(IF(inci.status = 3, 1, NULL)), COUNT(IF(inci.status = 4, 1, NULL)) FROM kms "+
-      "LEFT JOIN account ON account.idx = workerIdx "+
-      "LEFT JOIN incident_management AS inci ON inci.idx = kms.incident_index "+
-      "WHERE account.id = \'"+id+"\'";
+	sql = "SELECT COUNT(IF(inci.status = 1, 1, NULL)), COUNT(IF(inci.status = 2, 1, NULL)), COUNT(IF(inci.status = 3, 1, NULL)), COUNT(IF(inci.status = 4, 1, NULL)) FROM kms "
+		+ "LEFT JOIN account ON account.idx = workerIdx "
+		+ "LEFT JOIN incident_management AS inci ON inci.idx = kms.incident_index "
+		+ "WHERE account.name = \'" + name + "\'";
 
 	rs = stmt.executeQuery(sql);
 
