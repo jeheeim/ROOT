@@ -7,7 +7,8 @@
         String test_page = "test_plan.jsp?idx="+idx;
         String recovery_page = "recovery_plan.jsp?idx="+idx;
 
-        sql = "SELECT status FROM incident_management WHERE incident_management.idx=" + idx;
+        sql = "SELECT incident_management.status FROM kms LEFT JOIN incident_management ON"
+            + " incident_management.idx = kms.incident_index WHERE kms.change_index="+idx;
         String sql_review = "SELECT review FROM change_management WHERE change_management.idx="+idx;
         try{
 %>
@@ -38,9 +39,6 @@
 <form class="form-horizontal">
     <div class="form-group">
         <label class="col-sm-1 control-label">검토사항</label>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-1"></div>
 <%
         stmt = conn.createStatement();
         rs = stmt.executeQuery(sql_review);
@@ -68,12 +66,12 @@
     case 2:
 %>
         <a class="btn btn-default"
-           onclick="window.open('changeToRelease.jsp?idx=<%=idx%>', '복구 계획 추가',''); return false;" target="_blank">릴리즈로 변경</a><%
+           onclick="window.open('/worker/changeToRelease.jsp?idx=<%=idx%>', '복구 계획 추가',''); return false;" target="_blank">릴리즈로 변경</a><%
         break;
     case 3:
 %>
         <a class="btn btn-default"
-           onclick="window.open('releaseToComplete.jsp?idx=<%=idx%>', '복구 계획 추가',''); return false;" target="_blank">완료로 변경</a><%
+           onclick="window.open('/worker/releaseToComplete.jsp?idx=<%=idx%>', '복구 계획 추가',''); return false;" target="_blank">완료로 변경</a><%
             break;
         case 4:
     %><div class="btn btn-default">완료입니다</div><%
