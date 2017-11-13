@@ -5,10 +5,10 @@
 int idx = 0;
 
 // 백업계획, 작업계획, 테스트 계획, 복구계획 페이지
-String backup_page = "backup_plan.jsp?idx="+idx;
-String work_page = "work_plan.jsp?idx="+idx;
-String test_page = "test_plan.jsp?idx="+idx;
-String recovery_page = "recovery_plan.jsp?idx="+idx;
+String backup_page = "";
+String work_page = "";
+String test_page = "";
+String recovery_page = "";
 
 // 변경 테이블의 review
 String review = null;
@@ -24,6 +24,11 @@ String sql_review = "SELECT review FROM change_management WHERE change_managemen
 try
 {
 	idx = Integer.parseInt(request.getParameter("param"));
+	
+	backup_page = "backup_plan.jsp?idx="+idx;
+	work_page = "work_plan.jsp?idx="+idx;
+	test_page = "test_plan.jsp?idx="+idx;
+	recovery_page = "recovery_plan.jsp?idx="+idx;
 %>
 
 <!DOCTYPE html>
