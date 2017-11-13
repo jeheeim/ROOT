@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.lang.Exception"%>
 
 <% request.setCharacterEncoding("UTF-8");%>
 
@@ -29,7 +30,7 @@
 	}
 	catch(Exception e)
 	{
-		out.write(e.toString());
+		check = (int)session.getAttribute("user_idtype");
 	}
 
 	/*

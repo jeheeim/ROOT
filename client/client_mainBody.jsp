@@ -4,8 +4,8 @@
 <%
 /*
 number of tasks index
-0: 신규
-1: 접수
+0: 전체
+1: 신규
 
 --------
 2: 인시던트
@@ -15,41 +15,40 @@ number of tasks index
 
 5: 완료
 6: 작업중
-7: 서비스 요청 현황
 
 그래프화 하고 싶으면 여기 있는 number_of_tasks[] 배열을 사용하는 것을 권장!
 */
-int number_of_tasks[] = new int[8];
+int number_of_tasks[] = new int[7];
 
-int i = 0;
+String userid = "";
+userid = (String)session.getAttribute("user_id");
 
 try
 {
 	stmt = conn.createStatement();
-	sql = "SELECT"
-		+ " COUNT(*) AS count0,"
-		+ " COUNT(CASE WHEN 'status'=0 THEN 1 END) AS count1,"
-		+ " COUNT(CASE WHEN 'status'=1 THEN 1 END) AS count2,"
-		+ " COUNT(CASE WHEN 'status'=2 THEN 1 END) AS count3,"
-		+ " COUNT(CASE WHEN 'status'=3 THEN 1 END) AS count4,"
-		+ " COUNT(CASE WHEN 'status'=4 THEN 1 END) AS count5,"
-		+ " COUNT(CASE WHEN 'status'=5 THEN 1 END) AS count6,"
-		+ " COUNT(CASE WHEN 'status'=6 THEN 1 END) AS count7"
-		+ " FROM incident_management"
-		+ " LEFT JOIN account ON incident_management.customer=account.idx"
-		+ " WHERE account.id=\'" + session.getAttribute("user_id") + "\'";
+	sql = "select count(*) as count0, "
+		+ "count(if(status=0, 1, NULL)) as count1, "
+		+ "count(if(status=1, 1, NULL)) as count2, "
+		+ "count(if(status=2, 1, NULL)) as count3, "
+		+ "count(if(status=3, 1, NULL)) as count4, "
+		+ "count(if(status=4, 1, NULL)) as count5 "
+		+ "from incident_management "
+		+ "left join account on incident_management.customer=account.idx "
+		+ "where account.id=\'" + userid + "\'";
 
 	rs = stmt.executeQuery(sql);
 
-	while(rs.next())
+	if(rs.next())
 	{
-		number_of_tasks[i]  = rs.getInt(1);
-
-		i++;
+		number_of_tasks[0]  = rs.getInt(1);
+		number_of_tasks[1]  = rs.getInt(2);
+		number_of_tasks[2]  = rs.getInt(3);
+		number_of_tasks[3]  = rs.getInt(4);
+		number_of_tasks[4]  = rs.getInt(5);
+		number_of_tasks[5]  = rs.getInt(6);
 	}
 
 	number_of_tasks[6] = number_of_tasks[2] + number_of_tasks[3] + number_of_tasks[4];
-	number_of_tasks[7] = number_of_tasks[0] + number_of_tasks[1] + number_of_tasks[5] + number_of_tasks[6];
 
 	rs.close();
 	stmt.close();
@@ -91,12 +90,11 @@ catch(Exception e)
 				4: 작업 완료된 서비스
 				*/
 				%>
-				<tbody><tr style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2'"><td colspan = "4"><p class="text-center"><%=number_of_tasks[7]%></td></tr></tbody>
+				<tbody><tr style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2'"><td colspan = "4"><p class="text-center"><%=number_of_tasks[0]%></td></tr></tbody>
 				
 				<thead>
 					<tr>
 						<th><p class="text-center">신규</th>
-						<th><p class="text-center">접수</th>
 						<th><p class="text-center">작업중</th>
 						<th><p class="text-center">완료</th>
 					</tr>
@@ -104,8 +102,7 @@ catch(Exception e)
 
 				<tbody>
 					<tr>
-						<td style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=1'"><p class="text-center"><%=number_of_tasks[0]%></td>
-						<td style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=2'"><p class="text-center"><%=number_of_tasks[1]%></td>
+						<td style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=1'"><p class="text-center"><%=number_of_tasks[1]%></td>
 						<td style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=3'"><p class="text-center"><%=number_of_tasks[6]%></td>
 						<td style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=2&param=4'"><p class="text-center"><%=number_of_tasks[5]%></td>
 					</tr>
