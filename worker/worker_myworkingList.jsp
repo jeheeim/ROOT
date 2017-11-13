@@ -97,11 +97,11 @@ try
 					status_val = rs.getInt(6);
 					switch(status_val)
 					{
-					case 1: status = "신규"; break;
-					case 2: status = "인시던트"; break;
-					case 3: status = "변경"; break;
-					case 4: status = "릴리즈"; break;
-					case 5: status = "완료"; break;
+					case 0: status = "신규"; break;
+					case 1: status = "인시던트"; break;
+					case 2: status = "변경"; break;
+					case 3: status = "릴리즈"; break;
+					case 4: status = "완료"; break;
 					}
 
 			%>
