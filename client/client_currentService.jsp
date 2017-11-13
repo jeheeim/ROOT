@@ -13,7 +13,8 @@ int index = 0;
 String date_added = "";
 String date_due = "";
 String title = "";
-int status = 0;
+int status_val = 0;
+String status = "";
 String status_name = "";
 String worker_name = "";
 
@@ -55,12 +56,31 @@ String user_id = (String)session.getAttribute("user_id");
 						date_added = rs.getString(2);
 						date_due = rs.getString(3);
 						title = rs.getString(4);
-						status = rs.getInt(5);
+						status_val = rs.getInt(5);
 						worker_name = rs.getString(6);
 
 						if(worker_name == null)
 						{
 							worker_name = "(미배정)";
+						}
+
+						switch(status_val)
+						{
+						case 0:
+							status = "신규";
+							break;
+						case 1:
+							status = "인시던트";
+						break;
+						case 2:
+							status = "변경";
+						break;
+						case 3:
+							status = "릴리즈";
+						break;
+						case 4:
+							status = "완료";
+						break;
 						}
 				%>
 				<tr style="cursor:pointer" onClick="location.href='/mainPage.jsp?mod=4&param=<%=index%>'">

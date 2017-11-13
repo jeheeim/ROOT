@@ -26,30 +26,16 @@ userid = (String)session.getAttribute("user_id");
 try
 {
 	stmt = conn.createStatement();
-	sql = "SELECT"
-		+ " COUNT(*) AS count0,"
-		+ " COUNT(CASE WHEN 'status'=0 THEN 1 END) AS count1,"
-		+ " COUNT(CASE WHEN 'status'=1 THEN 1 END) AS count2,"
-		+ " COUNT(CASE WHEN 'status'=2 THEN 1 END) AS count3,"
-		+ " COUNT(CASE WHEN 'status'=3 THEN 1 END) AS count4,"
-		+ " COUNT(CASE WHEN 'status'=4 THEN 1 END) AS count5"
-		+ " FROM incident_management"
-		+ " LEFT JOIN account ON incident_management.customer=account.idx"
-		+ " WHERE account.id=\'" + userid + "\'";
+	sql = "select count(*) as count0, "
+		+ "count(if(status=0, 1, NULL)) as count1, "
+		+ "count(if(status=1, 1, NULL)) as count2, "
+		+ "count(if(status=2, 1, NULL)) as count3, "
+		+ "count(if(status=3, 1, NULL)) as count4, "
+		+ "count(if(status=4, 1, NULL)) as count5 "
+		+ "from incident_management "
+		+ "left join account on incident_management.customer=account.idx "
+		+ "where account.id=\'" + userid + "\'";
 
-/*
-select
-count(*) as count0,
-count(case when 'status'=0 then 1 end) as count1,
-count(case when 'status'=1 then 1 end) as count2,
-count(case when 'status'=2 then 1 end) as count3,
-count(case when 'status'=3 then 1 end) as count4,
-count(case when 'status'=4 then 1 end) as count5
-from incident_management
-left join account on incident_management.customer=account.idx
-where account.id='client01';
-
-*/
 	rs = stmt.executeQuery(sql);
 
 	if(rs.next())
