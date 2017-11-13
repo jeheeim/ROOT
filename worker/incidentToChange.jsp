@@ -14,17 +14,24 @@ try
 	stmt.executeUpdate(sql);
 
 	sql = "INSERT change_management (incident_index) VALUES (" + idx + ")";
-	stmt.executeQuery(sql);
+	stmt.executeUpdate(sql);
 
 	sql = "UPDATE kms SET change_index=LAST_INSERT_ID() WHERE incident_index=" + idx;
-	stmt.executeQuery(sql);
+	stmt.executeUpdate(sql);
 
 	conn.commit();
 }
-catch (SQLException sqle) { out.println(sqle.toString());}
+catch (SQLException sqle)
+{
+	try { conn.rollback(); } catch (Exception e) { out.println(e.toString()); }
+
+	out.println(sqle.toString());
+}
 catch (Exception e) { out.println(e.toString()); }
 finally
 {
+	conn.setAutoCommit(true);
+
 	stmt.close();
 	conn.close();
 
