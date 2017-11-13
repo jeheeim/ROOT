@@ -1,38 +1,35 @@
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
+<%@ include file="/dbLogin.jspf"%>
+
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <title>공지사항</title>
+<head>
 	<%@ include file="/common_header.jsp"%>
-  </head>
+    <title>공지사항</title>
+</head>
+
 <body>
-	<%
-		String dburl = "jdbc:mysql://localhost:3306/itsmdb";
-		// 사용하려는 데이터베이스명을 포함한 URL 기술
-		String dbuser = "root";
-		// 사용자 계정
-		String dbpw = "1234";
-		// 사용자 계정의 패스워드
-		int idx = Integer.parseInt(request.getParameter("idx"));
-		try
-		{
-			Class.forName("com.mysql.jdbc.Driver").newInstance();
+<%
+try
+{
+	int idx = Integer.parseInt(request.getParameter("idx"));
+	
+	String title = "";
+	String account = "";
+	String content = "";
 
-			Connection conn = DriverManager.getConnection(dburl,dbuser,dbpw);;
-			Statement stmt = conn.createStatement();
+	stmt = conn.createStatement();
+	
+	sql = "SELECT title, account_id, content FROM notice WHERE num=" + idx;
+	rs = stmt.executeQuery(sql);
 
-			String sql = "SELECT title, account_id, content FROM notice WHERE num=" + idx;
-			ResultSet rs = stmt.executeQuery(sql);
-
-			if(rs.next()){
-
-				String title = rs.getString(1);
-
-				String account = rs.getString(2);
-
-				String content = rs.getString(3);
-	%>
+	if(rs.next())
+	{
+		title = rs.getString(1);
+		account = rs.getString(2);
+		content = rs.getString(3);
+%>
 
 	<form class="form-horizontal">
   		<div class="form-group">
@@ -68,18 +65,19 @@
 				</div>
 			</div>
   		</div>
-</form>
-	<%
-		}
-		else{
-		out.print("오류 뿜뿜");
-		}
-		rs.close();
-		stmt.close();
-		conn.close();
-		}catch(SQLException e){
-				out.println( e.toString() );
-		}
+	</form>
+<%
+	}
+	else { out.print("오류 뿜뿜"); }
+
+	rs.close();
+	stmt.close();
+	conn.close();
+
+}
+catch(SQLException sqle) { out.println( sqle.toString()); }
+catch(Exception e) { out.println(e.toString()); }
 %>
+	<%@ include file="/common_footer.jsp"%>
 </body>
 </html>

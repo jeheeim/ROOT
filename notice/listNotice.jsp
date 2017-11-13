@@ -190,5 +190,7 @@ String url_end_page = urlPaging + endPage;
 		<a href="/mainPage.jsp?mod=202" class="btn btn-default" type="button" role="button">글쓰기</a>
 	</div>
 </div>
+
+	<%@ include file="/common_footer.jsp"%>
 </body>
 </html>
