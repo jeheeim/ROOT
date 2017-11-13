@@ -66,12 +66,14 @@
     case 2:
 %>
         <a class="btn btn-default"
-           onclick="window.open('/worker/changeToRelease.jsp?idx=<%=idx%>', '복구 계획 추가',''); return false;" target="_blank">릴리즈로 변경</a><%
+           onclick="window.open('/worker/change_review.jsp?idx=<%=idx%>', '검토사항 수정',''); return false;" target="_blank">검토사항 수정</a>
+        <a class="btn btn-default"
+           onclick="window.open('/worker/changeToRelease.jsp?idx=<%=idx%>', '릴리즈로 변경',''); return false;" target="_blank">릴리즈로 변경</a><%
         break;
     case 3:
 %>
         <a class="btn btn-default"
-           onclick="window.open('/worker/releaseToComplete.jsp?idx=<%=idx%>', '복구 계획 추가',''); return false;" target="_blank">완료로 변경</a><%
+           onclick="window.open('/worker/releaseToComplete.jsp?idx=<%=idx%>', '완료로 변경',''); return false;" target="_blank">완료로 변경</a><%
             break;
         case 4:
     %><div class="btn btn-default">완료입니다</div><%
