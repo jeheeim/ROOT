@@ -1,5 +1,8 @@
 <%@ page language ="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ include file="../dbLogin.jspf" %>
+<%
+	String change_idx = request.getParameter("idx");
+%>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -25,7 +28,7 @@
     <!-- 모든 컴파일된 플러그인을 포함합니다 (아래), 원하지 않는다면 필요한 각각의 파일을 포함하세요 -->
     <script src="/bootstrap-3.3.2-dist/js/bootstrap.min.js"></script>
 	
-	<form class="form-horizontal">
+	<form class="form-horizontal" action="/worker_popup/worker_backup_add_process.jsp?change_idx=<%=change_idx%>" method="post" accept-charset="UTF-8">
   		<div class="form-group">
     		<label for="inputTarget" class="col-sm-2 control-label">대상</label>
     		<div class="col-sm-8">
@@ -34,30 +37,34 @@
   		</div>
 		<div class="form-group">
     		<label for="inputDate" class="col-sm-2 control-label">일자</label>
-    		<div class="col-sm-2">
-				<input type="date" class="form-control" id="inputDate">
+    		<div class="col-sm-2" >
+				<input type="date" class="form-control" name="inputDate">
     		</div>
-			<label for="inputTime" class="col-sm-2 control-label">작업시간</label>
-			<div class="col-sm-2">
-				<input type="time" class="form-control" id="inputTime" placeholder="장비">
+			<label for="inputTime" class="col-sm-1 control-label">시간</label>
+			<div class="col-sm-2" >
+				<input type="time" class="form-control" name="inputTime" placeholder="시간">
+			</div>
+			<label for="inputHour" class="col-sm-1 control-label">작업시간</label>
+			<div class="col-sm-2" >
+				<input type="text" class="form-control" name="inputHour" placeholder="작업시간">
 			</div>
   		</div>
 		<div class="form-group">
 			<label for="inputEquip" class="col-sm-2 control-label">장비</label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control" id="inputEquip" placeholder="장비">
+				<input type="text" class="form-control" name="inputEquip" placeholder="장비">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="inputCapacity" class="col-sm-2 control-label">용량</label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control" id="inputCapacity" placeholder="용량">
+				<input type="text" class="form-control" name="inputCapacity" placeholder="용량">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="inputWorker" class="col-sm-2 control-label">작업자</label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control" id="inputWorker" placeholder="작업자">
+				<input type="text" class="form-control" name="inputWorker" placeholder="작업자">
 			</div>
 		</div>
 		<div class="form-group">
