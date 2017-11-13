@@ -32,7 +32,7 @@
   		<div class="form-group">
     		<label for="inputTarget" class="col-sm-2 control-label">대상</label>
     		<div class="col-sm-8">
-      			<input type="text" class="form-control" id="inputTarget" placeholder="대상">
+      			<input type="text" class="form-control" name="inputTarget" placeholder="대상">
     		</div>
   		</div>
 		<div class="form-group">
@@ -76,7 +76,7 @@
 		<div class="form-group">
 			<label for="inputNote" class="col-sm-2 control-label">비고</label>
 			<div class="col-sm-8">
-				<input type="text" class="form-control" id="inputNote" placeholder="비고">
+				<input type="text" class="form-control" name="inputNote" placeholder="비고">
 			</div>
 		</div>
   		<div class="form-group">

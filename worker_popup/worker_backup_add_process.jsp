@@ -13,13 +13,15 @@ String time				= request.getParameter("inputTime");
 String worker			= request.getParameter("inputWorker");
 String method			= request.getParameter("method");
 String temp_time		= request.getParameter("inputHour");
+String target			= request.getParameter("inputTarget");
+String remark			= request.getParameter("inputNote");
 int change_idx			=  Integer.parseInt(request.getParameter("change_idx"));
 //String temp_change_idx	= "5";//일시적으로 popup창으로 값 가져오기 성공 아직 못함
 
 date += " " + time;
 try
 {
-	sql = "INSERT INTO back_up_plan(date, equipment, storage, time, worker, method,change_idx)VALUES(?,?,?,?,?,?,?)";
+	sql = "INSERT INTO back_up_plan(date, equipment, storage, time, worker, method,change_idx,target,remark)VALUES(?,?,?,?,?,?,?,?,?)";
 	pstmt = conn.prepareStatement(sql);
 
 	pstmt.setString(1, date);					//일자
@@ -29,7 +31,8 @@ try
 	pstmt.setString(5, worker);					//작업자
 	pstmt.setString(6, method);					//방식
 	pstmt.setInt(7, change_idx);				//change index
-
+	pstmt.setString(8, target);					//작업자
+	pstmt.setString(9, remark);					//방식
 	pstmt.executeUpdate();
 	if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){} // PreparedStatement 객체 해제
 	if(conn != null) try{conn.close();}catch(SQLException sqle){}	// Connection 해제
