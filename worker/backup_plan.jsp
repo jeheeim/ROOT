@@ -67,7 +67,7 @@
         <div class="col-sm-7"></div>
         <div class="col-sm-1">
             <a class="btn btn-default"
-               onclick="window.open('../worker_popup/worker_backup_add.jsp', '백업계획 추가',''); return false;" target="_blank">추가</a>
+               onclick="window.open('../worker_popup/worker_backup_add.jsp?idx=<%=idx%>', '백업계획 추가',''); return false;" target="_blank">추가</a>
         </div>
     </div>
     <div class="form-group">
