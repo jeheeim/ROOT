@@ -27,9 +27,9 @@ SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 String todayDate = sdf.format(d);
 int cnt = 0;
 
-worker_id = (String)session.getAttribute("user_id");
 try
 {
+	worker_id = (String)session.getAttribute("user_id");
 	name = (String)session.getAttribute("user_name");
 	nameStr = name + "님의 현황";
 
@@ -62,6 +62,10 @@ try
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
  		Date beginDate = formatter.parse(todayDate);
 		Date endDate = formatter.parse(deadline);
+		if(endDate == null)
+		{
+			continue;
+		}
         // 시간차이를 시간,분,초를 곱한 값으로 나누면 하루 단위가 나옴
         long diff = endDate.getTime() - beginDate.getTime();
         long diffDays = diff / (24 * 60 * 60 * 1000);
@@ -71,7 +75,7 @@ try
 	}
 }
 catch(SQLException sqle) { out.println(sqle.toString()); }
-catch(Exception e) { out.println(e.toString()); }
+//catch(Exception e) { out.println(e.toString()); }
 
 %>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -105,7 +109,7 @@ catch(Exception e) { out.println(e.toString()); }
 	<div id="donutchart" style="width: 900px; height: 500px;"></div>
 	<div  class="col-md-3"></div>
 	<div  class="col-md-4">
-		<a href="/worker/deadline_soon_work.jsp?mod=102&param=0">마감기간이 임박한 작업이 <%=cnt%>개 있습니다.</a>
+		<a href="/mainPage.jsp?mod=106">마감기간이 임박한 작업이 <%=cnt%>개 있습니다.</a>
 	</div>
 	
 	<%@ include file="/common_footer.jsp"%>
