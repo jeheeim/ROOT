@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../dbLogin.jspf"%>
 <%
-// 입력받은 인시던트 인덱스
+// 입력받은 인시던트 인덱스가 입력될 변수
 int idx = 0;
 
 // 백업계획, 작업계획, 테스트 계획, 복구계획 페이지
@@ -11,24 +11,28 @@ String test_page = "";
 String recovery_page = "";
 
 // 변경 테이블의 review
-String review = null;
-
-// 인시던트 테이블에서 상태 값을 불러오는 쿼리문
-sql = "SELECT incident_management.status FROM kms "
-	+ "LEFT JOIN incident_management ON incident_management.idx = kms.incident_index "
-	+ "WHERE kms.change_index="+idx;
+String review = "";
 
 // 변경 테이블에서 review 값을 불러오는 쿼리문
-String sql_review = "SELECT review FROM change_management WHERE change_management.idx="+idx;
+String sql_review = "";
 
 try
 {
+	// 입력받은 인시던트 인덱스 호출
 	idx = Integer.parseInt(request.getParameter("param"));
 	
 	backup_page = "backup_plan.jsp?idx="+idx;
 	work_page = "work_plan.jsp?idx="+idx;
 	test_page = "test_plan.jsp?idx="+idx;
 	recovery_page = "recovery_plan.jsp?idx="+idx;
+
+	// 인시던트 테이블에서 상태 값을 불러오는 쿼리문
+	sql = "SELECT incident_management.status FROM kms "
+		+ "LEFT JOIN incident_management ON incident_management.idx = kms.incident_index "
+		+ "WHERE kms.change_index="+idx;
+	
+	// 변경 테이블에서 review 값을 불러오는 쿼리문
+	sql_review = "SELECT review FROM change_management WHERE change_management.idx="+idx;
 %>
 
 <!DOCTYPE html>
