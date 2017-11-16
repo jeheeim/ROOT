@@ -58,14 +58,19 @@ String incident_index = "";
 try
 {
 	id = (String)session.getAttribute("user_id");
-	sql = "SELECT * FROM account WHERE account.phone = \'" + inputPhone +"\'";       
+
+	// 넘어오는 phone번호 값으로 고객을 검색해 db에 입력할 고객 계정 idx값 검색
+	sql = "SELECT * FROM account WHERE account.phone = \'" + inputPhone +"\'";
+
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 	if(rs.next())
-		user_index = rs.getString("Idx");
-		
+		user_index = rs.getString("idx");
+
 	priority = ( Integer.parseInt(inputRange) + Integer.parseInt(inputEmergency) ) / 2;
-	sql = "INSERT INTO incident_management(title, reception_path, problem_scope, urgency, receptionist_opion, content, registration_date, deadline, status, customer, priority, receptionist)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+
+	// 입력받은 내용을 테이블에 입력
+	sql = "INSERT INTO incident_management(title, reception_path, problem_scope, urgency, receptionist_opion, content, registration_date, deadline, customer, priority, receptionist)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	pstmt = conn.prepareStatement(sql);
 
 	pstmt.setString(1, title);					//제목
