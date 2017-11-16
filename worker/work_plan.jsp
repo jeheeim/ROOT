@@ -91,7 +91,7 @@
                 %>
                 <tr>
                     <th><%=rs_work.getInt(1)%></th>
-                    <td>Sample target</td>
+                    <td><%=rs_work.getString(2)%></td>
                     <td><%=rs_work.getString(3)%></td>
                     <td><%=rs_work.getString(4)%></td>
                     <td><%=rs_work.getString(5)%></td>
