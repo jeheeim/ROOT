@@ -161,6 +161,8 @@ try
 		}
 	}
 
+	i=5;
+
 	sql = "SELECT COUNT(*), keyword_2 FROM kms GROUP BY keyword_2 ORDER BY COUNT(*) DESC";
 	
 	rs = stmt.executeQuery(sql);
@@ -182,6 +184,8 @@ try
 			break;
 		}
 	}
+
+	i=10;
 
 	sql = "SELECT COUNT(*), keyword_3 FROM kms GROUP BY keyword_3 ORDER BY COUNT(*) DESC";
 
