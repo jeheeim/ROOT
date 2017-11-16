@@ -58,14 +58,19 @@ String incident_index = "";
 try
 {
 	id = (String)session.getAttribute("user_id");
-	sql = "SELECT * FROM account WHERE account.phone = \'" + inputPhone +"\'";       
+
+	// 넘어오는 phone번호 값으로 고객을 검색해 db에 입력할 고객 계정 idx값 검색
+	sql = "SELECT * FROM account WHERE account.phone = \'" + inputPhone +"\'";
+
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 	if(rs.next())
-		user_index = rs.getString("Idx");
-		
+		user_index = rs.getString("idx");
+
 	priority = ( Integer.parseInt(inputRange) + Integer.parseInt(inputEmergency) ) / 2;
-	sql = "INSERT INTO incident_management(title, reception_path, problem_scope, urgency, receptionist_opion, content, registration_date, deadline, status, customer, priority,receptionist)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+
+	// 입력받은 내용을 테이블에 입력
+	sql = "INSERT INTO incident_management(title, reception_path, problem_scope, urgency, receptionist_opion, content, registration_date, deadline, customer, priority, receptionist)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 	pstmt = conn.prepareStatement(sql);
 
 	pstmt.setString(1, title);					//제목
@@ -76,11 +81,11 @@ try
 	pstmt.setString(6, inputComment);			//내용
 	pstmt.setString(7, inputDate_submit);		//요청일시
 	pstmt.setString(8, inputdate_Deadline);		//목표기한
-	pstmt.setString(9, "0");		//상태
-	pstmt.setString(10, user_index);	//id
-	pstmt.setString(11, String.valueOf(priority));		//우선순위
-	pstmt.setString(12, receptionist);		//우선순위
+	pstmt.setString(9, user_index);				//고객 번호
+	pstmt.setString(10, String.valueOf(priority));//우선순위
+	pstmt.setString(11, receptionist);			//접수자이름
 	//입력: 부서, 우선순위,//출력: 연락처, 이름
+
 	pstmt.executeUpdate();
 	
 	sql = "SELECT MAX(incident_management.idx) FROM incident_management";       
