@@ -327,7 +327,7 @@ int selectNum=0;
 			<!-- 고객사에서 접수된 건인 경우 이름을 클릭했을때 자동으로 적힌다. -->
 			<label for="inputPhone" class="col-sm-2 control-label">연락처</label>
 			<div class="col-sm-2">
-				<input disabled type="text" class="form-control" name="inputPhone" placeholder="연락처">
+				<input readonly type="text" class="form-control" name="inputPhone" placeholder="연락처">
 			</div>
 			<label for="inputDate_submit" class="col-sm-1 control-label">요청일시</label>
 			<!-- 연월일시 검색할 수 있는 폼 찾기 -->
@@ -364,7 +364,7 @@ int selectNum=0;
 			<!-- 범위, 긴급도 입력하면 자동으로 계산. 더하기해서 작은순으로 하면 될듯 -->
 			<label for="inputPriority" class="col-sm-2 control-label">우선순위</label>
 			<div class="col-sm-2">
-				<input disabled type="text" class="form-control" id="inputPriority" placeholder="우선순위">
+				<input readonly type="text" class="form-control" id="inputPriority" placeholder="우선순위">
 			</div>
 		</div>
 		
