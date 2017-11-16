@@ -31,8 +31,8 @@ try
 	pstmt.setString(5, worker);					//작업자
 	pstmt.setString(6, method);					//방식
 	pstmt.setInt(7, change_idx);				//change index
-	pstmt.setString(8, target);					//작업자
-	pstmt.setString(9, remark);					//방식
+	pstmt.setString(8, target);					//대상
+	pstmt.setString(9, remark);					//비고
 	pstmt.executeUpdate();
 	if(pstmt != null) try{pstmt.close();}catch(SQLException sqle){} // PreparedStatement 객체 해제
 	if(conn != null) try{conn.close();}catch(SQLException sqle){}	// Connection 해제
