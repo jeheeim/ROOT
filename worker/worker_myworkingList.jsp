@@ -135,13 +135,13 @@ try
 <%
 try
 {
-	sql = "SELECT COUNT(*), CONCAT(keyword_1, keyword_2, keyword_3) AS keyword FROM kms GROUP BY keyword ORDER BY keyword DESC";
+	int i = 0;
+	int[] keyword_count = new int[15];
+	String[] keyword = new String[15];
+
+	sql = "SELECT COUNT(*), keyword_1 FROM kms GROUP BY keyword_1 ORDER BY COUNT(*) DESC";
 
 	rs = stmt.executeQuery(sql);
-	
-	int i = 0;
-	int[] keyword_count = new int[3];
-	String[] keyword = new String[3];
 
 	while(rs.next())
 	{
@@ -155,7 +155,51 @@ try
 
 		i++;
 
-		if(i == 3)
+		if(i == 5)
+		{
+			break;
+		}
+	}
+
+	sql = "SELECT COUNT(*), keyword_2 FROM kms GROUP BY keyword_2 ORDER BY COUNT(*) DESC";
+	
+	rs = stmt.executeQuery(sql);
+
+	while(rs.next())
+	{
+		keyword_count[i] = rs.getInt(1);
+		keyword[i] = rs.getString(2);
+
+		if(keyword[i] == null)
+		{
+			continue;
+		}
+
+		i++;
+
+		if(i == 10)
+		{
+			break;
+		}
+	}
+
+	sql = "SELECT COUNT(*), keyword_3 FROM kms GROUP BY keyword_3 ORDER BY COUNT(*) DESC";
+
+	rs = stmt.executeQuery(sql);
+
+	while(rs.next())
+	{
+		keyword_count[i] = rs.getInt(1);
+		keyword[i] = rs.getString(2);
+
+		if(keyword[i] == null)
+		{
+			continue;
+		}
+
+		i++;
+
+		if(i == 15)
 		{
 			break;
 		}
