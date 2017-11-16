@@ -139,7 +139,10 @@ try
 	int[] keyword_count = new int[15];
 	String[] keyword = new String[15];
 
-	sql = "SELECT COUNT(*), keyword_1 FROM kms GROUP BY keyword_1 ORDER BY COUNT(*) DESC";
+	if(param == 0)
+		sql = "SELECT COUNT(*), keyword_1 FROM kms LEFT JOIN account ON workerIdx=account.idx WHERE account.id=\'" + worker_id + "\' GROUP BY keyword_1 ORDER BY COUNT(*) DESC";	
+	else
+		sql = "SELECT COUNT(*), keyword_1 FROM kms GROUP BY keyword_1 ORDER BY COUNT(*) DESC";
 
 	rs = stmt.executeQuery(sql);
 
@@ -163,7 +166,10 @@ try
 
 	i=5;
 
-	sql = "SELECT COUNT(*), keyword_2 FROM kms GROUP BY keyword_2 ORDER BY COUNT(*) DESC";
+	if(param == 0)
+		sql = "SELECT COUNT(*), keyword_2 FROM kms LEFT JOIN account ON workerIdx=account.idx WHERE account.id=\'" + worker_id + "\' GROUP BY keyword_2 ORDER BY COUNT(*) DESC";	
+	else
+		sql = "SELECT COUNT(*), keyword_2 FROM kms GROUP BY keyword_2 ORDER BY COUNT(*) DESC";
 	
 	rs = stmt.executeQuery(sql);
 
@@ -187,7 +193,10 @@ try
 
 	i=10;
 
-	sql = "SELECT COUNT(*), keyword_3 FROM kms GROUP BY keyword_3 ORDER BY COUNT(*) DESC";
+	if(param == 0)
+		sql = "SELECT COUNT(*), keyword_3 FROM kms LEFT JOIN account ON workerIdx=account.idx WHERE account.id=\'" + worker_id + "\' GROUP BY keyword_3 ORDER BY COUNT(*) DESC";	
+	else
+		sql = "SELECT COUNT(*), keyword_3 FROM kms GROUP BY keyword_3 ORDER BY COUNT(*) DESC";
 
 	rs = stmt.executeQuery(sql);
 
