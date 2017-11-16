@@ -149,7 +149,7 @@
 
 			<label class="col-sm-1 control-label">접수자</label>
 			<div class="col-sm-2">
-				<div class="well well-sm"><%=client_name%></div>
+				<div class="well well-sm"><%=receptionist%></div>
 			</div>
 		</div>
 
