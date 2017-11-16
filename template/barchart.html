@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", {packages:['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Keyword1', '키워드1', '키워드2', '키워드3', '키워드4',
+                    '키워드5'],
+                ['대분류', 2, 9, 4, 6, 3]
+            ]);
+            var view = new google.visualization.DataView(data);
+            var options = {
+                width: 600,
+                height: 400,
+                bar: { groupWidth: '75%' },
+                isStacked: true,
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+            chart.draw(view, options);
+
+            var data2 = google.visualization.arrayToDataTable([
+                ['Keyword2', '키워드-1', '키워드-2', '키워드-3', '키워드-4',
+                    '키워드-5'],
+                ['중분류', 8, 1, 9, 3, 3]
+            ]);
+            var view2 = new google.visualization.DataView(data2);
+            var options2 = {
+                width: 600,
+                height: 400,
+                bar: { groupWidth: '75%' },
+                isStacked: true,
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values2"));
+            chart.draw(view2, options2);
+
+            var data3 = google.visualization.arrayToDataTable([
+                ['Keyword3', '키워드+1', '키워드*2', '키워드%3', '키워드/4',
+                    '키워드?5'],
+                ['소분류', 4, 5, 7, 3, 5]
+            ]);
+            var view3 = new google.visualization.DataView(data3);
+            var options3 = {
+                width: 600,
+                height: 400,
+                bar: { groupWidth: '75%' },
+                isStacked: true,
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values3"));
+            chart.draw(view3, options3);
+        }
+    </script>
+</head>
+<body>
+<div>대분류 키워드</div>
+<div id="columnchart_values"></div>
+<div>중분류 키워드</div>
+<div id="columnchart_values2"></div>
+<div>소분류 키워드</div>
+<div id="columnchart_values3"></div>
+</body>
+</html>
