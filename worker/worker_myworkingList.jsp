@@ -126,6 +126,7 @@ try
 			}//else
 		}
 		catch(SQLException sqle) { out.println(sqle.toString()); }
+		catch(NumberFormatException nfe) { out.println(nfe.toString()); }
 		catch(Exception e) { out.println(e.toString()); }
 		%>
 			</tbody>
@@ -134,31 +135,38 @@ try
 <%
 try
 {
-	sql = "select concat(keyword_1, keyword_2, keyword_3) as keyword, count(*) from kms group by keyword order by count(*) desc"
+	sql = "SELECT COUNT(*), CONCAT(keyword_1, keyword_2, keyword_3) AS keyword FROM kms GROUP BY keyword ORDER BY keyword DESC";
 
 	rs = stmt.executeQuery(sql);
 	
 	int i = 0;
-	int[] count = new int[3];
+	int[] keyword_count = new int[3];
 	String[] keyword = new String[3];
 
 	while(rs.next())
 	{
-		count[i] = rs.getInt(1);
+		keyword_count[i] = rs.getInt(1);
 		keyword[i] = rs.getString(2);
 
-		if(keyword[i] != null)
+		if(keyword[i] == null)
 		{
-			i++;
+			continue;
 		}
 
-		if(i == 2)
+		i++;
+
+		if(i == 3)
 		{
 			break;
 		}
 	}
+
+	out.println(keyword[0]+keyword_count[0]);
+	out.println(keyword[1]+keyword_count[1]);
+	out.println(keyword[2]+keyword_count[2]);
 }
-catch(SQLException sqle) { out.println(sqle.toStrig()); }
+catch(SQLException sqle) { out.println(sqle.toString()); }
+catch(NumberFormatException nfe) { out.println(nfe.toString()); }
 catch(Exception e) { out.println(e.toString()); }
 finally
 {
