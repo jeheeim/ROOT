@@ -124,10 +124,6 @@ try
 			<%
 				}//while
 			}//else
-
-			rs.close();
-			stmt.close();
-			conn.close();
 		}
 		catch(SQLException sqle) { out.println(sqle.toString()); }
 		catch(Exception e) { out.println(e.toString()); }
@@ -135,7 +131,39 @@ try
 			</tbody>
 		</table>
 	</div>
+<%
+try
+{
+	sql = "select concat(keyword_1, keyword_2, keyword_3) as keyword, count(*) from kms group by keyword order by count(*) desc"
 
+	rs = stmt.executeQuery(sql);
+	
+	int i = 0;
+	int[] count = new int[3];
+	String[] keyword = new String[3];
+
+	while(rs.next())
+	{
+		count[i] = rs.getInt(1);
+		keyword[i] = rs.getString(2);
+
+		i++;
+
+		if(i == 2)
+		{
+			break;
+		}
+	}
+}
+catch(SQLException sqle) { out.println(sqle.toStrig()); }
+catch(Exception e) { out.println(e.toString()); }
+finally
+{
+	rs.close();
+	stmt.close();
+	conn.close();
+}
+%>
 	<%@include file="/common_footer.jsp"%>
 </body>
 </html>
