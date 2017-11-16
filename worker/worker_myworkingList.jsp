@@ -207,36 +207,61 @@ try
 %>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
-        google.charts.load("current", {packages:["corechart"]});
+        google.charts.load("current", {packages:['corechart']});
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
-                ["Element", "Density", { role: "style" } ],
-                ["<%=keyword[0]%>", <%=keyword_count[0]%>, "red"],
-                ["<%=keyword[1]%>", <%=keyword_count[1]%>, "orange"],
-                ["<%=keyword[2]%>", <%=keyword_count[2]%>, "blue"]
+                ['Keyword1', '<%=keyword[0]%>', '<%=keyword[1]%>', '<%=keyword[2]%>', '<%=keyword[3]%>',
+                    '<%=keyword[4]%>'],
+                ['대분류', <%=keyword_count[0]%>, <%=keyword_count[1]%>, <%=keyword_count[2]%>,
+					<%=keyword_count[3]%>, <%=keyword_count[4]%>]
             ]);
-
             var view = new google.visualization.DataView(data);
-            view.setColumns([0, 1,
-                { calc: "stringify",
-                    sourceColumn: 1,
-                    type: "string",
-                    role: "annotation" },
-                2]);
-
             var options = {
-                title: "Top3 키워드",
                 width: 600,
                 height: 400,
-                bar: {groupWidth: "95%"},
-                legend: { position: "none" },
+                bar: { groupWidth: '75%' },
+                isStacked: true,
             };
-            var chart = new google.visualization.BarChart(document.getElementById("barchart_values"));
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
             chart.draw(view, options);
+
+            var data2 = google.visualization.arrayToDataTable([
+                ['Keyword2', '<%=keyword[5]%>', '<%=keyword[6]%>', '<%=keyword[7]%>', '<%=keyword[8]%>',
+                    '<%=keyword[9]%>'],
+                ['중분류', <%=keyword_count[5]%>, <%=keyword_count[6]%>, <%=keyword_count[7]%>,
+                    <%=keyword_count[8]%>, <%=keyword_count[9]%>]
+            ]);
+            var view2 = new google.visualization.DataView(data2);
+            var options2 = {
+                width: 600,
+                height: 400,
+                bar: { groupWidth: '75%' },
+                isStacked: true,
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values2"));
+            chart.draw(view2, options2);
+
+            var data3 = google.visualization.arrayToDataTable([
+                ['Keyword3', '<%=keyword[10]%>', '<%=keyword[11]%>', '<%=keyword[12]%>', '<%=keyword[13]%>',
+                    '<%=keyword[14]%>'],
+                ['소분류', <%=keyword_count[10]%>, <%=keyword_count[11]%>, <%=keyword_count[12]%>,
+                    <%=keyword_count[13]%>, <%=keyword_count[14]%>]
+            ]);
+            var view3 = new google.visualization.DataView(data3);
+            var options3 = {
+                width: 600,
+                height: 400,
+                bar: { groupWidth: '75%' },
+                isStacked: true,
+            };
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values3"));
+            chart.draw(view3, options3);
         }
 	</script>
-	<div id="barchart_values" style="width: 900px; height: 300px;"></div>
+	<div id="columnchart_values"></div>
+	<div id="columnchart_values2"></div>
+	<div id="columnchart_values3"></div>
 	<%
 	out.println(keyword[0]+keyword_count[0]);
 	out.println(keyword[1]+keyword_count[1]);
