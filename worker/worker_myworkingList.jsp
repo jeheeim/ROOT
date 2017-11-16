@@ -276,9 +276,6 @@ try
 	<div id="columnchart_values2"></div>
 	<div id="columnchart_values3"></div>
 	<%
-	out.println(keyword[0]+keyword_count[0]);
-	out.println(keyword[1]+keyword_count[1]);
-	out.println(keyword[2]+keyword_count[2]);
 }
 catch(SQLException sqle) { out.println(sqle.toString()); }
 catch(NumberFormatException nfe) { out.println(nfe.toString()); }
