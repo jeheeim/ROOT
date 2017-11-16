@@ -147,7 +147,10 @@ try
 		count[i] = rs.getInt(1);
 		keyword[i] = rs.getString(2);
 
-		i++;
+		if(keyword[i] != null)
+		{
+			i++;
+		}
 
 		if(i == 2)
 		{
