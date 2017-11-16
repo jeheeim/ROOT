@@ -19,7 +19,7 @@ String inputDetail			= request.getParameter("inputDetail"); // 문제 상세 설
 String inputComment			= request.getParameter("inputComment"); // 접수자 의견
 String inputDate_submit		= request.getParameter("inputDate_submit"); // 접수일자
 String inputdate_Deadline	= request.getParameter("inputdate_Deadline"); // 목표일자
-String receptionist			= request.getParameter("SUB11"); // 접수자
+String customerName			= request.getParameter("SUB11"); // 접수자
 
 // 키워드
 String keyword_1 = request.getParameter("keyword1");
@@ -38,34 +38,39 @@ String sub18 = request.getParameter("SUB18");
 String sub19 = request.getParameter("SUB19");
 String sub20 = request.getParameter("SUB20");
 
-if(!sub11.equals("0")) receptionist = sub11;
-if(!sub12.equals("0")) receptionist = sub12;
-if(!sub13.equals("0")) receptionist = sub13;
-if(!sub14.equals("0")) receptionist = sub14;
-if(!sub15.equals("0")) receptionist = sub15;
-if(!sub16.equals("0")) receptionist = sub16;
-if(!sub17.equals("0")) receptionist = sub17;
-if(!sub18.equals("0")) receptionist = sub18;
-if(!sub19.equals("0")) receptionist = sub19;
-if(!sub20.equals("0")) receptionist = sub20;
+if(!sub11.equals("0")) customerName = sub11;
+if(!sub12.equals("0")) customerName = sub12;
+if(!sub13.equals("0")) customerName = sub13;
+if(!sub14.equals("0")) customerName = sub14;
+if(!sub15.equals("0")) customerName = sub15;
+if(!sub16.equals("0")) customerName = sub16;
+if(!sub17.equals("0")) customerName = sub17;
+if(!sub18.equals("0")) customerName = sub18;
+if(!sub19.equals("0")) customerName = sub19;
+if(!sub20.equals("0")) customerName = sub20;
 
 int priority = 0;
 
 String id = "";
-String user_index = "";
+int user_index = 0;
 String incident_index = "";
-
+int customer_idx=0;
 try
 {
 	id = (String)session.getAttribute("user_id");
-
-	// 넘어오는 phone번호 값으로 고객을 검색해 db에 입력할 고객 계정 idx값 검색
-	sql = "SELECT * FROM account WHERE account.phone = \'" + inputPhone +"\'";
-
+	//접수자 - session에서 받아온 아이디를 Idx로
+	sql = "SELECT * FROM account WHERE account.id = \'" + id +"\'";
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 	if(rs.next())
-		user_index = rs.getString("idx");
+		user_index = Integer.parseInt(rs.getString("idx"));
+
+	//고객 - 고객 이름을 고객 IDX로
+	sql = "SELECT * FROM account WHERE account.name = \'" + customerName +"\'";
+	pstmt = conn.prepareStatement(sql);
+	rs = pstmt.executeQuery();
+	if(rs.next())
+		customer_idx = Integer.parseInt(rs.getString("idx"));
 
 	priority = ( Integer.parseInt(inputRange) + Integer.parseInt(inputEmergency) ) / 2;
 
@@ -81,9 +86,9 @@ try
 	pstmt.setString(6, inputComment);			//내용
 	pstmt.setString(7, inputDate_submit);		//요청일시
 	pstmt.setString(8, inputdate_Deadline);		//목표기한
-	pstmt.setString(9, user_index);				//고객 번호
+	pstmt.setInt(9, customer_idx);				//고객 번호
 	pstmt.setString(10, String.valueOf(priority));//우선순위
-	pstmt.setString(11, receptionist);			//접수자이름
+	pstmt.setInt(11, user_index);			//접수자이름
 	//입력: 부서, 우선순위,//출력: 연락처, 이름
 
 	pstmt.executeUpdate();
