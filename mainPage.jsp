@@ -86,6 +86,11 @@
 			mainBodyPage = "/worker/task_detail.jsp?param=" + param;
 			break;
 
+		// 기한 1주일이내인 업무 검색
+		case 106:
+			mainBodyPage = "/worker/deadline_soon_work.jsp";
+			break;
+
 		// 공지사항, 로그아웃
 		case 201:
 			mainBodyPage = "/notice/listNotice.jsp";

@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
 	<%@ include file="/common_header.jsp"%>
-    <title>free login form -bootstrap</title>
+    <title>ITSM System Login</title>
 </head>
 <body>
 	<!-- 로고 사진을 올리기 -->

@@ -12,7 +12,7 @@
     ResultSet rs_backup = null;
 
     String sql_backup = null;
-    sql_backup = "SELECT idx, date, time, worker, equipment FROM back_up_plan WHERE back_up_plan.change_idx=" + idx;
+    sql_backup = "SELECT idx, date, time, worker, equipment, target FROM back_up_plan WHERE back_up_plan.change_idx=" + idx;
 
     try{
         stmt_backup = conn.createStatement();
@@ -42,13 +42,14 @@
                 int index = rs_backup.getInt(1);
                 String date = rs_backup.getString(2);
                 String time = rs_backup.getString(3);
-                String worker = rs_backup.getString(4);
-                String equip = rs_backup.getString(5);
+                String target = rs_backup.getString(6);
             %>
             dataTable.addRows([
-                ['<%=index%>',
-                    new Date(<%=date.substring(0,4)%>, <%=date.substring(5,7)%>, <%=date.substring(8,10)%>),
-                    new Date(<%=date.substring(0,4)%>, <%=date.substring(5,7)%>, <%=date.substring(8,10)%> + 1)]
+                ['<%=target%>',
+                    new Date(<%=date.substring(0,4)%>, <%=Integer.parseInt(date.substring(5,7)) - 1%>, <%=date.substring(8,10)%>,
+                        <%=Integer.parseInt(date.substring(11,13))%>, <%=date.substring(14,16)%>, <%=date.substring(17,19)%>),
+                    new Date(<%=date.substring(0,4)%>, <%=Integer.parseInt(date.substring(5,7)) - 1%>, <%=date.substring(8,10)%>,
+                        <%=Integer.parseInt(date.substring(11,13)) + Integer.parseInt(time)%>, <%=date.substring(14,16)%>, <%=date.substring(17,19)%>)]
             ]);
             <%
             }
@@ -91,10 +92,11 @@
                         String time = rs_backup.getString(3);
                         String worker = rs_backup.getString(4);
                         String equip = rs_backup.getString(5);
+                        String target = rs_backup.getString(6);
                 %>
                 <tr>
                     <th><%=index%></th>
-                    <td>target</td>
+                    <td><%=target%></td>
                     <td><%=date%></td>
                     <td><%=time%></td>
                     <td><%=worker%></td>
