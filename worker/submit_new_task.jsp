@@ -9,21 +9,24 @@ request.setCharacterEncoding("UTF-8");
 
 String title				= request.getParameter("inputTitle");
 String inputGetBy			= request.getParameter("inputGetBy"); // 1: 전화 2:회의 3:이메일 4: 기타
-String inputClient_company	= request.getParameter("inputClient_company"); //1.삼성SDI 2.LINE 3.LG CNS 4.돈 많이 주는 곳
-String inputClient_depart	= request.getParameter("inputClient_depart");//1.작전과 2.정보과 3.인사과 4. 군수과
-String inputClient			= request.getParameter("inputClient");//1.대위 김호룡 2.소령 서상인 3.소위 김나도 4.중위 김김김
+String inputClient_company	= request.getParameter("inputClient_company"); // 리퀘스트 요청한 고객이 속한 회사
+String inputClient_depart	= request.getParameter("inputClient_depart");// 고객의 부서
+String inputClient			= request.getParameter("inputClient"); // 고객 이름
+String inputPhone			= request.getParameter("inputPhone"); // 고객 전화번호
 String inputRange			= request.getParameter("inputRange"); // 1: 전체 회사 2:부서 3: 팀 4: 개인
 String inputEmergency		= request.getParameter("inputEmergency");//1.긴급 2.중요 3.경미
-String inputDetail			= request.getParameter("inputDetail");
-String inputComment			= request.getParameter("inputComment");
-String inputDate_submit		= request.getParameter("inputDate_submit");
-String inputdate_Deadline	= request.getParameter("inputdate_Deadline");
-String receptionist			= request.getParameter("SUB11");
+String inputDetail			= request.getParameter("inputDetail"); // 문제 상세 설명
+String inputComment			= request.getParameter("inputComment"); // 접수자 의견
+String inputDate_submit		= request.getParameter("inputDate_submit"); // 접수일자
+String inputdate_Deadline	= request.getParameter("inputdate_Deadline"); // 목표일자
+String receptionist			= request.getParameter("SUB11"); // 접수자
 
+// 키워드
 String keyword_1 = request.getParameter("keyword1");
 String keyword_2 = request.getParameter("keyword2");
 String keyword_3 = request.getParameter("keyword3");
 
+// 고객 이름
 String sub11 = request.getParameter("SUB11");
 String sub12 = request.getParameter("SUB12");
 String sub13 = request.getParameter("SUB13");
@@ -55,7 +58,7 @@ String incident_index = "";
 try
 {
 	id = (String)session.getAttribute("user_id");
-	sql = "SELECT * FROM account WHERE account.id = \'" + id+"\'";       
+	sql = "SELECT * FROM account WHERE account.phone = \'" + inputPhone +"\'";       
 	pstmt = conn.prepareStatement(sql);
 	rs = pstmt.executeQuery();
 	if(rs.next())
@@ -86,15 +89,14 @@ try
 	if(rs.next())
 		incident_index = rs.getString("MAX(incident_management.idx)");
 
-	sql = "INSERT INTO kms(incident_index, change_index, workerIdx, is_delete, keyword_1, keyword_2, keyword_3) VALUES(?,?,?,?,?,?,?)";
+	sql = "INSERT INTO kms(incident_index, change_index, is_delete, keyword_1, keyword_2, keyword_3) VALUES(?,?,?,?,?,?)";
 	pstmt = conn.prepareStatement(sql);
 	pstmt.setString(1, incident_index);			//incident index
 	pstmt.setInt(2, 0);							//change index
-	pstmt.setString(3, user_index);				//worker index
-	pstmt.setInt(4, 0);							//is delete
-	pstmt.setString(5, keyword_1);				//keyword_1
-	pstmt.setString(6, keyword_2);				//keyword_2
-	pstmt.setString(7, keyword_3);				//keyword_3
+	pstmt.setInt(3, 0);							//is delete
+	pstmt.setString(4, keyword_1);				//keyword_1
+	pstmt.setString(5, keyword_2);				//keyword_2
+	pstmt.setString(6, keyword_3);				//keyword_3
 	pstmt.executeUpdate();
 	
 	%> <script> alert("등록 성공!"); history.go(-1); </script> <%

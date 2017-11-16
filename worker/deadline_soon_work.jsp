@@ -15,51 +15,39 @@
 </head>
 
 <%
-	Date d = new Date();
-	String s = d.toString();
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-	String todayDate = sdf.format(d);
+Date d = new Date();
+String s = d.toString();
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+String todayDate = sdf.format(d);
 
-	int param = Integer.parseInt(request.getParameter("param"));
-	String worker_id = "";
-	worker_id = (String)session.getAttribute("user_id");
+String worker_id = "";
+worker_id = (String)session.getAttribute("user_id");
 
-	int count = 0;
+int count = 0;
 
-	int idx = 0;
-	String title = "";
-	String client_name = "";
-	String client_dept = "";
-	int priority = 0;
-	int status = 0;
-	String deadline = "";
-	try{
-		stmt = conn.createStatement();
+int idx = 0;
+String title = "";
+String client_name = "";
+String client_dept = "";
+int priority = 0;
+int status = 0;
+String deadline = "";
 
-		if(param == 0)
-		{
-			sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status, worker.id, inci.deadline from kms "
-				+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
-				+ "LEFT JOIN account as client ON inci.customer=client.idx "
-				+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
-				+ "LEFT JOIN account as worker ON worker.idx=kms.workerIdx "
-				+ "WHERE worker.id=\'" + worker_id + "\' "
-				+ "ORDER BY kms_index DESC, inci.priority ASC";
+try{
+	stmt = conn.createStatement();
 		
-		}
-		else
-		{
-			sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status from kms "
-				+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
-				+ "LEFT JOIN account as client ON inci.customer=client.idx "
-				+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
-				+ "ORDER BY kms_index DESC, inci.priority ASC";
-		}
+	sql = "SELECT kms_index, inci.title, client.name, dept.department, inci.priority, inci.status, worker.id, inci.deadline from kms "
+		+ "LEFT JOIN incident_management as inci ON inci.idx=kms.incident_index "
+		+ "LEFT JOIN account as client ON inci.customer=client.idx "
+		+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
+		+ "LEFT JOIN account as worker ON worker.idx=kms.workerIdx "
+		+ "WHERE worker.id=\'" + worker_id + "\' "
+		+ "ORDER BY kms_index DESC, inci.priority ASC";
 		
-		rs = stmt.executeQuery(sql);
-		rs.last();
-		count = rs.getRow();
-		rs.beforeFirst();
+	rs = stmt.executeQuery(sql);
+	rs.last();
+	count = rs.getRow();
+	rs.beforeFirst();
 %>
 
 
@@ -100,9 +88,8 @@
 			%>
 				<tr>
 				<%
-						SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
- 				    	Date beginDate = formatter.parse(todayDate);
-				        Date endDate = formatter.parse(deadline);
+ 				    	Date beginDate = sdf.parse(todayDate);
+				        Date endDate = sdf.parse(deadline);
         				// 시간차이를 시간,분,초를 곱한 값으로 나누면 하루 단위가 나옴
         				long diff = endDate.getTime() - beginDate.getTime();
         				long diffDays = diff / (24 * 60 * 60 * 1000);
