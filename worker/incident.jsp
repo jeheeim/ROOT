@@ -41,10 +41,11 @@
 	try{
 		stmt = conn.createStatement();
 
-		sql = "SELECT kms.kms_index, title, client.name, reception_path, receptionist, registration_date, deadline, problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음'), "
+		sql = "SELECT kms.kms_index, title, client.name, reception_path, worker.name, registration_date, deadline, problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음'), "
 			+ "status FROM incident_management "
 			+ "LEFT JOIN kms ON incident_management.idx=kms.incident_index "
 			+ "LEFT JOIN account as client ON incident_management.customer=client.idx "
+			+ "LEFT JOIN account as worker ON incident_management.receptionist=worker.idx "
 			+ "WHERE incident_management.idx=" + param;
 		rs = stmt.executeQuery(sql);
 
