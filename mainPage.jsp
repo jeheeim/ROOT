@@ -91,6 +91,11 @@
 			mainBodyPage = "/worker/deadline_soon_work.jsp";
 			break;
 
+		// 키워드 분석(차트화) 페이지
+		case 107:
+			mainBodyPage = "/worker/keyword_analysis.jsp";
+			break;
+
 		// 공지사항, 로그아웃
 		case 201:
 			mainBodyPage = "/notice/listNotice.jsp";
