@@ -14,8 +14,31 @@
       <file leaf-file-name="worker_myworkingList.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/worker/worker_myworkingList.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3402">
+            <state relative-caret-position="-958">
               <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+              <folding>
+                <marker date="1511185840455" expanded="true" signature="127:1680" ph="..." />
+                <marker date="1511185840455" expanded="true" signature="1715:3462" ph="..." />
+                <marker date="1511185840455" expanded="true" signature="1722:1805" ph="..." />
+                <marker date="1511185840455" expanded="true" signature="1813:3454" ph="..." />
+                <marker date="1511185840455" expanded="true" signature="1820:3406" ph="..." />
+                <marker date="1511185840455" expanded="true" signature="1858:3398" ph="..." />
+                <marker date="1511185840455" expanded="true" signature="1973:3387" ph="..." />
+                <marker date="1511185840455" expanded="true" signature="1980:2025" ph="..." />
+                <marker date="1511185840455" expanded="true" signature="2095:2735" ph="..." />
+                <marker date="1511185840455" expanded="true" signature="2745:3088" ph="..." />
+                <marker date="1511185840455" expanded="true" signature="2805:2900" ph="..." />
+                <marker date="1511185840455" expanded="true" signature="3095:3374" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="worker_adding_newjob.jsp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/worker/worker_adding_newjob.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="547">
+              <caret line="397" column="25" lean-forward="false" selection-start-line="397" selection-start-column="25" selection-end-line="397" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -51,10 +74,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="work_plan.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="work_plan.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/worker/work_plan.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
+            <state relative-caret-position="1701">
               <caret line="93" column="47" lean-forward="false" selection-start-line="93" selection-start-column="47" selection-end-line="93" selection-end-column="47" />
               <folding />
             </state>
@@ -146,6 +169,7 @@
         <option value="$PROJECT_DIR$/template/barchart.html" />
         <option value="$PROJECT_DIR$/worker/worker_myworkingList.jsp" />
         <option value="$PROJECT_DIR$/worker/work_plan.jsp" />
+        <option value="$PROJECT_DIR$/worker/worker_adding_newjob.jsp" />
       </list>
     </option>
   </component>
@@ -155,9 +179,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="88" />
-    <option name="y" value="184" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="255" />
+    <option name="y" value="43" />
     <option name="width" value="1721" />
     <option name="height" value="1038" />
   </component>
@@ -176,10 +200,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -337,14 +361,15 @@
       <workItem from="1510318379587" duration="1113000" />
       <workItem from="1510820297869" duration="3317000" />
       <workItem from="1510829372693" duration="473000" />
+      <workItem from="1511185653227" duration="205000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81379000" />
+    <option name="totallyTimeSpent" value="81584000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
+    <frame x="255" y="43" width="1721" height="1038" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -359,7 +384,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2046875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23076923" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -441,13 +466,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bootstrap-3.3.2-dist/css/bootstrap.css.map">
-      <provider editor-type-id="sourcemapFileViewerProvider">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-16086">
           <caret line="0" column="131343" lean-forward="false" selection-start-line="0" selection-start-column="131338" selection-end-line="0" selection-end-column="131343" />
         </state>
+      </provider>
+      <provider editor-type-id="sourcemapFileViewerProvider">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/common_header.jsp">
@@ -484,14 +509,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/notice/detailNotice_temp.jsp" />
-    <entry file="file://$PROJECT_DIR$/worker/worker_adding_newjob.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="109" column="21" lean-forward="false" selection-start-line="109" selection-start-column="21" selection-end-line="109" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/worker/Gantt chart" />
     <entry file="file://$PROJECT_DIR$/worker/chart.html" />
     <entry file="file://$PROJECT_DIR$/worker/worker_task_list.jsp" />
@@ -664,18 +681,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/worker/worker_myworkingList.jsp">
+    <entry file="file://$PROJECT_DIR$/worker/work_plan.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3402">
-          <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+        <state relative-caret-position="1701">
+          <caret line="93" column="47" lean-forward="false" selection-start-line="93" selection-start-column="47" selection-end-line="93" selection-end-column="47" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/worker/work_plan.jsp">
+    <entry file="file://$PROJECT_DIR$/worker/worker_myworkingList.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="93" column="47" lean-forward="false" selection-start-line="93" selection-start-column="47" selection-end-line="93" selection-end-column="47" />
+        <state relative-caret-position="-958">
+          <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+          <folding>
+            <marker date="1511185840455" expanded="true" signature="127:1680" ph="..." />
+            <marker date="1511185840455" expanded="true" signature="1715:3462" ph="..." />
+            <marker date="1511185840455" expanded="true" signature="1722:1805" ph="..." />
+            <marker date="1511185840455" expanded="true" signature="1813:3454" ph="..." />
+            <marker date="1511185840455" expanded="true" signature="1820:3406" ph="..." />
+            <marker date="1511185840455" expanded="true" signature="1858:3398" ph="..." />
+            <marker date="1511185840455" expanded="true" signature="1973:3387" ph="..." />
+            <marker date="1511185840455" expanded="true" signature="1980:2025" ph="..." />
+            <marker date="1511185840455" expanded="true" signature="2095:2735" ph="..." />
+            <marker date="1511185840455" expanded="true" signature="2745:3088" ph="..." />
+            <marker date="1511185840455" expanded="true" signature="2805:2900" ph="..." />
+            <marker date="1511185840455" expanded="true" signature="3095:3374" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/worker/worker_adding_newjob.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="547">
+          <caret line="397" column="25" lean-forward="false" selection-start-line="397" selection-start-column="25" selection-end-line="397" selection-end-column="25" />
           <folding />
         </state>
       </provider>

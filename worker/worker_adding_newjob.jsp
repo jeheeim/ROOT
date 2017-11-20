@@ -391,7 +391,11 @@ int selectNum=0;
 			</div>
 			<label for="keyword3" class="col-sm-2 control-label">소분류 키워드</label>
 			<div class="col-sm-2">
-				<input type="text" class="form-control" name="keyword3" placeholder="키워드3">
+				<select type="text" class="form-control" name="keyword3" placeholder="키워드3">
+					<option value="지금">지금</option>
+					<option value="종종">종종</option>
+					<option value="자주">자주</option>
+				</select>
 			</div>
 		</div>
 		<div align="center">
