@@ -129,19 +129,11 @@ catch(Exception e) { out.println(e.toString());}
 <body>
 	<h1>키워드 분석</h1>
 
-	<form action="/mainPage.jsp?mod=107">
-		<select>
-			<option value="volvo">Volvo</option>
-			<option value="saab">Saab</option>
-			<option value="mercedes">Mercedes</option>
-			<option value="audi">Audi</option>
-		</select> 
-	</form>
-
 	<div id="keyword1Chart_div"></div>
 	<div id="keyword2Chart1_div" class="col-md-4"></div>
 	<div id="keyword2Chart2_div" class="col-md-4"></div>
 	<div id="keyword2Chart3_div" class="col-md-4"></div>
+
 	<%@include file="../common_footer.jsp"%>
 </body>
 </html>
