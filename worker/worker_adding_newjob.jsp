@@ -397,7 +397,7 @@ int selectNum=0;
 		</div>
 		<div align="center">
 			<button type="submit" class="btn btn-default">등록</button>
-			<button type="cancel" class="btn btn-default">취소</button>
+			<a href="../mainPage.jsp" class="btn btn-default">취소</button>
 		</div>
 	</form>
 
