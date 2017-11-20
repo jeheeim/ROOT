@@ -109,7 +109,9 @@ try
 	pstmt.setString(6, keyword_3);				//keyword_3
 	pstmt.executeUpdate();
 	
-	%> <script> alert("등록 성공!"); history.go(-1); </script> <%
+	%> <script> alert("등록 성공!")</script> <%
+
+	response.sendRedirect("/mainPage.jsp?mod=104&param=1");
 }
 catch(Exception e)
 {
