@@ -9,7 +9,9 @@
 </head>
 <%
     int idx = Integer.parseInt(request.getParameter("idx"));
-
+    String sql_email = "SELECT account.email, incident_management.title, account.name FROM incident_management "
+            + "LEFT JOIN account ON incident_management.customer = account.idx "
+            + "WHERE incident_management.idx="+idx;
     int target = -1;
     String sql_update = "UPDATE incident_management SET status = '4' WHERE idx=";
     try {
@@ -22,18 +24,39 @@
 
         sql_update = sql_update + Integer.toString(target);
         stmt.executeUpdate(sql_update);
+        rs = stmt.executeQuery(sql_email);
+        if(rs.next()){
+%>
+<script>
+    function sendMail()
+    {
+        document.location.href = "mailto:"
+            + '<%=rs.getString(1)%>'
+            + "?subject=" + '<%=rs.getString(2)%>'
+            + "&body=" + '<%=rs.getString(2)%>' + encodeURIComponent(" is completed.");
+    }
+</script>
+<%
+        }
         stmt.close();
-%><script>
+%>
+<script>
     alert("완료 변경완료");
     opener.parent.location.reload();
-    self.close();
-</script><%
+</script>
+<%
 
 }catch (Exception e){
 %><%=e.toString()%><%
     }
 %>
 <body>
+<form class="form-group">
+
+    <a class="btn btn-default"
+       onclick="sendMail()">메일전송</a>
+
+</form>
 <%@include file="/common_footer.jsp"%>
 </body>
 </html>
