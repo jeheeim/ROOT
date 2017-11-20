@@ -40,10 +40,9 @@ finally
 {
 	stmt.close();
 	conn.close();
-
-	response.sendRedirect("../mainPage.jsp?mod=102&param=0");
 }
-%><%@include file="/common_footer.jsp"%>
+%>
+<%@include file="/common_footer.jsp"%>
 <script>
     alert("완료 변경완료");
     opener.parent.location.reload();
