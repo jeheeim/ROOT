@@ -57,13 +57,13 @@ int selectNum=0;
 			var temp19 = frm.SUB19.options[frm.SUB19.selectedIndex].value;
 			var temp20 = frm.SUB20.options[frm.SUB20.selectedIndex].value;
 
-			if (temp11 == "고길동"){
+			if (temp11 == "심상우"){
 				frm.inputPhone.value = "01012345678";
 			}
-			else if (temp12 == "홍길동"){
+			else if (temp12 == "이신우"){
 				frm.inputPhone.value = "01098765432";
 			}
-			else if (temp13 == "서장훈"){
+			else if (temp13 == "임재희"){
 				frm.inputPhone.value = "01013572468";
 			}
 			else if (temp14 == "이재명"){
@@ -95,7 +95,6 @@ int selectNum=0;
 		function showSub(obj) {
 
 		    f = document.forms.select_machine;
-
 		    if(obj == 1) {
     
 				f.inputClient_depart.style.display = "";
@@ -212,7 +211,7 @@ int selectNum=0;
 		</div>
 		
 		<div class="form-group">
-			<label for="inputClient" class="col-sm-2 control-label">고객사</label>
+			<label for="inputClient" class="col-sm-2 control-label">회사</label>
 			<div class="col-sm-2">
 				<!-- 고객사 순서는 db의 고객사 테이블의 id가 되게 한다 -->
 				<select class="form-control" name="inputClient_company" style="width: 100%;" onChange="showSub(this.options[this.selectedIndex].value);">
@@ -249,10 +248,10 @@ int selectNum=0;
 			<div class="col-sm-2">
 				<select class="form-control" name="inputClient_depart" style="width: 100%;" onChange="showSub2(this.options[this.selectedIndex].value);">
 					<option value="0">----------</option>
-					<option value="1">작전과</option>
-					<option value="2">군수과</option>
-					<option value="3">보급과</option>
-					<option value="4">정보과</option>
+					<option value="1">영업팀</option>
+					<option value="2">인사팀</option>
+					<option value="3">개발팀</option>
+					<option value="4">정보팀</option>
 				</select>
 
 				<select class="form-control" name="SUB2" style=" display: none;" onChange="showSub2(this.options[this.selectedIndex].value);">
@@ -264,13 +263,13 @@ int selectNum=0;
 
 				<select class="form-control" name="SUB3" style="display: none;" onChange="showSub2(this.options[this.selectedIndex].value);">
 					<option value="0">----------</option>
-					<option value="8">인사부</option>
-					<option value="9">이사회</option>
+					<option value="8">개발부</option>
+					<option value="9">인사부</option>
 				</select>
 
 				<select class="form-control" name="SUB4" style="display: none;" onChange="showSub2(this.options[this.selectedIndex].value);">
 					<option value="0">----------</option>
-					<option value="10">국제협작부</option>
+					<option value="10">CS팀</option>
 				</select>
 
 				<select class="form-control" name="SUB5" style="display: none;" onChange="showSub2(this.options[this.selectedIndex].value);">
@@ -282,15 +281,15 @@ int selectNum=0;
 			<div class="col-sm-4">
 				<select class="form-control" name="SUB11" style="width: 100%;" onChange="getPhoneNumber(this.form);">
 					<option value="0">----------</option>
-					<option value="고길동">고길동</option>
+					<option value="심상우">심상우</option>
 				</select>
 				<select class="form-control" name="SUB12" style=" display: none;" onChange="getPhoneNumber(this.form);">
 					<option value="0">----------</option>
-					<option value="홍길동">홍길동</option>
+					<option value="이신우">이신우</option>
 				</select>
 				<select class="form-control" name="SUB13" style=" display: none;" onChange="getPhoneNumber(this.form);">
 					<option value="0">----------</option>
-					<option value="서장훈">서장훈</option>
+					<option value="임재희">임재희</option>
 				</select>
 				<select class="form-control" name="SUB14" style=" display: none;" onChange="getPhoneNumber(this.form);">
 					<option value="0">----------</option>
