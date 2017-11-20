@@ -78,6 +78,7 @@ catch(Exception e) { out.println(e.toString());}
 			])
 
 			var options2 = {
+				title: '<%=keyword1[0]%>',
 				width: 300,
 				height: 400,
 				legend: { position: 'top', maxLines: 3 },
@@ -96,6 +97,7 @@ catch(Exception e) { out.println(e.toString());}
 			])
 
 			var options3 = {
+				title: '<%=keyword1[1]%>',
 				width: 300,
 				height: 400,
 				legend: { position: 'top', maxLines: 3 },
@@ -114,6 +116,7 @@ catch(Exception e) { out.println(e.toString());}
 			])
 
 			var options4 = {
+				title: '<%=keyword1[2]%>',
 				width: 300,
 				height: 400,
 				legend: { position: 'top', maxLines: 3 },
