@@ -54,7 +54,7 @@ try
 				+ "LEFT JOIN account as client ON inci.customer=client.idx "
 				+ "LEFT JOIN company_department as dept ON client.department=dept.idx "
 				+ "LEFT JOIN account as worker ON worker.idx=kms.workerIdx "
-				+ "WHERE worker.id=\'" + worker_id + "\' "
+				+ "WHERE worker.id=\'" + worker_id + "\' AND inci.status < 4 "
 				+ "ORDER BY kms_index DESC, inci.priority ASC";
 	rs = stmt.executeQuery(sql);
 	while(rs.next()){
