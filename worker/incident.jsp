@@ -31,7 +31,7 @@
 	String priority = "";
 	
 	String content = "";
-	String action_details = "";
+	String receptionist_opion = "";
 	int status = 0;
 	
 	
@@ -41,7 +41,7 @@
 	try{
 		stmt = conn.createStatement();
 
-		sql = "SELECT kms.kms_index, title, client.name, reception_path, worker.name, registration_date, deadline, problem_scope, urgency, priority, content, IFNULL(action_details,'내용없음'), "
+		sql = "SELECT kms.kms_index, title, client.name, reception_path, worker.name, registration_date, deadline, problem_scope, urgency, priority, content, IFNULL(receptionist_opion,'내용없음'), "
 			+ "status FROM incident_management "
 			+ "LEFT JOIN kms ON incident_management.idx=kms.incident_index "
 			+ "LEFT JOIN account as client ON incident_management.customer=client.idx "
@@ -61,7 +61,7 @@
 			urgency_value = rs.getInt(9);
 			priority_value = rs.getInt(10);
 			content = rs.getString(11);
-			action_details = rs.getString(12);
+			receptionist_opion = rs.getString(12);
 			status = rs.getInt(13);
 
 			route = "";
@@ -191,7 +191,7 @@
 		<div class="form-group">
 			<label class="col-sm-1 control-label">담당자 의견</label>
 			<div class="col-sm-8">
-				<div class="well well-sm"><%=action_details%></div>
+				<div class="well well-sm"><%=receptionist_opion%></div>
 			</div>
 		</div>
 		<div class="form-group">

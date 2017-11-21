@@ -6,12 +6,12 @@
 <style type="text/css"></style>
 <head><title>Change To Release</title>
     <%@include file="/common_header.jsp"%>
-</head>
+
 <%
     int idx = Integer.parseInt(request.getParameter("idx"));
     String sql_email = "SELECT account.email, incident_management.title, account.name FROM incident_management "
             + "LEFT JOIN account ON incident_management.customer = account.idx "
-            + "WHERE incident_management.idx="+idx;
+            + "WHERE incident_management.idx=";
     int target = -1;
     String sql_update = "UPDATE incident_management SET status = '4' WHERE idx=";
     try {
@@ -23,6 +23,7 @@
         rs.close();
 
         sql_update = sql_update + Integer.toString(target);
+		sql_email = sql_email + Integer.toString(target);
         stmt.executeUpdate(sql_update);
         rs = stmt.executeQuery(sql_email);
         if(rs.next()){
@@ -50,6 +51,7 @@
 %><%=e.toString()%><%
     }
 %>
+</head>
 <body>
 <form class="form-group">
 
